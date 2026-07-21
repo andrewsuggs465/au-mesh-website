@@ -21,7 +21,7 @@ export default defineConfig({
 				{
 					icon: 'github',
 					label: 'GitHub',
-					href: 'https://github.com/andrewsuggs465/AU-Mesh-Club',
+					href: 'https://github.com/andrewsuggs465/au-mesh-website',
 				},
 			],
 			head: [
@@ -44,7 +44,7 @@ export default defineConfig({
 				ThemeSelect: './src/components/ThemeSelect.astro',
 			},
 			editLink: {
-				baseUrl: 'https://github.com/andrewsuggs465/AU-Mesh-Club/edit/main/',
+				baseUrl: 'https://github.com/andrewsuggs465/au-mesh-website/edit/main/',
 			},
 			sidebar: [
 				{
