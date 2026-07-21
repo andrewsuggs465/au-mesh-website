@@ -97,8 +97,15 @@ header.header button[data-open-modal]:hover {
 	background-color: rgba(0, 0, 0, 0.5);
 	border-color: rgba(255, 255, 255, 0.4);
 }
-header.header button[data-open-modal] kbd {
+/* the shortcut hint is a kbd wrapper with nested kbds ("Ctrl" + "K"):
+   shade only the outer pill, keep the inner ones transparent */
+header.header button[data-open-modal] > kbd {
 	background-color: rgba(0, 0, 0, 0.25);
+	color: #fff;
+}
+header.header button[data-open-modal] > kbd kbd {
+	background: transparent;
+	padding: 0;
 	color: #fff;
 }
 /* social icons + mobile menu button on mint */
