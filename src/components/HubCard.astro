@@ -1,0 +1,65 @@
+---
+// A flat, fully-clickable link card. `icon` is a Material Icons name.
+interface Props {
+	icon: string;
+	title: string;
+	href: string;
+}
+
+const { icon, title, href } = Astro.props;
+const external = href.startsWith('http');
+---
+
+<a class="hub-card not-content" {href}>
+	<span class="material-icons icon" aria-hidden="true">{icon}</span>
+	<span class="text">
+		<span class="title">{title}{external && <span class="ext" aria-label="external link"> ↗</span>}</span>
+		<span class="desc"><slot /></span>
+	</span>
+</a>
+
+<style>
+	.hub-card {
+		display: flex;
+		gap: 0.9rem;
+		align-items: flex-start;
+		padding: 1.1rem 1.2rem;
+		background-color: #202224;
+		border: 1px solid rgba(104, 234, 149, 0.18);
+		border-radius: 10px;
+		text-decoration: none;
+		transition: border-color 0.2s ease, background-color 0.2s ease;
+	}
+	.hub-card:hover {
+		border-color: rgba(104, 234, 149, 0.65);
+		background-color: #232628;
+		text-decoration: none;
+	}
+
+	.icon {
+		font-size: 26px;
+		color: var(--primary-color);
+		margin-top: 0.1rem;
+	}
+
+	.text {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		min-width: 0;
+	}
+	.title {
+		font-weight: 650;
+		font-size: 1rem;
+		color: #fff;
+	}
+	.ext {
+		color: var(--sl-color-gray-3);
+		font-size: 0.85em;
+	}
+	.desc {
+		font-size: 0.875rem;
+		line-height: 1.5;
+		color: var(--sl-color-gray-2);
+	}
+</style>

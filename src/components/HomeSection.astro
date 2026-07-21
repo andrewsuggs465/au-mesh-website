@@ -1,0 +1,30 @@
+---
+// A titled homepage section. Slot content typically goes inside a
+// `card-grid` div (see custom.css) for equal-sized cards.
+interface Props {
+	title: string;
+	id?: string;
+}
+
+const { title, id = Astro.props.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') } = Astro.props;
+---
+
+<section class="home-section not-content">
+	<h2 {id}>{title}</h2>
+	<slot />
+</section>
+
+<style>
+	.home-section {
+		margin-top: 3.5rem;
+	}
+	h2 {
+		margin: 0 0 1.25rem;
+		padding-left: 0.75rem;
+		border-left: 3px solid var(--primary-color);
+		font-size: 1.4rem;
+		font-weight: 650;
+		line-height: 1.2;
+		color: #fff;
+	}
+</style>

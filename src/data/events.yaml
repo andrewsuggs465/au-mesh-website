@@ -1,0 +1,60 @@
+# ─────────────────────────────────────────────────────────────────
+# AU Mesh Club events
+#
+# This one file drives the Events page and the "Next up" card on the
+# homepage. To add or change an event, edit this file (the GitHub web
+# editor works fine) and push — the site rebuilds automatically.
+#
+# Fields:
+#   title:      event name (required)
+#   date:       YYYY-MM-DD (required unless the date isn't set yet)
+#   dateText:   free-text date shown when `date` is missing, e.g. "January 2027 — date TBD"
+#   time:       free text, e.g. "6:00 PM" (optional)
+#   location:   free text (optional)
+#   type:       meeting | workshop | social | special (optional)
+#   tentative:  true to show a "tentative" badge (optional)
+#   details:    a sentence or two shown on the card (optional)
+#   link:       URL for more info (optional)
+#
+# Events with a past date automatically move to the "Past events"
+# section on the next rebuild. The site also rebuilds itself weekly.
+# ─────────────────────────────────────────────────────────────────
+
+- title: Fall Kickoff Hangout
+  date: 2026-08-17
+  type: social
+  tentative: true
+  details: >-
+    First day of classes — come hang out with the club. Possible Mellow
+    Mushroom benefit night; details coming soon.
+
+- title: September Meeting — Signals & Radio Fundamentals
+  date: 2026-08-31
+  type: meeting
+  details: >-
+    Monthly meeting with a lecture on signals and radio fundamentals.
+
+- title: October Meeting — Standards & Protocols
+  date: 2026-10-05
+  type: meeting
+  details: >-
+    Monthly meeting with a lecture on communication standards and protocols.
+
+- title: November Meeting — Software & Networking
+  date: 2026-11-02
+  type: meeting
+  details: >-
+    Monthly meeting covering software and networking.
+
+- title: December Meeting — Guest Lecture
+  date: 2026-11-30
+  type: special
+  details: >-
+    Meeting for December featuring a guest lecture. Speaker to be announced.
+
+- title: IoT Lecture
+  dateText: January 2027 — date TBD
+  type: meeting
+  tentative: true
+  details: >-
+    Kicking off the spring semester with a lecture on the Internet of Things.

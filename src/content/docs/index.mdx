@@ -1,0 +1,89 @@
+---
+title: AU Mesh
+description: Auburn University's student club for embedded systems, wireless, and mesh networking.
+template: splash
+editUrl: false
+prev: false
+next: false
+head:
+  - tag: title
+    content: AU Mesh — Auburn University Mesh Club
+  # Hide Starlight's auto page title on the homepage — HomeHero has its own h1.
+  - tag: style
+    content: ".content-panel:has(h1#_top) { display: none; }"
+---
+
+import HomeHero from '../../components/HomeHero.astro';
+import NextEvent from '../../components/NextEvent.astro';
+import HomeSection from '../../components/HomeSection.astro';
+import HubCard from '../../components/HubCard.astro';
+import InfoCard from '../../components/InfoCard.astro';
+
+<HomeHero />
+
+<NextEvent />
+
+<HomeSection title="Quick links">
+	<div class="card-grid wide-cards">
+		<HubCard icon="event" title="Events" href="/events/">
+			Meetings, lectures, and hangouts this semester
+		</HubCard>
+		<HubCard icon="construction" title="Workshops" href="/workshops/">
+			Small-group hands-on builds, beginner to RF
+		</HubCard>
+		<HubCard icon="menu_book" title="Documentation" href="/documentation/">
+			Guides to build and flash your first node
+		</HubCard>
+		<HubCard icon="cloud_upload" title="Box Uploads" href="https://auburn.box.com/s/d4jgsr0w9i4rygxcakc5eockw36nfeiw">
+			Club files, designs, and shared uploads
+		</HubCard>
+		<HubCard icon="map" title="Live Mesh Map" href="https://meshinfo.almesh.net/">
+			Real-time view of the Alabama mesh network
+		</HubCard>
+		<HubCard icon="forum" title="Discord" href="https://discord.gg/PmmSCSw7Dn">
+			Announcements, help, and community chat
+		</HubCard>
+	</div>
+</HomeSection>
+
+<HomeSection title="What we do">
+	<div class="card-grid">
+		<InfoCard icon="library_books" title="Monthly Meetings">
+			<ul>
+				<li>Lectures on signals, protocols, and networking</li>
+				<li>Project discussions and planning</li>
+				<li>Guest speakers and demos</li>
+			</ul>
+		</InfoCard>
+		<InfoCard icon="build" title="Workshops">
+			<ul>
+				<li>Soldering, schematic, and PCB design</li>
+				<li>Arduino, 3D printing, and Meshtastic builds</li>
+				<li>Advanced RF, antenna, and amplifier design</li>
+			</ul>
+		</InfoCard>
+		<InfoCard icon="public" title="Field Deployment">
+			<ul>
+				<li>Deploying nodes in the field</li>
+				<li>System design and testing</li>
+				<li>Real-world problem solving</li>
+			</ul>
+		</InfoCard>
+		<InfoCard icon="campaign" title="Community Outreach">
+			<ul>
+				<li>Inspiring other students</li>
+				<li>Public demonstrations</li>
+				<li>Local partnerships</li>
+			</ul>
+		</InfoCard>
+	</div>
+</HomeSection>
+
+<HomeSection title="Our goals">
+	<ul class="goal-list">
+		<li><strong>Student projects</strong> — support independent, member-driven projects and learning</li>
+		<li><strong>Research</strong> — collaborate with faculty on mesh networking research</li>
+		<li><strong>Partnerships</strong> — cross-club technical partnerships with other organizations</li>
+		<li><strong>Community</strong> — build a regional, community-supported mesh network</li>
+	</ul>
+</HomeSection>

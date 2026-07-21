@@ -1,0 +1,15 @@
+---
+// A non-clickable content card (icon + title + slotted list/text).
+// Shares the global `info-card` styling used on the Workshops page.
+interface Props {
+	icon: string;
+	title: string;
+}
+
+const { icon, title } = Astro.props;
+---
+
+<div class="info-card not-content">
+	<h4><span class="info-card-icon material-icons" aria-hidden="true">{icon}</span> {title}</h4>
+	<slot />
+</div>

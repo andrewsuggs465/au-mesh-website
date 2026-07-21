@@ -1,0 +1,23 @@
+---
+import { eventDate, formatDate, type ClubEvent } from '../lib/events';
+
+interface Props {
+	event: ClubEvent;
+	past?: boolean;
+}
+
+const { event, past = false } = Astro.props;
+const date = eventDate(event);
+const meta = [event.time, event.location].filter(Boolean).join(' · ');
+---
+
+<div class:list={['event-card', 'not-content', { past }]}>
+	<div class="event-date">
+		{date ? formatDate(date) : event.dateText ?? 'Date TBD'}
+		{event.type && <span class="badge">{event.type}</span>}
+		{event.tentative && <span class="badge">tentative</span>}
+	</div>
+	<h3>{event.link ? <a href={event.link}>{event.title}</a> : event.title}</h3>
+	{meta && <div class="event-meta">{meta}</div>}
+	{event.details && <p class="event-details">{event.details}</p>}
+</div>

@@ -1,0 +1,353 @@
+/* ══════════════════════════════════════════════════════════════
+   AU Mesh theme — ported from the original Zensical/mkdocs site
+   (docs/assets/styles/extra.css). Mint green on near-black,
+   Outfit + JetBrains Mono, green accents. Dark-only.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── tokens ── */
+:root {
+	--primary-color: #68ea95;
+	--accent-color: #68ea73;
+	--bg-color: #1b1b1d;
+	--fg-color: #e6edf3;
+	--code-bg-color: #111821;
+	--border-color: rgba(104, 234, 149, 0.2);
+	--hover-bg: rgba(104, 234, 149, 0.1);
+	--glow: 0 0 24px oklch(75% 0.14 175 / 0.15);
+
+	/* fonts */
+	--sl-font: 'Outfit Variable', sans-serif;
+	--sl-font-mono: 'JetBrains Mono Variable', monospace;
+
+	scroll-behavior: smooth;
+}
+
+/* ── Starlight palette (dark, the only theme) ── */
+:root,
+:root[data-theme='dark'] {
+	--sl-color-accent-low: #10301d;
+	--sl-color-accent: #2f9e5f;
+	--sl-color-accent-high: var(--primary-color);
+	--sl-color-white: #ffffff;
+	--sl-color-gray-1: var(--fg-color);
+	--sl-color-gray-2: #c9d4dd;
+	--sl-color-gray-3: #8b979f;
+	--sl-color-gray-4: #545d64;
+	--sl-color-gray-5: #33383d;
+	--sl-color-gray-6: #232527;
+	--sl-color-black: var(--bg-color);
+	--sl-color-bg: var(--bg-color);
+	--sl-color-bg-nav: var(--primary-color);
+	--sl-color-bg-sidebar: var(--bg-color);
+	--sl-color-bg-inline-code: var(--code-bg-color);
+	--sl-color-text: var(--fg-color);
+	--sl-color-text-accent: var(--primary-color);
+	--sl-color-hairline: var(--border-color);
+	--sl-color-hairline-light: var(--border-color);
+	--sl-color-hairline-shade: var(--border-color);
+}
+
+/* ── selection ── */
+::selection {
+	background: oklch(75% 0.14 175 / 0.35);
+	color: #fff;
+}
+
+/* ── focus ── */
+:focus-visible {
+	outline: 2px solid var(--primary-color);
+	outline-offset: 3px;
+}
+
+/* ── scrollbar ── */
+@supports selector(::-webkit-scrollbar) {
+	::-webkit-scrollbar {
+		width: 6px;
+	}
+	::-webkit-scrollbar-track {
+		background: var(--bg-color);
+	}
+	::-webkit-scrollbar-thumb {
+		background: #3a5f4c;
+		border-radius: 3px;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: var(--primary-color);
+	}
+}
+
+/* ── header banner (solid mint, white text — original look) ── */
+header.header {
+	background-color: var(--primary-color);
+	border-bottom: 2px solid var(--primary-color);
+}
+header.header a,
+header.header .site-title {
+	color: #fff;
+}
+
+/* search button: dark translucent pill on the mint header */
+header.header button[data-open-modal] {
+	background-color: rgba(0, 0, 0, 0.3);
+	color: #fff;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 8px;
+}
+header.header button[data-open-modal]:hover {
+	background-color: rgba(0, 0, 0, 0.5);
+	border-color: rgba(255, 255, 255, 0.4);
+}
+header.header button[data-open-modal] kbd {
+	background-color: rgba(0, 0, 0, 0.25);
+	color: #fff;
+}
+/* social icons + mobile menu button on mint */
+header.header .social-icons a,
+starlight-menu-button button {
+	color: #fff;
+}
+starlight-menu-button button {
+	background-color: rgba(0, 0, 0, 0.3);
+	box-shadow: none;
+}
+
+/* ── headings ── */
+.sl-markdown-content h1:not(:where(.not-content *)),
+.content-panel > .sl-container > h1 {
+	border-bottom: 2px solid var(--border-color);
+	padding-bottom: 0.5em;
+}
+
+/* ── code blocks ── */
+.sl-markdown-content code:not(:where(pre code)) {
+	background-color: var(--code-bg-color);
+	color: var(--primary-color);
+	border-radius: 4px;
+	padding: 0.2em 0.4em;
+}
+.sl-markdown-content pre {
+	border: 1px solid var(--border-color);
+	transition: box-shadow 0.3s ease;
+}
+.sl-markdown-content pre:hover {
+	box-shadow: var(--glow);
+}
+
+/* ── tables ── */
+.sl-markdown-content thead {
+	background-color: var(--hover-bg);
+	border-bottom: 2px solid var(--border-color);
+}
+.sl-markdown-content th {
+	color: var(--primary-color);
+}
+.sl-markdown-content tr:hover td {
+	background-color: var(--hover-bg);
+}
+
+/* ── blockquotes ── */
+.sl-markdown-content blockquote {
+	border-left: 4px solid var(--primary-color);
+	color: color-mix(in oklch, var(--fg-color), var(--bg-color) 20%);
+	font-style: italic;
+}
+
+/* ── horizontal rules ── */
+.sl-markdown-content hr {
+	border: none;
+	height: 1px;
+	background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+	opacity: 0.3;
+	margin: 2em 0;
+}
+
+/* ── images ── */
+.sl-markdown-content img {
+	border-radius: 6px;
+	border: 1px solid var(--border-color);
+	transition: all 0.3s ease;
+}
+.sl-markdown-content img:hover {
+	border-color: var(--primary-color);
+	box-shadow: var(--glow);
+}
+
+/* ── asides: match the old site's mint admonitions for notes/tips ── */
+.starlight-aside--note,
+.starlight-aside--tip {
+	border-inline-start-color: var(--primary-color);
+	background-color: rgba(104, 234, 149, 0.05);
+	color: var(--fg-color);
+}
+.starlight-aside--note .starlight-aside__title,
+.starlight-aside--tip .starlight-aside__title {
+	color: var(--primary-color);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Cards & homepage components.
+   These all live inside `not-content` roots, so every style they
+   need is defined here (no Starlight markdown styles apply).
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── equal-sized card grid ── */
+.card-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+	gap: 1rem;
+	align-items: stretch;
+}
+/* wider cards: caps at 3 columns on typical desktop widths */
+.card-grid.wide-cards {
+	grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+}
+
+/* ── info cards (What we do, Workshops) ── */
+.info-card {
+	background-color: #202224;
+	border: 1px solid rgba(104, 234, 149, 0.18);
+	border-radius: 10px;
+	padding: 1.1rem 1.2rem;
+}
+.info-card h4 {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin: 0;
+	font-size: 1rem;
+	font-weight: 650;
+	line-height: 1.3;
+	color: var(--primary-color);
+}
+.info-card-icon.material-icons {
+	font-size: 22px;
+	color: var(--primary-color);
+	flex-shrink: 0;
+}
+.info-card ul {
+	margin: 0.6rem 0 0;
+	padding-left: 1.15rem;
+	list-style: disc;
+	font-size: 0.875rem;
+	line-height: 1.5;
+	color: var(--sl-color-gray-2);
+}
+.info-card li {
+	margin-bottom: 0.3rem;
+}
+.info-card li::marker {
+	color: var(--sl-color-gray-4);
+}
+.info-card p {
+	margin: 0.6rem 0 0;
+	font-size: 0.875rem;
+	line-height: 1.5;
+	color: var(--sl-color-gray-2);
+}
+.info-card a {
+	color: var(--primary-color);
+	text-decoration: none;
+}
+.info-card a:hover {
+	text-decoration: underline;
+}
+
+/* ── goal list (homepage) ── */
+.goal-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+	gap: 0.6rem 2.5rem;
+}
+.goal-list li {
+	position: relative;
+	padding-left: 1.1rem;
+	font-size: 0.95rem;
+	line-height: 1.55;
+	color: var(--sl-color-gray-2);
+}
+.goal-list li::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0.55em;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--primary-color);
+}
+.goal-list strong {
+	color: #fff;
+	font-weight: 650;
+}
+
+/* ── event cards (Events page + homepage strip uses its own styles) ── */
+.event-card {
+	display: block;
+	background: linear-gradient(135deg, rgba(104, 234, 149, 0.08) 0%, rgba(104, 234, 149, 0.03) 100%);
+	border: 1px solid rgba(104, 234, 149, 0.15);
+	border-left: 4px solid var(--primary-color);
+	border-radius: 8px;
+	padding: 1.25rem 1.5rem;
+	margin: 1rem 0;
+	transition: border-color 0.2s ease;
+}
+.event-card:hover {
+	border-color: rgba(104, 234, 149, 0.45);
+	border-left-color: var(--primary-color);
+}
+.event-card.past {
+	opacity: 0.55;
+}
+.event-card .event-date {
+	color: var(--primary-color);
+	font-family: var(--sl-font-mono), monospace;
+	font-weight: 600;
+	font-size: 0.85rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+.event-card h3 {
+	margin: 0.3rem 0 0;
+	font-size: 1.2rem;
+	font-weight: 650;
+	line-height: 1.3;
+	color: #fff;
+}
+.event-card h3 a {
+	color: inherit;
+	text-decoration: none;
+}
+.event-card h3 a:hover {
+	color: var(--primary-color);
+}
+.event-card .event-meta {
+	color: var(--sl-color-gray-3);
+	font-size: 0.875rem;
+	margin-top: 0.25rem;
+}
+.event-card p.event-details {
+	margin: 0.6rem 0 0;
+	color: var(--fg-color);
+	font-size: 0.95rem;
+	line-height: 1.6;
+}
+
+/* ── badges ── */
+.badge {
+	display: inline-block;
+	background-color: var(--hover-bg);
+	border: 1px solid var(--border-color);
+	color: var(--primary-color);
+	padding: 0.1em 0.7em;
+	border-radius: 12px;
+	font-family: var(--sl-font), sans-serif;
+	font-size: 0.7rem;
+	font-weight: 500;
+	letter-spacing: normal;
+	text-transform: none;
+	vertical-align: middle;
+	margin-left: 0.5em;
+}

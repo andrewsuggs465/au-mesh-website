@@ -1,0 +1,90 @@
+---
+// Custom Starlight header: default title/search/social plus top-level
+// club navigation so the site works as a hub, not just docs.
+import Search from '@astrojs/starlight/components/Search.astro';
+import SiteTitle from '@astrojs/starlight/components/SiteTitle.astro';
+import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
+
+const links = [
+	{ label: 'Home', href: '/' },
+	{ label: 'Events', href: '/events/' },
+	{ label: 'Workshops', href: '/workshops/' },
+	{ label: 'Docs', href: '/documentation/' },
+	{ label: 'Join', href: '/join/' },
+];
+
+const { pathname } = Astro.url;
+const isCurrent = (href: string) =>
+	href === '/' ? pathname === '/' : pathname.startsWith(href);
+---
+
+<div class="header sl-flex">
+	<div class="title-wrapper sl-flex">
+		<SiteTitle />
+	</div>
+	<nav class="site-nav sl-hidden lg:sl-flex" aria-label="Site">
+		{
+			links.map((link) => (
+				<a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>
+					{link.label}
+				</a>
+			))
+		}
+	</nav>
+	<div class="sl-flex print:hidden search-wrapper">
+		<Search />
+	</div>
+	<div class="sl-hidden md:sl-flex print:hidden right-group">
+		<div class="sl-flex social-icons">
+			<SocialIcons />
+		</div>
+	</div>
+</div>
+
+<style>
+	.header {
+		gap: var(--sl-nav-gap);
+		justify-content: space-between;
+		align-items: center;
+		height: 100%;
+	}
+
+	.title-wrapper {
+		overflow: clip;
+		padding: 0.25rem;
+		margin: -0.25rem;
+		min-width: 0;
+	}
+
+	.site-nav {
+		gap: 1.25rem;
+		align-items: center;
+	}
+	.site-nav a {
+		color: #fff;
+		font-weight: 600;
+		font-size: var(--sl-text-sm);
+		text-decoration: none;
+		padding: 0.25rem 0.15rem;
+		border-bottom: 2px solid transparent;
+	}
+	.site-nav a:hover {
+		border-bottom-color: rgba(255, 255, 255, 0.6);
+	}
+	.site-nav a[aria-current='page'] {
+		border-bottom-color: #fff;
+	}
+
+	.search-wrapper {
+		flex: 1;
+		justify-content: flex-end;
+		max-width: 20rem;
+		margin-inline-start: auto;
+	}
+
+	.right-group,
+	.social-icons {
+		gap: 1rem;
+		align-items: center;
+	}
+</style>
