@@ -21,7 +21,7 @@
 # ─────────────────────────────────────────────────────────────────
 
 - title: Fall Kickoff Hangout
-  date: 2026-08-17
+  date: TBD
   type: social
   tentative: true
   details: >-
@@ -51,10 +51,3 @@
   type: special
   details: >-
     Meeting for December featuring a guest lecture. Speaker to be announced.
-
-- title: IoT Lecture
-  dateText: January 2027 — date TBD
-  type: meeting
-  tentative: true
-  details: >-
-    Kicking off the spring semester with a lecture on the Internet of Things.
