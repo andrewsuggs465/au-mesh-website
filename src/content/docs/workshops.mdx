@@ -1,54 +1,12 @@
 ---
 title: Workshops
 description: Hands-on beginner and advanced workshops run by the AU Mesh Club.
+tableOfContents: false
 ---
 
-import InfoCard from '../../components/InfoCard.astro';
+import WorkshopList from '../../components/WorkshopList.astro';
 
 Hands-on sessions where you actually build something. Workshops are scheduled
-throughout the semester — watch the [Events](/events/) page and
-[Discord](https://discord.gg/PmmSCSw7Dn) for dates and signups.
+throughout the semester on a variety of topics, both beginner and advanced.
 
-:::note[How workshops run]
-Workshops are kept small — around **10 people per session**, led by one officer
-and one experienced club member. Instead of one 20-person workshop we run **two
-10-person sessions**, and leaders rotate between workshops.
-:::
-
-## Beginner Workshops
-
-No experience needed — these are designed as a first contact with the tools.
-
-<div class="card-grid">
-	<InfoCard icon="memory" title="Arduino">
-		<p>Get started with microcontrollers using MicroPython, and stand up a Wi-Fi mesh network.</p>
-	</InfoCard>
-	<InfoCard icon="construction" title="Soldering Fundamentals">
-		<p>Learn to solder by building your own AM/FM radio kit — yours to keep.</p>
-	</InfoCard>
-	<InfoCard icon="view_in_ar" title="3D Design & Printing">
-		<p>Design a part in Tinkercad, Onshape, or SolidWorks and print it.</p>
-	</InfoCard>
-	<InfoCard icon="settings_input_antenna" title="Meshtastic Build Day">
-		<p>Assemble, flash, and configure your own Meshtastic node. See the <a href="/documentation/meshtastic/intro/">docs</a> to preview what's involved.</p>
-	</InfoCard>
-	<InfoCard icon="developer_board" title="Schematic & PCB Design">
-		<p>Go from schematic capture to a fab-ready printed circuit board.</p>
-	</InfoCard>
-</div>
-
-## Advanced Topics
-
-For members who've done the fundamentals and want to go deeper into RF.
-
-<div class="card-grid">
-	<InfoCard icon="cell_tower" title="Antenna Design">
-		<p>Design, simulate, and measure real antennas.</p>
-	</InfoCard>
-	<InfoCard icon="graphic_eq" title="Amplifier Design">
-		<p>RF amplifier theory and a working build.</p>
-	</InfoCard>
-	<InfoCard icon="precision_manufacturing" title="RF PCB Design & Validation">
-		<p>Layout for high-frequency boards, then validate them with real test equipment.</p>
-	</InfoCard>
-</div>
+<WorkshopList />

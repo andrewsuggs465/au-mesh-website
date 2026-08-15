@@ -1,0 +1,26 @@
+---
+import EventCard from './EventCard.astro';
+import { upcomingWorkshops, pastWorkshops } from '../lib/workshops';
+
+const upcoming = upcomingWorkshops();
+const past = pastWorkshops();
+---
+
+{
+	upcoming.length > 0 ? (
+		upcoming.map((workshop) => <EventCard event={workshop} />)
+	) : (
+		<p>No workshops are scheduled right now — check back soon or ask in Discord.</p>
+	)
+}
+
+{
+	past.length > 0 && (
+		<>
+			<h2>Past workshops</h2>
+			{past.map((workshop) => (
+				<EventCard event={workshop} past />
+			))}
+		</>
+	)
+}
