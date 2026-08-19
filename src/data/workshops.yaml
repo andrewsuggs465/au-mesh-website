@@ -5,16 +5,6 @@
 # Each item supports the same fields as the event cards.
 # ─────────────────────────────────────────────────────────────────
 
-- title: 3D Design & Printing Fundamentals
-  date: 2026-08-24
-  time: 4:00 PM - 6:00 PM
-  location: Broun Computer Lab; Makerspace
-  type: workshop
-  details: >-
-    Join us for a beginner-friendly workshop on how to 3D model and print.
-    You must complete the Basic Safety Training from the Makerspace to participate in this workshop.
-    Please sign up for Onshape before the session and bring a laptop if you have one.
-
 - title: Soldering Fundamentals
   date: 2026-09-07
   time: 4:00 PM - 5:00 PM
@@ -32,3 +22,13 @@
   details: >-
     A beginner-friendly introduction to mesh networking using an ESP32 and the painlessMesh library.
     Arduino C++ will be used, but no prior coding knowledge is necessary.
+
+- title: 3D Design & Printing Fundamentals
+  date: TBD
+  time: 4:00 PM - 6:00 PM
+  location: Broun Computer Lab; Makerspace
+  type: workshop
+  details: >-
+    Join us for a beginner-friendly workshop on how to 3D model and print.
+    You must complete the Basic Safety Training from the Makerspace to participate in this workshop.
+    Please sign up for Onshape before the session and bring a laptop if you have one.
