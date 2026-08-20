@@ -19,6 +19,11 @@ export default defineConfig({
 			social: [
 				{ icon: 'discord', label: 'Discord', href: 'https://discord.gg/PmmSCSw7Dn' },
 				{
+					icon: 'instagram',
+					label: 'Instagram',
+					href: 'https://www.instagram.com/aumeshclub/',
+				},
+				{
 					icon: 'github',
 					label: 'GitHub',
 					href: 'https://github.com/andrewsuggs465/au-mesh-website',
