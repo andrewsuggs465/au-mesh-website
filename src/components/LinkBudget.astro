@@ -1,0 +1,1078 @@
+---
+/**
+ * Interactive link budget calculator.
+ *
+ * UI over `src/lib/link-budget.ts`. Runs entirely in the browser so it works on
+ * a static GitHub Pages build — no backend. See the lib header for provenance.
+ */
+---
+
+<div class="lb not-content" data-link-budget>
+	<div class="lb-grid">
+		{/* ── plot ── */}
+		<section class="card plot-card">
+			<header class="plot-head">
+				<div class="seg" role="group" aria-label="Plot quantity">
+					<button type="button" data-plot="pRx" class="on">Received power</button>
+					<button type="button" data-plot="snr">SNR</button>
+				</div>
+				<div class="seg" role="group" aria-label="Sweep axis">
+					<button type="button" data-sweep="distance" class="on">vs distance</button>
+					<button type="button" data-sweep="frequency">vs frequency</button>
+				</div>
+			</header>
+
+			<div class="chart-wrap">
+				<svg
+					class="chart"
+					viewBox="0 0 760 380"
+					role="img"
+					aria-label="Link budget plot"
+					data-chart></svg>
+				<div class="tip" data-tip hidden></div>
+			</div>
+
+			<div class="sweep-row" data-sweep-controls="distance">
+				<label>Max distance (km)<input type="number" min="0.1" step="1" data-bind="maxDistance" /></label>
+				<label class="chk"><input type="checkbox" data-bind="showNoise" /><span>Show noise floor</span></label>
+			</div>
+			<div class="sweep-row" data-sweep-controls="frequency" hidden>
+				<label>Start (GHz)<input type="number" min="0.01" step="0.1" data-bind="startFreq" /></label>
+				<label>Stop (GHz)<input type="number" min="0.02" step="1" data-bind="stopFreq" /></label>
+				<label class="chk"><input type="checkbox" data-bind="showNoise" /><span>Show noise floor</span></label>
+			</div>
+		</section>
+
+		{/* ── readout ── */}
+		<section class="card readout">
+			<h3>At {''}<span data-op-label>5 km, 915 MHz</span></h3>
+			<dl class="stats">
+				<div><dt>Received power</dt><dd data-out="pRx">—</dd></div>
+				<div><dt>Noise floor</dt><dd data-out="noise">—</dd></div>
+				<div><dt>SNR</dt><dd data-out="snr">—</dd></div>
+				<div class="margin"><dt>Link margin</dt><dd data-out="margin">—</dd></div>
+			</dl>
+			<p class="verdict" data-verdict></p>
+			<p class="warn" data-horizon-warn hidden></p>
+
+			<h4>Path loss</h4>
+			<table class="loss">
+				<tbody>
+					<tr><th>Free space</th><td data-out="lFs">—</td></tr>
+					<tr data-loss-row="atmo"><th>Atmospheric gases</th><td data-out="lAtmo">—</td></tr>
+					<tr data-loss-row="cloud"><th>Cloud / fog</th><td data-out="lCloud">—</td></tr>
+					<tr data-loss-row="rain"><th>Rain</th><td data-out="lRain">—</td></tr>
+					<tr><th>Feedline / system</th><td data-out="lSys">—</td></tr>
+					<tr class="tot"><th>Total</th><td data-out="lTot">—</td></tr>
+				</tbody>
+			</table>
+		</section>
+
+		{/* ── controls ── */}
+		<section class="card controls">
+			<div class="tabs" role="tablist">
+				<button type="button" role="tab" data-tab="radio" class="on">Radio</button>
+				<button type="button" role="tab" data-tab="env">Environment</button>
+				<button type="button" role="tab" data-tab="about">About</button>
+			</div>
+
+			<div class="panel" data-panel="radio">
+				<div class="presets">
+					<span>Preset:</span>
+					<button type="button" data-preset="meshtastic-us">Meshtastic 915&nbsp;MHz</button>
+					<button type="button" data-preset="meshtastic-eu">Meshtastic 868&nbsp;MHz</button>
+					<button type="button" data-preset="wifi24">Wi-Fi 2.4&nbsp;GHz</button>
+					<button type="button" data-preset="ptp58">5.8&nbsp;GHz PtP</button>
+				</div>
+
+				<fieldset>
+					<legend>Link</legend>
+					<div class="fields">
+						<label>Distance (km)<input type="number" min="0" step="0.1" data-bind="link.distanceKm" /></label>
+						<label>Frequency (GHz)<input type="number" min="0.01" step="0.005" data-bind="link.freqGHz" /></label>
+						<label>Bandwidth (MHz)<input type="number" min="0.001" step="0.05" data-bind="link.bandwidthMHz" /></label>
+						<label>Required SNR (dB)<input type="number" step="1" data-bind="requiredSnr" /></label>
+						<label>TX antenna height (m)<input type="number" min="0" step="1" data-bind="link.hTxM" /></label>
+						<label>RX antenna height (m)<input type="number" min="0" step="1" data-bind="link.hRxM" /></label>
+					</div>
+					<p class="hint" data-out="horizon">—</p>
+					<div class="slide">
+						<label>Elevation angle (°)<input type="number" step="1" data-bind="link.elevDeg" /></label>
+						<input type="range" min="-90" max="90" step="1" data-bind="link.elevDeg" />
+					</div>
+					<div class="slide">
+						<label>Polarization tilt (°)<input type="number" step="1" data-bind="link.polarTiltDeg" /></label>
+						<input type="range" min="-90" max="90" step="1" data-bind="link.polarTiltDeg" />
+					</div>
+					<p class="hint">Tilt 0° is horizontal, 90° vertical — only affects rain loss.</p>
+				</fieldset>
+
+				<div class="two">
+					<fieldset>
+						<legend>Transmitter</legend>
+						<div class="fields col">
+							<label>TX power (dBm)<input type="number" step="0.5" data-bind="cfg.pTx" /></label>
+							<label>Antenna gain (dBi)<input type="number" step="0.5" data-bind="cfg.gTx" /></label>
+							<label>Losses (dB)<input type="number" step="0.1" min="0" data-bind="cfg.lTx" /></label>
+						</div>
+						<p class="hint" data-out="watts">—</p>
+					</fieldset>
+					<fieldset>
+						<legend>Receiver</legend>
+						<div class="fields col">
+							<label>Antenna gain (dBi)<input type="number" step="0.5" data-bind="cfg.gRx" /></label>
+							<label>Losses (dB)<input type="number" step="0.1" min="0" data-bind="cfg.lRx" /></label>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+
+			<div class="panel" data-panel="env" hidden>
+				<fieldset>
+					<legend><label class="chk"><input type="checkbox" data-bind="env.atmo" /><span>Atmospheric gases</span></label></legend>
+					<div data-when="env.atmo">
+						<div class="slide">
+							<label>Temperature (°C)<input type="number" step="1" data-bind="env.tempC" /></label>
+							<input type="range" min="-20" max="50" step="1" data-bind="env.tempC" />
+						</div>
+						<div class="slide">
+							<label>Humidity (%)<input type="number" step="1" min="0" max="100" data-bind="env.humidity" data-scale="100" /></label>
+							<input type="range" min="0" max="100" step="1" data-bind="env.humidity" data-scale="100" />
+						</div>
+						<div class="slide">
+							<label>Pressure (kPa)<input type="number" step="0.1" data-bind="env.pressureKPa" /></label>
+							<input type="range" min="50" max="120" step="0.1" data-bind="env.pressureKPa" />
+						</div>
+						<p class="hint">Temperature also sets the thermal noise floor.</p>
+					</div>
+				</fieldset>
+
+				<fieldset>
+					<legend><label class="chk"><input type="checkbox" data-bind="env.cloud" /><span>Cloud / fog</span></label></legend>
+					<div data-when="env.cloud">
+						<div class="slide">
+							<label>Cloud temp (°C)<input type="number" step="1" data-bind="env.cloudTempC" /></label>
+							<input type="range" min="-20" max="40" step="1" data-bind="env.cloudTempC" />
+						</div>
+						<div class="slide">
+							<label>Density (g/m³)<input type="number" step="0.1" data-bind="env.cloudDensity" /></label>
+							<input type="range" min="0" max="25" step="0.1" data-bind="env.cloudDensity" />
+						</div>
+						<div class="slide">
+							<label>Path in cloud (%)<input type="number" step="1" min="0" max="100" data-bind="env.cloudPathFrac" data-scale="100" /></label>
+							<input type="range" min="0" max="100" step="1" data-bind="env.cloudPathFrac" data-scale="100" />
+						</div>
+					</div>
+				</fieldset>
+
+				<fieldset>
+					<legend><label class="chk"><input type="checkbox" data-bind="env.rain" /><span>Rain</span></label></legend>
+					<div data-when="env.rain">
+						<div class="slide">
+							<label>Rate (mm/hr)<input type="number" step="0.5" min="0" data-bind="env.rainRate" /></label>
+							<input type="range" min="0" max="100" step="0.5" data-bind="env.rainRate" />
+						</div>
+						<div class="slide">
+							<label>Path in rain (%)<input type="number" step="1" min="0" max="100" data-bind="env.rainPathFrac" data-scale="100" /></label>
+							<input type="range" min="0" max="100" step="1" data-bind="env.rainPathFrac" data-scale="100" />
+						</div>
+						<p class="hint">Drizzle ≈ 1 mm/hr, steady rain ≈ 10, heavy thunderstorm ≈ 50+.</p>
+					</div>
+				</fieldset>
+
+				<button type="button" class="reset" data-reset>Reset to defaults</button>
+			</div>
+
+			<div class="panel about" data-panel="about" hidden>
+				<h4>What this models</h4>
+				<p>
+					Received power is <code>P_rx = P_tx + G_tx + G_rx − L_path − L_system</code>. Path loss is
+					free-space spreading plus optional atmospheric absorption, cloud, and rain. SNR compares
+					that against the Johnson–Nyquist thermal noise floor <code>kTB</code>.
+				</p>
+
+				<h4>Assumptions</h4>
+				<ul>
+					<li>Flat earth — no terrain, no obstructions, no Fresnel-zone clearance check</li>
+					<li>Line of sight, far field, no multipath or ground reflection</li>
+					<li>Uniform rainfall, pressure, and temperature along the whole path</li>
+					<li>Narrowband signal; thermal noise is the only noise source</li>
+					<li>Receiver noise figure is not modelled — real radios are worse than <code>kTB</code></li>
+				</ul>
+
+				<h4>Valid range</h4>
+				<p>
+					The ITU gas and rain models are specified for 1–1000&nbsp;GHz, and the cloud model to
+					200&nbsp;GHz. Below 1&nbsp;GHz — including the 915&nbsp;MHz Meshtastic band — the
+					free-space term is still exact, but the atmospheric terms are extrapolated. In practice
+					they are negligible down there, so this matters less than it sounds.
+				</p>
+				<p class="warn" data-range-warn hidden></p>
+
+				<h4>Credit</h4>
+				<p>
+					The physics is ported from
+					<a href="https://github.com/SpecterStrider/Link-Budget-GUI" rel="noopener">Link-Budget-GUI</a>
+					by SpecterStrider, used under the Apache&nbsp;2.0 licence. The original is a Python /
+					NiceGUI desktop app; the model was translated to TypeScript so it runs in the browser on
+					this static site. Formulas and ITU coefficient tables are unchanged and match the original
+					to floating-point precision.
+				</p>
+				<p>
+					One deliberate deviation: the upstream noise floor returns dBW but is compared against
+					dBm, making SNR 30&nbsp;dB optimistic. This version returns dBm, so 1&nbsp;MHz at 290&nbsp;K
+					gives the textbook −114&nbsp;dBm.
+				</p>
+			</div>
+		</section>
+	</div>
+</div>
+
+<script>
+	import {
+		solve,
+		defaultConfig,
+		defaultEnv,
+		defaultLink,
+		radioHorizonKm,
+		type EnvState,
+		type LinkState,
+		type RadioConfig,
+	} from '../lib/link-budget';
+
+	interface State {
+		cfg: RadioConfig;
+		env: EnvState;
+		link: LinkState;
+		requiredSnr: number;
+		plot: 'pRx' | 'snr';
+		sweep: 'distance' | 'frequency';
+		maxDistance: number;
+		startFreq: number;
+		stopFreq: number;
+		showNoise: boolean;
+	}
+
+	const freshState = (): State => ({
+		cfg: defaultConfig(),
+		env: defaultEnv(),
+		link: defaultLink(),
+		requiredSnr: -20,
+		plot: 'pRx',
+		sweep: 'distance',
+		maxDistance: 30,
+		startFreq: 0.1,
+		stopFreq: 100,
+		showNoise: true,
+	});
+
+	const PRESETS: Record<string, Partial<RadioConfig> & Partial<LinkState> & { requiredSnr?: number }> =
+		{
+			// LoRa SF12 sits around -20 dB SNR; stock rubber-duck antennas ~2-3 dBi
+			'meshtastic-us': { freqGHz: 0.915, bandwidthMHz: 0.25, pTx: 30, gTx: 3, gRx: 3, requiredSnr: -20 },
+			'meshtastic-eu': { freqGHz: 0.868, bandwidthMHz: 0.25, pTx: 27, gTx: 3, gRx: 3, requiredSnr: -20 },
+			wifi24: { freqGHz: 2.4, bandwidthMHz: 20, pTx: 20, gTx: 2, gRx: 2, requiredSnr: 10 },
+			ptp58: { freqGHz: 5.8, bandwidthMHz: 20, pTx: 23, gTx: 24, gRx: 24, requiredSnr: 15 },
+		};
+
+	const PAD = { l: 62, r: 16, t: 16, b: 46 };
+	const W = 760;
+	const H = 380;
+	const SAMPLES = 220;
+
+	const NS = 'http://www.w3.org/2000/svg';
+
+	function el(name: string, attrs: Record<string, string | number>, text?: string) {
+		const n = document.createElementNS(NS, name);
+		for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, String(v));
+		if (text !== undefined) n.textContent = text;
+		return n;
+	}
+
+	/** ~`count` round numbers spanning [min, max]. */
+	function linearTicks(min: number, max: number, count = 6): number[] {
+		if (!(max > min)) return [min];
+		const raw = (max - min) / count;
+		const mag = 10 ** Math.floor(Math.log10(raw));
+		const step = [1, 2, 2.5, 5, 10].find((m) => m * mag >= raw)! * mag;
+		const out: number[] = [];
+		for (let v = Math.ceil(min / step) * step; v <= max + step * 1e-9; v += step) out.push(v);
+		return out;
+	}
+
+	function decadeTicks(min: number, max: number): number[] {
+		const out: number[] = [];
+		for (let e = Math.floor(Math.log10(min)); e <= Math.ceil(Math.log10(max)); e++) {
+			for (const m of [1, 2, 5]) {
+				const v = m * 10 ** e;
+				if (v >= min * 0.999 && v <= max * 1.001) out.push(v);
+			}
+		}
+		return out.length > 1 ? out : [min, max];
+	}
+
+	const fmtAxis = (v: number) =>
+		Math.abs(v) >= 1000 || (Math.abs(v) < 0.01 && v !== 0)
+			? v.toExponential(0)
+			: String(Math.round(v * 1000) / 1000);
+
+	function init(root: HTMLElement) {
+		let state = freshState();
+
+		const svg = root.querySelector<SVGSVGElement>('[data-chart]')!;
+		const tip = root.querySelector<HTMLElement>('[data-tip]')!;
+		const inputs = Array.from(root.querySelectorAll<HTMLInputElement>('input[data-bind]'));
+
+		/* ── state path access ── */
+		const read = (path: string): any =>
+			path.split('.').reduce<any>((o, k) => o?.[k], state as any);
+
+		function write(path: string, value: any) {
+			const keys = path.split('.');
+			const last = keys.pop()!;
+			keys.reduce<any>((o, k) => o[k], state as any)[last] = value;
+		}
+
+		/* ── bindings ── */
+		for (const input of inputs) {
+			const path = input.dataset.bind!;
+			const scale = Number(input.dataset.scale ?? 1);
+			const evt = input.type === 'range' ? 'input' : 'change';
+			input.addEventListener(evt, () => {
+				if (input.type === 'checkbox') {
+					write(path, input.checked);
+				} else {
+					const raw = Number(input.value);
+					if (!Number.isFinite(raw)) return;
+					write(path, raw / scale);
+				}
+				render();
+			});
+		}
+
+		function syncInputs() {
+			for (const input of inputs) {
+				if (document.activeElement === input && input.type === 'number') continue;
+				const value = read(input.dataset.bind!);
+				if (input.type === 'checkbox') {
+					input.checked = Boolean(value);
+				} else {
+					const scaled = value * Number(input.dataset.scale ?? 1);
+					const next = String(Math.round(scaled * 1e6) / 1e6);
+					if (input.value !== next) input.value = next;
+				}
+			}
+			for (const group of root.querySelectorAll<HTMLElement>('[data-when]')) {
+				const on = Boolean(read(group.dataset.when!));
+				group.hidden = !on;
+			}
+		}
+
+		/* ── segmented buttons + tabs ── */
+		function wireSegment(attr: 'plot' | 'sweep') {
+			for (const btn of root.querySelectorAll<HTMLButtonElement>(`[data-${attr}]`)) {
+				btn.addEventListener('click', () => {
+					state[attr] = btn.dataset[attr] as any;
+					for (const b of root.querySelectorAll(`[data-${attr}]`)) b.classList.remove('on');
+					btn.classList.add('on');
+					if (attr === 'sweep') {
+						for (const row of root.querySelectorAll<HTMLElement>('[data-sweep-controls]'))
+							row.hidden = row.dataset.sweepControls !== state.sweep;
+					}
+					render();
+				});
+			}
+		}
+		wireSegment('plot');
+		wireSegment('sweep');
+
+		for (const btn of root.querySelectorAll<HTMLButtonElement>('[data-tab]')) {
+			btn.addEventListener('click', () => {
+				for (const b of root.querySelectorAll('[data-tab]')) b.classList.remove('on');
+				btn.classList.add('on');
+				for (const p of root.querySelectorAll<HTMLElement>('[data-panel]'))
+					p.hidden = p.dataset.panel !== btn.dataset.tab;
+			});
+		}
+
+		for (const btn of root.querySelectorAll<HTMLButtonElement>('[data-preset]')) {
+			btn.addEventListener('click', () => {
+				const p = PRESETS[btn.dataset.preset!];
+				for (const [k, v] of Object.entries(p)) {
+					if (k in state.cfg) (state.cfg as any)[k] = v;
+					else if (k in state.link) (state.link as any)[k] = v;
+					else (state as any)[k] = v;
+				}
+				render();
+			});
+		}
+
+		root.querySelector<HTMLButtonElement>('[data-reset]')?.addEventListener('click', () => {
+			const { plot, sweep } = state;
+			state = { ...freshState(), plot, sweep };
+			render();
+		});
+
+		/* ── sweep ── */
+		function sweepPoints(): { x: number; y: number }[] {
+			const pts: { x: number; y: number }[] = [];
+			const probe: LinkState = { ...state.link };
+
+			if (state.sweep === 'distance') {
+				const max = Math.max(state.maxDistance, 0.1);
+				for (let i = 1; i <= SAMPLES; i++) {
+					probe.distanceKm = (i / SAMPLES) * max;
+					const r = solve(probe, state.env, state.cfg);
+					pts.push({ x: probe.distanceKm, y: state.plot === 'pRx' ? r.pRx : r.snr });
+				}
+			} else {
+				const lo = Math.max(state.startFreq, 0.01);
+				const hi = Math.max(state.stopFreq, lo * 1.01);
+				// log spacing: the ITU absorption lines span decades
+				const ratio = Math.log10(hi / lo);
+				for (let i = 0; i <= SAMPLES; i++) {
+					probe.freqGHz = lo * 10 ** ((i / SAMPLES) * ratio);
+					const r = solve(probe, state.env, state.cfg);
+					pts.push({ x: probe.freqGHz, y: state.plot === 'pRx' ? r.pRx : r.snr });
+				}
+			}
+			return pts;
+		}
+
+		/* ── chart ── */
+		function drawChart(pts: { x: number; y: number }[], noiseY: number | null) {
+			svg.textContent = '';
+			const logX = state.sweep === 'frequency';
+
+			const xMin = pts[0].x;
+			const xMax = pts[pts.length - 1].x;
+
+			const ys = pts.map((p) => p.y).filter(Number.isFinite);
+			let yMin = Math.min(...ys);
+			let yMax = Math.max(...ys);
+			if (noiseY !== null && Number.isFinite(noiseY)) {
+				yMin = Math.min(yMin, noiseY);
+				yMax = Math.max(yMax, noiseY);
+			}
+			if (!(yMax > yMin)) {
+				yMax = yMin + 1;
+			}
+			const padY = (yMax - yMin) * 0.08;
+			yMin -= padY;
+			yMax += padY;
+
+			const px = (x: number) =>
+				PAD.l +
+				((logX ? Math.log10(x / xMin) / Math.log10(xMax / xMin) : (x - xMin) / (xMax - xMin)) *
+					(W - PAD.l - PAD.r) || 0);
+			const py = (y: number) => PAD.t + (1 - (y - yMin) / (yMax - yMin)) * (H - PAD.t - PAD.b);
+
+			// grid + axes
+			const xTicks = logX ? decadeTicks(xMin, xMax) : linearTicks(xMin, xMax);
+			for (const t of xTicks) {
+				const X = px(t);
+				svg.append(el('line', { x1: X, y1: PAD.t, x2: X, y2: H - PAD.b, class: 'grid' }));
+				svg.append(
+					el('text', { x: X, y: H - PAD.b + 18, class: 'tick', 'text-anchor': 'middle' }, fmtAxis(t))
+				);
+			}
+			for (const t of linearTicks(yMin, yMax, 5)) {
+				const Y = py(t);
+				svg.append(el('line', { x1: PAD.l, y1: Y, x2: W - PAD.r, y2: Y, class: 'grid' }));
+				svg.append(
+					el(
+						'text',
+						{ x: PAD.l - 8, y: Y + 4, class: 'tick', 'text-anchor': 'end' },
+						fmtAxis(Math.round(t * 10) / 10)
+					)
+				);
+			}
+
+			svg.append(
+				el('text', {
+					x: PAD.l + (W - PAD.l - PAD.r) / 2,
+					y: H - 6,
+					class: 'axis',
+					'text-anchor': 'middle',
+				}, state.sweep === 'distance' ? 'Distance (km)' : 'Frequency (GHz, log scale)')
+			);
+			svg.append(
+				el('text', {
+					x: 14,
+					y: PAD.t + (H - PAD.t - PAD.b) / 2,
+					class: 'axis',
+					'text-anchor': 'middle',
+					transform: `rotate(-90 14 ${PAD.t + (H - PAD.t - PAD.b) / 2})`,
+				}, state.plot === 'pRx' ? 'Received power (dBm)' : 'SNR (dB)')
+			);
+
+			// noise floor / threshold line
+			if (noiseY !== null && Number.isFinite(noiseY)) {
+				const Y = py(noiseY);
+				svg.append(el('line', { x1: PAD.l, y1: Y, x2: W - PAD.r, y2: Y, class: 'noise' }));
+				svg.append(
+					el(
+						'text',
+						{ x: W - PAD.r - 4, y: Y - 6, class: 'noise-label', 'text-anchor': 'end' },
+						state.plot === 'pRx' ? 'noise floor' : 'required SNR'
+					)
+				);
+			}
+
+			// curve
+			const d = pts
+				.filter((p) => Number.isFinite(p.y))
+				.map((p, i) => `${i === 0 ? 'M' : 'L'}${px(p.x).toFixed(2)},${py(p.y).toFixed(2)}`)
+				.join('');
+			svg.append(el('path', { d, class: 'line' }));
+
+			// radio horizon: everything to the right of this needs terrain analysis
+			if (state.sweep === 'distance') {
+				const hz = radioHorizonKm(state.link.hTxM, state.link.hRxM);
+				if (hz > xMin && hz < xMax) {
+					const X = px(hz);
+					svg.append(
+						el('rect', {
+							x: X,
+							y: PAD.t,
+							width: W - PAD.r - X,
+							height: H - PAD.t - PAD.b,
+							class: 'beyond',
+						})
+					);
+					svg.append(el('line', { x1: X, y1: PAD.t, x2: X, y2: H - PAD.b, class: 'horizon' }));
+					svg.append(
+						el(
+							'text',
+							{ x: X + 5, y: PAD.t + 12, class: 'horizon-label' },
+							'over the horizon'
+						)
+					);
+				}
+			}
+
+			// operating point
+			const opX = state.sweep === 'distance' ? state.link.distanceKm : state.link.freqGHz;
+			if (opX >= xMin && opX <= xMax) {
+				const X = px(opX);
+				svg.append(el('line', { x1: X, y1: PAD.t, x2: X, y2: H - PAD.b, class: 'marker' }));
+				const near = pts.reduce((a, b) => (Math.abs(b.x - opX) < Math.abs(a.x - opX) ? b : a));
+				if (Number.isFinite(near.y))
+					svg.append(el('circle', { cx: X, cy: py(near.y), r: 4.5, class: 'dot' }));
+			}
+
+			return { px, py, xMin, xMax };
+		}
+
+		/* ── hover tooltip ── */
+		let hoverCtx: { pts: { x: number; y: number }[]; px: (x: number) => number } | null = null;
+
+		svg.addEventListener('mousemove', (e) => {
+			if (!hoverCtx) return;
+			const box = svg.getBoundingClientRect();
+			const svgX = ((e.clientX - box.left) / box.width) * W;
+			const near = hoverCtx.pts.reduce((a, b) =>
+				Math.abs(hoverCtx!.px(b.x) - svgX) < Math.abs(hoverCtx!.px(a.x) - svgX) ? b : a
+			);
+			const unit = state.sweep === 'distance' ? 'km' : 'GHz';
+			const yUnit = state.plot === 'pRx' ? 'dBm' : 'dB';
+			tip.textContent = `${near.x.toFixed(2)} ${unit} · ${near.y.toFixed(1)} ${yUnit}`;
+			tip.hidden = false;
+			tip.style.left = `${((e.clientX - box.left) / box.width) * 100}%`;
+			tip.style.top = `${((e.clientY - box.top) / box.height) * 100}%`;
+		});
+		svg.addEventListener('mouseleave', () => {
+			tip.hidden = true;
+		});
+
+		/* ── render ── */
+		const out = (key: string, text: string) => {
+			const node = root.querySelector<HTMLElement>(`[data-out="${key}"]`);
+			if (node) node.textContent = text;
+		};
+
+		function render() {
+			syncInputs();
+
+			const r = solve(state.link, state.env, state.cfg);
+			const margin = r.snr - state.requiredSnr;
+
+			const freqMHz = state.link.freqGHz * 1000;
+			root.querySelector<HTMLElement>('[data-op-label]')!.textContent =
+				`${state.link.distanceKm} km, ${freqMHz >= 1000 ? `${state.link.freqGHz} GHz` : `${Math.round(freqMHz)} MHz`}`;
+
+			out('pRx', `${r.pRx.toFixed(1)} dBm`);
+			out('noise', `${r.noiseFloor.toFixed(1)} dBm`);
+			out('snr', `${r.snr.toFixed(1)} dB`);
+			out('margin', `${margin >= 0 ? '+' : ''}${margin.toFixed(1)} dB`);
+
+			const horizon = radioHorizonKm(state.link.hTxM, state.link.hRxM);
+			const beyondHorizon = state.link.distanceKm > horizon;
+
+			const verdict = root.querySelector<HTMLElement>('[data-verdict]')!;
+			verdict.textContent = beyondHorizon
+				? 'Over the horizon — the margin below is not achievable as-is.'
+				: margin >= 10
+					? 'Comfortable margin — this link should be reliable.'
+					: margin >= 0
+						? 'Marginal — works in clear conditions, fragile in weather or with obstructions.'
+						: 'Below threshold — this link will not close.';
+			verdict.dataset.level = beyondHorizon || margin < 0 ? 'bad' : margin >= 10 ? 'good' : 'warn';
+			root.querySelector<HTMLElement>('.margin')!.dataset.level = verdict.dataset.level;
+
+			out(
+				'horizon',
+				`Radio horizon at these heights: ${horizon.toFixed(1)} km. Beyond that the earth is in the way.`
+			);
+			const hWarn = root.querySelector<HTMLElement>('[data-horizon-warn]')!;
+			hWarn.hidden = !beyondHorizon;
+			hWarn.textContent = `${state.link.distanceKm} km is past the ${horizon.toFixed(1)} km radio horizon for ${state.link.hTxM} m and ${state.link.hRxM} m antennas. This model assumes a flat earth, so it does not account for that — raise the antennas or shorten the path.`;
+
+			out('lFs', `${r.loss.freeSpace.toFixed(1)} dB`);
+			out('lAtmo', `${r.loss.atmo.toFixed(2)} dB`);
+			out('lCloud', `${r.loss.cloud.toFixed(2)} dB`);
+			out('lRain', `${r.loss.rain.toFixed(2)} dB`);
+			out('lSys', `${r.systemLoss.toFixed(1)} dB`);
+			out('lTot', `${(r.loss.total + r.systemLoss).toFixed(1)} dB`);
+
+			for (const row of root.querySelectorAll<HTMLElement>('[data-loss-row]'))
+				row.hidden = !state.env[row.dataset.lossRow as 'atmo' | 'cloud' | 'rain'];
+
+			out('watts', `= ${(10 ** (state.cfg.pTx / 10) / 1000).toPrecision(3)} W radiated`);
+
+			const warn = root.querySelector<HTMLElement>('[data-range-warn]')!;
+			const lowest = state.sweep === 'frequency' ? state.startFreq : state.link.freqGHz;
+			warn.hidden = lowest >= 1 || (!state.env.atmo && !state.env.cloud && !state.env.rain);
+			warn.textContent = `Heads up: you are at ${lowest < 1 ? `${(lowest * 1000).toFixed(0)} MHz` : `${lowest} GHz`}, below the 1 GHz floor of the ITU models. The weather terms shown are extrapolated (and very small).`;
+
+			const pts = sweepPoints();
+			const noiseY = state.showNoise
+				? state.plot === 'pRx'
+					? r.noiseFloor
+					: state.requiredSnr
+				: null;
+			const { px } = drawChart(pts, noiseY);
+			hoverCtx = { pts, px };
+		}
+
+		render();
+	}
+
+	for (const root of document.querySelectorAll<HTMLElement>('[data-link-budget]')) init(root);
+</script>
+
+<style>
+	.lb {
+		--lb-line: var(--primary-color);
+		margin: 1.5rem 0;
+	}
+
+	/* The calculator needs more room than Starlight's 45rem prose column, and
+	   this page has no table of contents, so that space is free. Scoped with
+	   :has() so only pages embedding the calculator are widened. */
+	@media (min-width: 72rem) {
+		:global(body:has(.lb) .sl-container) {
+			max-width: 56rem;
+		}
+	}
+	.lb-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+		gap: 1rem;
+	}
+	.plot-card {
+		grid-column: 1;
+	}
+	.readout {
+		grid-column: 2;
+	}
+	.controls {
+		grid-column: 1 / -1;
+	}
+	@media (max-width: 60rem) {
+		.lb-grid {
+			grid-template-columns: 1fr;
+		}
+		.plot-card,
+		.readout,
+		.controls {
+			grid-column: 1;
+		}
+	}
+
+	.card {
+		border: 1px solid var(--border-color);
+		border-radius: 10px;
+		background: rgba(104, 234, 149, 0.03);
+		padding: 1rem;
+	}
+
+	/* ── plot ── */
+	.plot-head {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		justify-content: space-between;
+		margin-bottom: 0.75rem;
+	}
+	.seg {
+		display: flex;
+		border: 1px solid var(--border-color);
+		border-radius: 6px;
+		overflow: hidden;
+	}
+	.seg button {
+		font: inherit;
+		font-size: 0.8rem;
+		padding: 0.3rem 0.7rem;
+		background: transparent;
+		color: var(--sl-color-gray-2);
+		border: 0;
+		cursor: pointer;
+	}
+	.seg button + button {
+		border-left: 1px solid var(--border-color);
+	}
+	.seg button:hover {
+		background: var(--hover-bg);
+	}
+	.seg button.on {
+		background: var(--primary-color);
+		color: #06231a;
+		font-weight: 600;
+	}
+
+	.chart-wrap {
+		position: relative;
+	}
+	.chart {
+		width: 100%;
+		height: auto;
+		display: block;
+		overflow: visible;
+	}
+	.chart :global(.grid) {
+		stroke: var(--sl-color-gray-5);
+		stroke-width: 1;
+	}
+	.chart :global(.tick) {
+		fill: var(--sl-color-gray-3);
+		font-size: 11px;
+		font-family: var(--sl-font-mono), monospace;
+	}
+	.chart :global(.axis) {
+		fill: var(--sl-color-gray-2);
+		font-size: 12px;
+	}
+	.chart :global(.line) {
+		fill: none;
+		stroke: var(--lb-line);
+		stroke-width: 2.25;
+		stroke-linejoin: round;
+	}
+	.chart :global(.noise) {
+		stroke: #e07a5f;
+		stroke-width: 1.5;
+		stroke-dasharray: 6 4;
+	}
+	.chart :global(.noise-label) {
+		fill: #e07a5f;
+		font-size: 11px;
+	}
+	.chart :global(.beyond) {
+		fill: rgba(224, 112, 95, 0.09);
+	}
+	.chart :global(.horizon) {
+		stroke: #e0705f;
+		stroke-width: 1.25;
+		stroke-dasharray: 2 3;
+	}
+	.chart :global(.horizon-label) {
+		fill: #e0705f;
+		font-size: 11px;
+	}
+	.chart :global(.marker) {
+		stroke: var(--sl-color-gray-3);
+		stroke-width: 1;
+		stroke-dasharray: 3 3;
+	}
+	.chart :global(.dot) {
+		fill: var(--primary-color);
+		stroke: var(--bg-color);
+		stroke-width: 2;
+	}
+	.tip {
+		position: absolute;
+		transform: translate(-50%, -150%);
+		pointer-events: none;
+		background: var(--code-bg-color);
+		border: 1px solid var(--border-color);
+		border-radius: 5px;
+		padding: 0.2rem 0.5rem;
+		font-family: var(--sl-font-mono), monospace;
+		font-size: 0.75rem;
+		color: var(--fg-color);
+		white-space: nowrap;
+	}
+
+	.sweep-row {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: end;
+		gap: 0.75rem;
+		margin-top: 0.75rem;
+	}
+
+	/* ── readout ── */
+	.readout h3 {
+		margin: 0 0 0.75rem;
+		font-size: 0.95rem;
+		color: var(--sl-color-gray-2);
+	}
+	.readout h3 span {
+		color: var(--primary-color);
+		font-family: var(--sl-font-mono), monospace;
+	}
+	.readout h4 {
+		margin: 1.25rem 0 0.5rem;
+		font-size: 0.8rem;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--sl-color-gray-3);
+	}
+	.stats {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0.5rem;
+		margin: 0;
+	}
+	.stats div {
+		border: 1px solid var(--border-color);
+		border-radius: 8px;
+		padding: 0.5rem 0.65rem;
+	}
+	.stats dt {
+		font-size: 0.7rem;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--sl-color-gray-3);
+	}
+	.stats dd {
+		margin: 0.15rem 0 0;
+		font-family: var(--sl-font-mono), monospace;
+		font-size: 1.05rem;
+		color: var(--fg-color);
+	}
+	.stats .margin[data-level='good'] dd {
+		color: var(--primary-color);
+	}
+	.stats .margin[data-level='warn'] dd {
+		color: #e8c468;
+	}
+	.stats .margin[data-level='bad'] dd {
+		color: #e0705f;
+	}
+	.verdict {
+		margin: 0.65rem 0 0;
+		font-size: 0.85rem;
+		color: var(--sl-color-gray-2);
+	}
+	.verdict[data-level='bad'] {
+		color: #e0705f;
+	}
+	.loss {
+		width: 100%;
+		border-collapse: collapse;
+		font-size: 0.85rem;
+	}
+	.loss th {
+		text-align: left;
+		font-weight: 400;
+		color: var(--sl-color-gray-2);
+		padding: 0.25rem 0;
+	}
+	.loss td {
+		text-align: right;
+		font-family: var(--sl-font-mono), monospace;
+		color: var(--fg-color);
+	}
+	.loss .tot th,
+	.loss .tot td {
+		border-top: 1px solid var(--border-color);
+		padding-top: 0.4rem;
+		font-weight: 600;
+		color: var(--primary-color);
+	}
+
+	/* ── controls ── */
+	.tabs {
+		display: flex;
+		gap: 0.25rem;
+		border-bottom: 1px solid var(--border-color);
+		margin-bottom: 1rem;
+	}
+	.tabs button {
+		font: inherit;
+		font-size: 0.875rem;
+		background: transparent;
+		border: 0;
+		border-bottom: 2px solid transparent;
+		padding: 0.4rem 0.8rem;
+		color: var(--sl-color-gray-3);
+		cursor: pointer;
+	}
+	.tabs button:hover {
+		color: var(--fg-color);
+	}
+	.tabs button.on {
+		color: var(--primary-color);
+		border-bottom-color: var(--primary-color);
+	}
+
+	.presets {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.4rem;
+		margin-bottom: 1rem;
+		font-size: 0.8rem;
+		color: var(--sl-color-gray-3);
+	}
+	.presets button {
+		font: inherit;
+		font-size: 0.78rem;
+		padding: 0.25rem 0.6rem;
+		border: 1px solid var(--border-color);
+		border-radius: 999px;
+		background: transparent;
+		color: var(--sl-color-gray-2);
+		cursor: pointer;
+	}
+	.presets button:hover {
+		background: var(--hover-bg);
+		color: var(--primary-color);
+	}
+
+	fieldset {
+		border: 1px solid var(--border-color);
+		border-radius: 8px;
+		padding: 0.75rem 1rem 1rem;
+		margin: 0 0 1rem;
+	}
+	legend {
+		padding: 0 0.4rem;
+		font-size: 0.78rem;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--primary-color);
+	}
+	.two {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+	}
+	@media (max-width: 40rem) {
+		.two {
+			grid-template-columns: 1fr;
+		}
+	}
+	.fields {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+	.fields.col {
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	label {
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+		font-size: 0.75rem;
+		color: var(--sl-color-gray-3);
+	}
+	input[type='number'] {
+		width: 7.5rem;
+		font-family: var(--sl-font-mono), monospace;
+		font-size: 0.85rem;
+		padding: 0.3rem 0.45rem;
+		background: var(--code-bg-color);
+		border: 1px solid var(--border-color);
+		border-radius: 5px;
+		color: var(--fg-color);
+	}
+	input[type='range'] {
+		flex: 1;
+		min-width: 8rem;
+		accent-color: var(--primary-color);
+	}
+	.slide {
+		display: flex;
+		align-items: end;
+		gap: 0.75rem;
+		margin-top: 0.6rem;
+	}
+	.chk {
+		flex-direction: row;
+		align-items: center;
+		gap: 0.4rem;
+		color: var(--sl-color-gray-2);
+		font-size: 0.85rem;
+		cursor: pointer;
+	}
+	.chk input {
+		accent-color: var(--primary-color);
+		width: 1rem;
+		height: 1rem;
+	}
+	.hint {
+		margin: 0.6rem 0 0;
+		font-size: 0.75rem;
+		color: var(--sl-color-gray-3);
+	}
+	.reset {
+		font: inherit;
+		font-size: 0.8rem;
+		padding: 0.3rem 0.8rem;
+		border: 1px solid var(--border-color);
+		border-radius: 6px;
+		background: transparent;
+		color: var(--sl-color-gray-2);
+		cursor: pointer;
+	}
+	.reset:hover {
+		background: var(--hover-bg);
+		color: var(--primary-color);
+	}
+
+	.about {
+		font-size: 0.9rem;
+		max-width: 60ch;
+	}
+	.about h4 {
+		margin: 1.1rem 0 0.4rem;
+		font-size: 0.78rem;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--primary-color);
+	}
+	.about h4:first-child {
+		margin-top: 0;
+	}
+	.about p,
+	.about li {
+		color: var(--sl-color-gray-2);
+		line-height: 1.6;
+	}
+	.about ul {
+		margin: 0;
+		padding-left: 1.1rem;
+	}
+	.warn {
+		border-left: 2px solid #e8c468;
+		padding-left: 0.75rem;
+		color: #e8c468 !important;
+	}
+</style>

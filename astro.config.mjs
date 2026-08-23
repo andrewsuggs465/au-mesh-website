@@ -64,6 +64,10 @@ export default defineConfig({
 					],
 				},
 				{
+					label: 'Tools',
+					items: [{ label: 'Link Budget Calculator', link: '/tools/link-budget/' }],
+				},
+				{
 					label: 'Documentation',
 					items: [
 						{ label: 'Overview', link: '/documentation/' },
