@@ -20,8 +20,10 @@ commit, and the site rebuilds and deploys itself in a couple of minutes
 | Edit a **docs page** | The matching file under `src/content/docs/documentation/` |
 | Add a **new docs page** | Add a `.md` file under `src/content/docs/documentation/meshtastic/` with `title:` frontmatter (copy an existing file's header) |
 | Change **homepage** text or links | `src/content/docs/index.mdx` |
-| Update **join/resources/projects** | `src/content/docs/join.mdx`, `resources.md`, `projects.md` |
-| Add an **image** | Upload to `public/images/`, reference it as `/images/filename.png` |
+| Update **resources** | `src/content/docs/resources.md` |
+| Write a **news post** | Copy `src/content/docs/news/_template.md` to `news/your-post.md`. The file name becomes the URL |
+| Add a **build photo** | Drop the photo in `src/assets/projects/`, then add an entry to `src/data/projects.yaml` |
+| Add an **image to a page** | Put it in `src/assets/` and use a relative path (`../../assets/thing.jpg`) so Astro resizes it. Files in `public/` are served at full size |
 
 ## Running locally
 
@@ -41,16 +43,21 @@ src/
 │   ├── index.mdx            #   homepage hub
 │   ├── events.mdx           #   events page (rendered from events.yaml)
 │   ├── workshops.mdx        #   workshop tracks
-│   ├── join.mdx             #   how to join
-│   ├── projects.md          #   member build gallery
+│   ├── projects.mdx         #   member build gallery (discover grid)
 │   ├── resources.md         #   link collection
+│   ├── news/                #   blog posts (_template.md to start one)
+│   ├── tools/               #   link budget calculator, mesh map
 │   └── documentation/       #   the docs section
-├── data/events.yaml         # ← the events list officers edit
+├── data/                    # ← the lists officers edit
+│   ├── events.yaml          #   events
+│   ├── workshops.yaml       #   workshops
+│   └── projects.yaml        #   build gallery
+├── assets/projects/         # build photos (Astro resizes these)
 ├── components/              # event cards, quick-link cards, header
 ├── styles/custom.css        # the mint-on-black AU Mesh theme
 └── lib/events.ts            # upcoming/past event sorting
-astro.config.mjs             # site config: nav sidebar, social links
-public/                      # images, logos, favicon, CNAME
+astro.config.mjs             # site config: nav sidebar, social links, redirects
+public/                      # favicon, logos, CNAME
 .github/workflows/deploy.yml # build + deploy to GitHub Pages
 ```
 

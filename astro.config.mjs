@@ -6,6 +6,12 @@ import yaml from '@rollup/plugin-yaml';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://aumesh.club',
+	// /join/ came over from the old mkdocs site. The page itself was redundant
+	// (every link on it lives on the homepage), but keep the URL working for
+	// anyone following an old link or bookmark.
+	redirects: {
+		'/join': '/',
+	},
 	// Photos live in src/assets/ so Astro resizes them and emits a srcset —
 	// the raw phone JPEGs are 3–4 MB each. Anything in public/ is served as-is.
 	image: {
