@@ -5,10 +5,17 @@ import Search from '@astrojs/starlight/components/Search.astro';
 import SiteTitle from '@astrojs/starlight/components/SiteTitle.astro';
 import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
 
+// Top-level sections. Everything outside /documentation/ is a sidebar-less
+// splash page, so this nav is the only way between sections — it stays
+// visible at every width (scrolls sideways when it doesn't fit).
 const links = [
 	{ label: 'Home', href: '/' },
+	{ label: 'News', href: '/news/' },
 	{ label: 'Events', href: '/events/' },
 	{ label: 'Workshops', href: '/workshops/' },
+	{ label: 'Projects', href: '/projects/' },
+	{ label: 'Resources', href: '/resources/' },
+	{ label: 'Tools', href: '/tools/' },
 	{ label: 'Docs', href: '/documentation/' },
 	{ label: 'Join', href: '/join/' },
 ];
@@ -22,7 +29,7 @@ const isCurrent = (href: string) =>
 	<div class="title-wrapper sl-flex">
 		<SiteTitle />
 	</div>
-	<nav class="site-nav sl-hidden lg:sl-flex" aria-label="Site">
+	<nav class="site-nav sl-flex" aria-label="Site">
 		{
 			links.map((link) => (
 				<a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>
@@ -59,6 +66,24 @@ const isCurrent = (href: string) =>
 	.site-nav {
 		gap: 1.25rem;
 		align-items: center;
+		min-width: 0;
+		overflow-x: auto;
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+	.site-nav::-webkit-scrollbar {
+		display: none;
+	}
+	.site-nav a {
+		white-space: nowrap;
+	}
+
+	/* below the desktop breakpoint the nav is the only navigation there is,
+	   so tighten it rather than hiding it */
+	@media (max-width: 72rem) {
+		.site-nav {
+			gap: 0.85rem;
+		}
 	}
 	.site-nav a {
 		color: #fff;

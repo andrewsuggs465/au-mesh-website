@@ -6,6 +6,12 @@ import yaml from '@rollup/plugin-yaml';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://aumesh.club',
+	// Photos live in src/assets/ so Astro resizes them and emits a srcset —
+	// the raw phone JPEGs are 3–4 MB each. Anything in public/ is served as-is.
+	image: {
+		layout: 'constrained',
+		responsiveStyles: true,
+	},
 	vite: {
 		plugins: [yaml()],
 	},
@@ -51,33 +57,16 @@ export default defineConfig({
 			editLink: {
 				baseUrl: 'https://github.com/andrewsuggs465/au-mesh-website/edit/main/',
 			},
+			// Docs-only sidebar. Every page outside /documentation/ uses
+			// `template: splash` (no sidebar) and is reached from the header nav,
+			// so the sidebar never advertises the whole site.
 			sidebar: [
+				{ label: 'Overview', link: '/documentation/' },
 				{
-					label: 'Club',
-					items: [
-						{ label: 'Home', link: '/' },
-						{ label: 'Events', link: '/events/' },
-						{ label: 'Workshops', link: '/workshops/' },
-						{ label: 'Join', link: '/join/' },
-						{ label: 'Project Hub', link: '/projects/' },
-						{ label: 'Resources', link: '/resources/' },
-					],
+					label: 'Meshtastic',
+					items: [{ autogenerate: { directory: 'documentation/meshtastic' } }],
 				},
-				{
-					label: 'Tools',
-					items: [{ label: 'Link Budget Calculator', link: '/tools/link-budget/' }],
-				},
-				{
-					label: 'Documentation',
-					items: [
-						{ label: 'Overview', link: '/documentation/' },
-						{
-							label: 'Meshtastic',
-							items: [{ autogenerate: { directory: 'documentation/meshtastic' } }],
-						},
-						{ label: 'Encryption', link: '/documentation/encryption/encryption/' },
-					],
-				},
+				{ label: 'Encryption', link: '/documentation/encryption/encryption/' },
 			],
 		}),
 	],

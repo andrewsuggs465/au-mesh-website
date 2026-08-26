@@ -125,6 +125,60 @@ starlight-menu-button button {
 	padding-bottom: 0.5em;
 }
 
+/* ── centre the whole docs frame past 96rem ──
+   Starlight pins both sidebars with `position: fixed` and stretches the frame
+   edge to edge, so on a 1920px screen the table of contents ends up floating
+   in ~300px of nothing. Push everything in by an even gutter so the slack
+   becomes page margin on both sides instead of dead space on the right. */
+@media (min-width: 96rem) {
+	:root {
+		--au-page-gutter: calc((100vw - 96rem) / 2);
+	}
+	body:has(.sidebar-pane) .sidebar-pane {
+		inset-inline-start: var(--au-page-gutter);
+	}
+	body:has(.sidebar-pane) .main-frame {
+		padding-inline-start: calc(var(--sl-content-inline-start, 18.75rem) + var(--au-page-gutter));
+		padding-inline-end: var(--au-page-gutter);
+	}
+}
+
+/* ── docs gutters on wide screens ──
+   Starlight pins the content column hard against the table of contents
+   (margin-inline: auto 0) so the two optically centre in the viewport. On a
+   1920px screen that leaves a ~270px dead band between the sidebar and the
+   text while the text itself is already 93 characters wide. Even the gutters
+   out rather than widening the column, which is long enough to read as-is. */
+@media (min-width: 72rem) {
+	body:has(.sidebar-pane) .content-panel > .sl-container {
+		margin-inline: auto;
+	}
+}
+
+/* ── readable measure on sidebar-less pages ──
+   Every page outside /documentation/ uses `template: splash`, whose container
+   is 1080px — fine for a landing page, far too wide for body text (~150
+   characters a line). Narrow the page, then narrow running text further so it
+   reads like prose while cards and event lists keep the full column.
+   The homepage opts out: it really is a landing page. */
+body:not(:has(.sidebar-pane)):not(:has(.home-hero)) .content-panel > .sl-container {
+	max-width: 60rem;
+}
+body:not(:has(.sidebar-pane)):not(:has(.home-hero))
+	.sl-markdown-content
+	> :is(p, ul, ol, blockquote, table, hr, .sl-heading-wrapper, h2, h3, h4, h5, h6) {
+	max-width: 46rem;
+}
+/* Loose markdown photos on sidebar-less pages are usually portrait phone shots;
+   uncapped they run ~1300px tall. Components (cards, the Project Hub grid) do
+   their own sizing, so they opt out via `not-content`. */
+body:not(:has(.sidebar-pane)):not(:has(.home-hero))
+	.sl-markdown-content
+	img:not(:where(.not-content *)) {
+	max-height: 26rem;
+	width: auto;
+}
+
 /* ── code blocks ── */
 .sl-markdown-content code:not(:where(pre code)) {
 	background-color: var(--code-bg-color);
@@ -268,37 +322,6 @@ starlight-menu-button button {
 }
 .info-card a:hover {
 	text-decoration: underline;
-}
-
-/* ── goal list (homepage) ── */
-.goal-list {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-	gap: 0.6rem 2.5rem;
-}
-.goal-list li {
-	position: relative;
-	padding-left: 1.1rem;
-	font-size: 0.95rem;
-	line-height: 1.55;
-	color: var(--sl-color-gray-2);
-}
-.goal-list li::before {
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 0.55em;
-	width: 6px;
-	height: 6px;
-	border-radius: 50%;
-	background: var(--primary-color);
-}
-.goal-list strong {
-	color: #fff;
-	font-weight: 650;
 }
 
 /* ── event cards (Events page + homepage strip uses its own styles) ── */

@@ -1,0 +1,117 @@
+---
+// Instagram-style discover grid for the Project Hub. Reads src/data/projects.yaml
+// and pulls the matching file out of src/assets/projects/ so Astro optimises it.
+import { Image } from 'astro:assets';
+import builds from '../data/projects.yaml';
+
+interface Props {
+	category: 'club' | 'community';
+}
+
+const { category } = Astro.props;
+
+const files = import.meta.glob<{ default: ImageMetadata }>(
+	'../assets/projects/*.{jpg,JPG,jpeg,JPEG,png,PNG}',
+	{ eager: true },
+);
+const byName = Object.fromEntries(
+	Object.entries(files).map(([path, mod]) => [path.split('/').pop(), mod.default]),
+);
+
+// One tile per photo. Only a build's first photo can take the large tile.
+const tiles = builds
+	.filter((b) => b.category === category)
+	.flatMap((b) =>
+		b.images.map((name, i) => ({
+			builder: b.builder,
+			featured: Boolean(b.featured) && i === 0,
+			image: byName[name],
+			name,
+		})),
+	)
+	.filter((t) => t.image);
+---
+
+<div class="discover-grid not-content">
+	{
+		tiles.map((tile) => (
+			<a
+				class:list={['tile', { featured: tile.featured }]}
+				href={tile.image.src}
+				target="_blank"
+				rel="noopener"
+			>
+				<Image src={tile.image} alt={`Node built by ${tile.builder}`} layout="full-width" />
+				<span class="label">{tile.builder}</span>
+			</a>
+		))
+	}
+</div>
+
+<style>
+	.discover-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 4px;
+		margin: 1.5rem 0 2.5rem;
+	}
+
+	.tile {
+		position: relative;
+		display: block;
+		aspect-ratio: 1;
+		overflow: hidden;
+		background-color: #202224;
+		text-decoration: none;
+	}
+	/* the large tile in the discover pattern */
+	.tile.featured {
+		grid-column: span 2;
+		grid-row: span 2;
+	}
+
+	.tile :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		transition: transform 0.35s ease, opacity 0.2s ease;
+	}
+	.tile:hover :global(img) {
+		transform: scale(1.04);
+		opacity: 0.75;
+	}
+
+	.label {
+		position: absolute;
+		inset-inline: 0;
+		bottom: 0;
+		padding: 1.5rem 0.7rem 0.5rem;
+		background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+		color: #fff;
+		font-size: 0.8rem;
+		font-weight: 600;
+		opacity: 0;
+		transition: opacity 0.2s ease;
+	}
+	.tile:hover .label,
+	.tile:focus-visible .label {
+		opacity: 1;
+	}
+
+	/* touch devices can't hover — keep the name visible */
+	@media (hover: none) {
+		.label {
+			opacity: 1;
+		}
+	}
+
+	@media (max-width: 30rem) {
+		.discover-grid {
+			gap: 2px;
+		}
+		.label {
+			font-size: 0.7rem;
+		}
+	}
+</style>

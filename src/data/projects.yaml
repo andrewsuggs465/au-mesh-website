@@ -1,0 +1,46 @@
+# Project Hub gallery.
+#
+# To add a build:
+#   1. Drop the photo in src/assets/projects/
+#   2. Add an entry below — `images` is just the file name(s)
+#
+# Fields:
+#   builder:   name shown on the tile (required)
+#   category:  club | community (required)
+#   images:    one or more file names from src/assets/projects/ (required)
+#   featured:  true to give the first photo a large 2x2 tile (optional)
+
+- builder: Andrew
+  category: club
+  featured: true
+  images:
+    - andrew.jpg
+
+- builder: Nick
+  category: club
+  images:
+    - nick.jpg
+
+- builder: Jacob
+  category: club
+  images:
+    - Jacob.jpg
+
+- builder: Alex/VXN2
+  category: club
+  images:
+    - VXN2_1.JPG
+    - VXN_2.JPG
+
+- builder: kealpy
+  category: community
+  featured: true
+  images:
+    - Kealpy.jpg
+    - kealpy2.jpg
+    - kealpy3.jpg
+
+- builder: Jerry (KB9V)
+  category: community
+  images:
+    - Jerry_KB9V.jpg

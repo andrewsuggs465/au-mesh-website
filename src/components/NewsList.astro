@@ -1,0 +1,78 @@
+---
+// Lists news posts (src/content/docs/news/*.md) newest first.
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('docs'))
+	.filter((entry) => entry.id.startsWith('news/') && !entry.id.endsWith('news/index'))
+	.sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0));
+
+const dateFormat = new Intl.DateTimeFormat('en-US', {
+	month: 'long',
+	day: 'numeric',
+	year: 'numeric',
+	timeZone: 'UTC',
+});
+---
+
+{
+	posts.length > 0 ? (
+		<ul class="post-list not-content">
+			{posts.map((post) => (
+				<li>
+					<a href={`/${post.id}/`}>
+						<span class="title">{post.data.title}</span>
+					</a>
+					<p class="meta">
+						{post.data.date && <time datetime={post.data.date.toISOString()}>{dateFormat.format(post.data.date)}</time>}
+						{post.data.date && post.data.author && <span aria-hidden="true"> · </span>}
+						{post.data.author}
+					</p>
+					{post.data.description && <p class="excerpt">{post.data.description}</p>}
+				</li>
+			))}
+		</ul>
+	) : (
+		<p>No posts yet — check back soon.</p>
+	)
+}
+
+<style>
+	.post-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+	}
+	.post-list li {
+		padding: 1.25rem 0;
+		border-bottom: 1px solid var(--border-color);
+	}
+	.post-list li:first-child {
+		padding-top: 0.5rem;
+	}
+
+	.post-list a {
+		text-decoration: none;
+	}
+	.title {
+		font-size: 1.2rem;
+		font-weight: 650;
+		color: #fff;
+	}
+	.post-list a:hover .title {
+		color: var(--primary-color);
+	}
+
+	.meta {
+		margin: 0.3rem 0 0;
+		font-size: 0.8rem;
+		color: var(--sl-color-gray-3);
+	}
+	.excerpt {
+		margin: 0.5rem 0 0;
+		font-size: 0.95rem;
+		line-height: 1.6;
+		color: var(--sl-color-gray-2);
+	}
+</style>
