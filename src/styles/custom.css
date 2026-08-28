@@ -137,6 +137,14 @@ starlight-menu-button button {
 	padding-bottom: 0.5em;
 }
 
+/* Starlight separates the title panel from the content panel with its own
+   rule. The h1 above already carries a themed underline, so that second line
+   is a duplicate — and it spans the whole window while the rest of the page
+   is centred. Drop it and keep the underline. */
+.content-panel {
+	border-top: none;
+}
+
 /* ── centre the whole docs frame past 96rem ──
    Starlight pins both sidebars with `position: fixed` and stretches the frame
    edge to edge, so on a 1920px screen the table of contents ends up floating
