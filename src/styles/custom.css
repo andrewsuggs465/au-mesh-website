@@ -15,6 +15,10 @@
 	--hover-bg: rgba(104, 234, 149, 0.1);
 	--glow: 0 0 24px oklch(75% 0.14 175 / 0.15);
 
+	/* widest the page frame gets — the header bar stays full-bleed but lines
+	   its contents up with this, and the docs layout centres inside it */
+	--au-frame-width: 96rem;
+
 	/* fonts */
 	--sl-font: 'Outfit Variable', sans-serif;
 	--sl-font-mono: 'JetBrains Mono Variable', monospace;
@@ -140,7 +144,7 @@ starlight-menu-button button {
    becomes page margin on both sides instead of dead space on the right. */
 @media (min-width: 96rem) {
 	:root {
-		--au-page-gutter: calc((100vw - 96rem) / 2);
+		--au-page-gutter: calc((100vw - var(--au-frame-width)) / 2);
 	}
 	body:has(.sidebar-pane) .sidebar-pane {
 		inset-inline-start: var(--au-page-gutter);

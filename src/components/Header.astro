@@ -52,6 +52,11 @@ const isCurrent = (href: string) =>
 		justify-content: space-between;
 		align-items: center;
 		height: 100%;
+		/* the bar is full-bleed, but its contents line up with the page frame
+		   so the logo sits above the content rather than out at the window edge */
+		max-width: var(--au-frame-width);
+		margin-inline: auto;
+		width: 100%;
 	}
 
 	.title-wrapper {
