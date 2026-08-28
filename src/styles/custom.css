@@ -37,7 +37,7 @@
 	--sl-color-gray-6: #232527;
 	--sl-color-black: var(--bg-color);
 	--sl-color-bg: var(--bg-color);
-	--sl-color-bg-nav: var(--primary-color);
+	--sl-color-bg-nav: var(--bg-color);
 	--sl-color-bg-sidebar: var(--bg-color);
 	--sl-color-bg-inline-code: var(--code-bg-color);
 	--sl-color-text: var(--fg-color);
@@ -76,9 +76,12 @@
 	}
 }
 
-/* ── header banner (solid mint, white text — original look) ── */
+/* ── header banner (dark, mint accents) ──
+   The AU wordmark is white, which reads at 1.5:1 on the old mint banner and
+   17:1 here. The mint rule underneath separates the bar from the page, since
+   both are now the same colour. */
 header.header {
-	background-color: var(--primary-color);
+	background-color: var(--bg-color);
 	border-bottom: 2px solid var(--primary-color);
 }
 header.header a,
@@ -86,35 +89,40 @@ header.header .site-title {
 	color: #fff;
 }
 
-/* search button: dark translucent pill on the mint header */
+/* search button: subtle raised pill on the dark header */
 header.header button[data-open-modal] {
-	background-color: rgba(0, 0, 0, 0.3);
-	color: #fff;
-	border: 1px solid rgba(255, 255, 255, 0.2);
+	background-color: rgba(255, 255, 255, 0.06);
+	color: var(--sl-color-gray-2);
+	border: 1px solid var(--border-color);
 	border-radius: 8px;
 }
 header.header button[data-open-modal]:hover {
-	background-color: rgba(0, 0, 0, 0.5);
-	border-color: rgba(255, 255, 255, 0.4);
+	background-color: var(--hover-bg);
+	border-color: var(--primary-color);
+	color: #fff;
 }
 /* the shortcut hint is a kbd wrapper with nested kbds ("Ctrl" + "K"):
    shade only the outer pill, keep the inner ones transparent */
 header.header button[data-open-modal] > kbd {
-	background-color: rgba(0, 0, 0, 0.25);
-	color: #fff;
+	background-color: rgba(255, 255, 255, 0.08);
+	color: var(--sl-color-gray-2);
 }
 header.header button[data-open-modal] > kbd kbd {
 	background: transparent;
 	padding: 0;
-	color: #fff;
+	color: inherit;
 }
-/* social icons + mobile menu button on mint */
+/* social icons + mobile menu button */
 header.header .social-icons a,
 starlight-menu-button button {
 	color: #fff;
 }
+header.header .social-icons a:hover {
+	color: var(--primary-color);
+}
 starlight-menu-button button {
-	background-color: rgba(0, 0, 0, 0.3);
+	background-color: rgba(255, 255, 255, 0.06);
+	border: 1px solid var(--border-color);
 	box-shadow: none;
 }
 

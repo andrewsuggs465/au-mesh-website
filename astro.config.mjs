@@ -27,7 +27,7 @@ export default defineConfig({
 			description:
 				"Auburn University's student club for embedded systems, wireless, and mesh networking.",
 			favicon: '/favicon.svg',
-			logo: { src: './src/assets/au.svg', alt: 'Auburn University' },
+			logo: { src: './src/assets/au-white.svg', alt: 'Auburn University' },
 			social: [
 				{ icon: 'discord', label: 'Discord', href: 'https://discord.gg/PmmSCSw7Dn' },
 				{
