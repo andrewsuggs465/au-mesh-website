@@ -32,6 +32,33 @@
     - VXN2_1.JPG
     - VXN_2.JPG
 
+- builder: Lane
+  category: club
+  images:
+    - lane.jpg
+
+- builder: Evie
+  category: club
+  images:
+    - evie.jpg
+
+- builder: Andrew (Reticulum)
+  category: club
+  images:
+    - andrew-reticulum.jpg
+
+- builder: Alexander L
+  category: club
+  images:
+    - alexander-l.jpg
+
+# exterior with the solar panel, then the RAK4630 internals
+- builder: Nick G
+  category: club
+  images:
+    - nick-g-solar.jpg
+    - nick-g-solar-internals.jpg
+
 - builder: kealpy
   category: community
   featured: true
