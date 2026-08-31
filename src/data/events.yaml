@@ -35,15 +35,16 @@
   location: Haley Concourse
   details: >-
     Come say hi, grab a flyer, and a free keychain!
+    
 
-- title: September Meeting - Signals & Radio Fundamentals
+  - title: September Meeting - Standards & Protocols
   date: 2026-08-31
   time: 4:00 PM - 5:00 PM
   location: Broun 125
   type: meeting
   details: >-
-    Monthly meeting with a lecture on signals and radio fundamentals.
-  link: https://auburn.campuslabs.com/engage/event/12518204
+    Monthly meeting with a lecture on communication standards and protocols.
+  link: https://auburn.campuslabs.com/engage/event/12518189
 
 - title: Fall Kickoff Hangout
   date: 2026-09-15
@@ -53,14 +54,15 @@
   details: >-
     Mellow Mushroom benefit night - come support the club financially and help us raise funds for workshops!
 
-- title: October Meeting - Standards & Protocols
+
+  - title: October Meeting - Signals & Radio Fundamentals
   date: 2026-10-05
   time: 4:00 PM - 5:00 PM
   location: Broun 125
   type: meeting
   details: >-
-    Monthly meeting with a lecture on communication standards and protocols.
-  link: https://auburn.campuslabs.com/engage/event/12518189
+    Monthly meeting with a lecture on signals and radio fundamentals.
+  link: https://auburn.campuslabs.com/engage/event/12518204
 
 - title: November Meeting - Software & Networking
   date: 2026-11-02
