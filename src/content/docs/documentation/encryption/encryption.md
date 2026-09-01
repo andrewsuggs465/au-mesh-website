@@ -1,13 +1,12 @@
 ---
 title: Encryption Algorithms
-description: A dive into how encryption works and why it is important.
+description: How encryption works and why it matters for mesh networks.
 ---
 
-*A dive into how encryption works and why it is important*
+Notes from a club talk on how RSA, AES, and ECC work, and why encryption
+matters for mesh networks.
 
----
-
-## Section 1: Introduction — Core Applications and Fundamental Types
+## Introduction
 
 ### Core Applications
 
@@ -52,7 +51,7 @@ description: A dive into how encryption works and why it is important.
 
 ---
 
-## Section 2: RSA Encryption
+## RSA Encryption
 
 ### RSA Key Generation
 
@@ -107,7 +106,7 @@ RSA relies on the **trapdoor function**: easy to produce, difficult to reverse.
 
 ---
 
-## Section 3: AES Encryption
+## AES Encryption
 
 ### Block Cipher Algorithm
 
@@ -161,7 +160,7 @@ Each round consists of: **SubBytes → ShiftRows → MixColumns → Add Round Ke
 
 ---
 
-## Section 4: ECC Encryption
+## ECC Encryption
 
 ### Math Refresh
 
@@ -218,7 +217,7 @@ Computing successive powers of `g = 2 (mod 5)`:
 
 ---
 
-## Section 5: Conclusion
+## Conclusion
 
 ### Relevance for Security
 

@@ -16,7 +16,7 @@ commit, and the site rebuilds and deploys itself in a couple of minutes
 | I want to… | Edit this |
 | :--- | :--- |
 | Add or change an **event** | `src/data/events.yaml` — one entry per event, instructions are at the top of the file. Past events move to "Past events" automatically. |
-| Update the **workshops** lineup | `src/content/docs/workshops.mdx` |
+| Update the **workshops** lineup | `src/data/workshops.yaml` — one entry per workshop, instructions are at the top of the file |
 | Edit a **docs page** | The matching file under `src/content/docs/documentation/` |
 | Add a **new docs page** | Add a `.md` file under `src/content/docs/documentation/meshtastic/` with `title:` frontmatter (copy an existing file's header) |
 | Change **homepage** text or links | `src/content/docs/index.mdx` |
@@ -27,7 +27,7 @@ commit, and the site rebuilds and deploys itself in a couple of minutes
 
 ## Running locally
 
-Requires [Node.js](https://nodejs.org) 18+.
+Requires [Node.js](https://nodejs.org) 22.12 or newer (Astro 7).
 
 ```sh
 npm install      # first time only

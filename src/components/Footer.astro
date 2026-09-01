@@ -1,0 +1,39 @@
+---
+// Custom Starlight footer: keep Starlight's default footer (edit link, last
+// updated, pagination) and add the club's site-wide disclaimer below it.
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default><slot /></Default>
+
+<div class="site-disclaimer">
+	<p>
+		Built with the help of <a href="https://www.anthropic.com/claude" rel="noopener">Claude</a>.
+		All content is written and reviewed by club members.
+	</p>
+	<p>
+		Auburn University Mesh Club ·
+		<a href="https://github.com/andrewsuggs465/au-mesh-website" rel="noopener">Source on GitHub</a>
+	</p>
+</div>
+
+<style>
+	.site-disclaimer {
+		margin-top: 3rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--border-color, var(--sl-color-gray-5));
+		font-size: var(--sl-text-xs);
+		line-height: 1.6;
+		color: var(--sl-color-gray-3);
+		text-align: center;
+	}
+	.site-disclaimer p {
+		margin: 0.25rem 0;
+	}
+	.site-disclaimer a {
+		color: var(--sl-color-gray-2);
+	}
+	.site-disclaimer a:hover {
+		color: var(--primary-color, var(--sl-color-white));
+	}
+</style>
