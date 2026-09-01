@@ -1,6 +1,6 @@
 ---
 title: Link Budget Calculator
-description: Work out whether a radio link will actually close — received power, SNR, and margin over distance, with atmospheric, cloud, and rain loss.
+description: Work out whether a radio link will actually close - received power, SNR, and margin over distance, with atmospheric, cloud, and rain loss.
 template: splash
 editUrl: false
 tableOfContents: false
@@ -8,60 +8,10 @@ tableOfContents: false
 
 import LinkBudget from '../../../components/LinkBudget.astro';
 
-Before you climb a roof to mount a node, it helps to know whether the link will
-close at all. This calculator estimates how much signal survives the trip
-between two radios and compares it against the noise floor.
-
-Pick a preset, set the distance, and watch the margin. Everything runs in your
-browser — nothing is sent anywhere.
-
 <LinkBudget />
-
-## Reading the result
-
-**Link margin** is the number that matters: your SNR minus the SNR your radio
-needs to demodulate. Positive means the link closes, negative means it does not.
-Roughly 10 dB of margin is a comfortable target — real paths lose signal to
-things this model does not know about.
-
-**Received power** is what lands at the receiver's antenna terminals. **Noise
-floor** is thermal noise `kTB` at the receiver bandwidth: narrower bandwidth
-means a lower noise floor, which is exactly why LoRa reaches so far at such low
-data rates.
-
-## What it does not model
-
-This is a clear-path model. It assumes flat ground and unobstructed line of
-sight, so it will happily tell you a link closes straight through a hill. It
-also ignores receiver noise figure, so a real radio will do somewhat worse than
-the SNR shown here.
-
-The one geometry check it does make is the radio horizon. Set your antenna
-heights and the chart shades everything past the point where the curve of the
-earth gets in the way — the loss model itself does not know about that, so
-treat any margin in the shaded region as fiction until you have checked terrain.
-
-For terrain, use the [Meshtastic Site Planner](https://site.meshtastic.org/)
-alongside this — that tool handles obstructions but not weather, and this one
-handles weather but not obstructions.
-
-Two more caveats worth knowing:
-
-- The ITU atmospheric and rain models are specified from 1 GHz up. At 915 MHz
-  the free-space number is still exact, but the weather terms are extrapolated.
-  They are tiny at that frequency, so this rarely changes the answer.
-- Antenna gain figures on cheap listings are optimistic. If you are unsure, a
-  stock rubber-duck is closer to 2 dBi than the 5 dBi on the box.
 
 ## Credit
 
 The physics comes from
 [Link-Budget-GUI](https://github.com/SpecterStrider/Link-Budget-GUI) by
-SpecterStrider, used under the Apache 2.0 licence. That project is a Python and
-NiceGUI app; since this site is static, the model was ported to TypeScript so it
-runs client-side. The formulas and ITU coefficient tables are unchanged, and the
-port was checked against the original across the frequency range.
-
-Model references: Friis transmission equation, ITU-R P.676-13 (atmospheric
-gases), ITU-R P.840-9 (cloud and fog), ITU-R P.838-3 and P.530-17 (rain), and
-Johnson–Nyquist thermal noise.
+SpecterStrider, used under the Apache 2.0 licence.
