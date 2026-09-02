@@ -20,7 +20,6 @@ import {
 const upcoming = upcomingEntries();
 const past = pastEntries();
 const siteUrl = Astro.site?.origin ?? 'https://aumesh.club';
-const feedUrl = `webcal://${new URL(siteUrl).host}/aumesh.ics`;
 
 const TYPES = [
 	{ id: 'meeting', label: 'Meetings' },
@@ -88,11 +87,8 @@ const payload = [...upcoming, ...past].map((e) => ({
 			}
 		</div>
 
-		<div class="subscribe">
+		<div class="actions">
 			<a class="btn primary" href="/aumesh.ics" download="aumesh.ics">Add to calendar</a>
-			<a class="btn" href={feedUrl} title="Subscribe so new events arrive on their own">
-				Subscribe
-			</a>
 		</div>
 	</div>
 
@@ -452,7 +448,7 @@ const payload = [...upcoming, ...past].map((e) => ({
 		color: var(--primary-color);
 	}
 
-	.subscribe {
+	.actions {
 		display: flex;
 		gap: 0.5rem;
 		margin-left: auto;
@@ -716,7 +712,7 @@ const payload = [...upcoming, ...past].map((e) => ({
 		.seg {
 			display: none;
 		}
-		.subscribe {
+		.actions {
 			margin-left: 0;
 			width: 100%;
 		}

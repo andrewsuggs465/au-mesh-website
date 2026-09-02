@@ -250,7 +250,10 @@ function toVevent(entry: CalendarEntry, siteUrl: string): string[] {
 	if (description) lines.push(`DESCRIPTION:${escapeIcs(description)}`);
 
 	lines.push(`URL:${entry.link ?? `${siteUrl}/calendar/#${entry.id}`}`);
-	lines.push(`CATEGORIES:${entry.type.toUpperCase()}`);
+	// No CATEGORIES. The type is a filter on the page, but in a calendar app it
+	// files the imported events under a group per type, so one download turned
+	// into WORKSHOP, SOCIAL and SPECIAL sitting alongside each other. Everything
+	// belongs in the one AU Mesh Club calendar that `X-WR-CALNAME` names.
 	if (entry.tentative) lines.push('STATUS:TENTATIVE');
 	lines.push('END:VEVENT');
 	return lines;
