@@ -22,7 +22,14 @@ const dateFormat = new Intl.DateTimeFormat('en-US', {
 				<li>
 					{post.data.cover && (
 						<a class="thumb" href={`/${post.id}/`} tabindex="-1" aria-hidden="true">
-							<Image src={post.data.cover} alt="" width={320} widths={[160, 320]} sizes="10rem" loading="lazy" />
+							<Image
+								src={post.data.cover}
+								alt=""
+								width={800}
+								widths={[320, 544, 800]}
+								sizes="(min-width: 40rem) 17rem, 100vw"
+								loading="lazy"
+							/>
 						</a>
 					)}
 					<div class="body">
@@ -67,7 +74,9 @@ const dateFormat = new Intl.DateTimeFormat('en-US', {
 	}
 
 	/* The thumbnail repeats the link next to it, so it is hidden from assistive
-	   tech rather than read out twice. */
+	   tech rather than read out twice. It is 17rem beside the text and the full
+	   column width below 40rem, which is what `sizes` above describes: asking
+	   for 10rem got a 160px file stretched across a phone screen. */
 	.thumb {
 		flex: 0 0 17rem;
 		display: block;

@@ -74,9 +74,6 @@ const byline = [
 		position: relative;
 		margin-top: 1rem;
 		aspect-ratio: 3 / 1;
-		/* Below roughly 45rem wide the 3:1 band gets too short to read faces in,
-		   so the min-height takes over and the crop opens back up. */
-		min-height: 15rem;
 		border-radius: 10px;
 		overflow: hidden;
 		isolation: isolate;
@@ -132,9 +129,23 @@ const byline = [
 		text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
 	}
 
+	/* The 3:1 band gets too short to read faces in once the column narrows, so
+	   the crop opens back up in steps. It has to be done with the ratio rather
+	   than a min-height: a min-height on an `aspect-ratio` box is transferred
+	   back into the width, which blows the hero out past the viewport and makes
+	   the phone zoom the whole page out to fit. */
 	@media (max-width: 45rem) {
+		.page-hero {
+			aspect-ratio: 2 / 1;
+		}
 		.hero-text {
 			padding: 1.1rem 1.1rem 1rem;
+		}
+	}
+
+	@media (max-width: 30rem) {
+		.page-hero {
+			aspect-ratio: 3 / 2;
 		}
 	}
 </style>

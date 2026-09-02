@@ -275,9 +275,14 @@
 			ptp58: { freqGHz: 5.8, bandwidthMHz: 20, pTx: 23, gTx: 24, gRx: 24, requiredSnr: 15 },
 		};
 
-	const PAD = { l: 62, r: 16, t: 16, b: 46 };
-	const W = 760;
-	const H = 380;
+	/* Chart geometry in SVG user units. The whole drawing is scaled to the
+	   column width, so on a phone the 760-unit box shrinks to about 310px and
+	   11-unit labels land at 6px on screen. The smaller phone box scales less,
+	   which brings the labels back to the size of the rest of the small text. */
+	const DESKTOP_CHART = { W: 760, H: 380, PAD: { l: 62, r: 16, t: 16, b: 46 } };
+	const PHONE_CHART = { W: 380, H: 275, PAD: { l: 50, r: 12, t: 12, b: 44 } };
+	const narrowChart = window.matchMedia('(max-width: 45rem)');
+	let { W, H, PAD } = narrowChart.matches ? PHONE_CHART : DESKTOP_CHART;
 	const SAMPLES = 220;
 
 	const NS = 'http://www.w3.org/2000/svg';
@@ -321,6 +326,17 @@
 
 		const svg = root.querySelector<SVGSVGElement>('[data-chart]')!;
 		const tip = root.querySelector<HTMLElement>('[data-tip]')!;
+
+		const sizeChart = () => {
+			({ W, H, PAD } = narrowChart.matches ? PHONE_CHART : DESKTOP_CHART);
+			svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+		};
+		sizeChart();
+		narrowChart.addEventListener('change', () => {
+			sizeChart();
+			render();
+		});
+
 		const inputs = Array.from(root.querySelectorAll<HTMLInputElement>('input[data-bind]'));
 
 		/* ── state path access ── */
@@ -541,13 +557,20 @@
 						})
 					);
 					svg.append(el('line', { x1: X, y1: PAD.t, x2: X, y2: H - PAD.b, class: 'horizon' }));
-					svg.append(
-						el(
-							'text',
-							{ x: X + 5, y: PAD.t + 12, class: 'horizon-label' },
-							'over the horizon'
-						)
-					);
+					const horizonLabel = el(
+						'text',
+						{ x: X + 5, y: PAD.t + 12, class: 'horizon-label' },
+						'over the horizon'
+					) as SVGTextElement;
+					svg.append(horizonLabel);
+					// The horizon usually sits near the right edge, where the label
+					// runs off the plot and out of the card. Measure it once it is in
+					// the document and hang it off the other side of the line when it
+					// does not fit.
+					if (X + 5 + horizonLabel.getComputedTextLength() > W - PAD.r) {
+						horizonLabel.setAttribute('x', String(X - 5));
+						horizonLabel.setAttribute('text-anchor', 'end');
+					}
 				}
 			}
 
@@ -690,8 +713,11 @@
 		grid-column: 1 / -1;
 	}
 	@media (max-width: 60rem) {
+		/* `minmax(0, …)` rather than `1fr`: a bare `1fr` floors the column at the
+		   widest card's min-content, which on a 320px phone pushes the whole page
+		   wider than the window. */
 		.lb-grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 		.plot-card,
 		.readout,
@@ -821,6 +847,11 @@
 		align-items: end;
 		gap: 0.75rem;
 		margin-top: 0.75rem;
+	}
+	/* An author `display` beats the user agent's `[hidden]`, so without this the
+	   inactive sweep's controls stay on screen next to the active one's. */
+	.sweep-row[hidden] {
+		display: none;
 	}
 
 	/* ── readout ── */
@@ -976,6 +1007,19 @@
 			grid-template-columns: 1fr;
 		}
 	}
+
+	/* Pairs with the smaller phone viewBox: the two together put the chart
+	   labels at roughly the same size as the rest of the small text here. */
+	@media (max-width: 45rem) {
+		.chart :global(.tick),
+		.chart :global(.noise-label),
+		.chart :global(.horizon-label) {
+			font-size: 13px;
+		}
+		.chart :global(.axis) {
+			font-size: 14px;
+		}
+	}
 	.fields {
 		display: flex;
 		flex-wrap: wrap;
@@ -1010,6 +1054,7 @@
 	}
 	.slide {
 		display: flex;
+		flex-wrap: wrap;
 		align-items: end;
 		gap: 0.75rem;
 		margin-top: 0.6rem;

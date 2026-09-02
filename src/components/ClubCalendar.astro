@@ -259,6 +259,18 @@ const payload = [...upcoming, ...past].map((e) => ({
 			});
 		});
 
+		// A seven-column grid needs more width than a phone has: the cells end up
+		// too narrow to print a title in. The toggle is hidden below the same
+		// breakpoint, so drop back to the list if the window gets that narrow.
+		const narrow = window.matchMedia('(max-width: 45rem)');
+		const listOnly = () => {
+			if (narrow.matches && !monthView.hidden) {
+				(root.querySelector('[data-view="list"]') as HTMLButtonElement).click();
+			}
+		};
+		narrow.addEventListener('change', listOnly);
+		listOnly();
+
 		// ── type filters ──
 		root.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((btn) => {
 			btn.addEventListener('click', () => {
@@ -697,21 +709,16 @@ const payload = [...upcoming, ...past].map((e) => ({
 	}
 
 	@media (max-width: 45rem) {
+		/* The month grid does not survive a phone-width column: seven cells to a
+		   row leaves ~45px each, too little for the day number and a title. The
+		   list carries the same events with their details, so it is the only
+		   view down here. */
+		.seg {
+			display: none;
+		}
 		.subscribe {
 			margin-left: 0;
 			width: 100%;
-		}
-		.grid :global(.cell) {
-			min-height: 4rem;
-			padding: 0.2rem;
-		}
-		.grid :global(.pill) {
-			font-size: 0;
-			line-height: 0;
-			padding: 0;
-			height: 4px;
-			border-left: 0;
-			background: var(--primary-color);
 		}
 	}
 </style>

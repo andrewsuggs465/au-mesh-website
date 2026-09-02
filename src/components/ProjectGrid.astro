@@ -18,7 +18,8 @@ const byName = Object.fromEntries(
 	Object.entries(files).map(([path, mod]) => [path.split('/').pop(), mod.default]),
 );
 
-// One tile per photo. Only a build's first photo can take the large tile.
+// One tile per photo. Only a build's first photo can take the large tile
+// (on a phone the grid becomes a swipeable row and every tile is the same size).
 const tiles = builds
 	.filter((b) => b.category === category)
 	.flatMap((b) =>
@@ -106,12 +107,39 @@ const tiles = builds
 		}
 	}
 
-	@media (max-width: 30rem) {
+	/* On a phone the grid stacks up into seven rows of thumbnails, so the page
+	   is mostly scrolling past builds. Lay them out as a swipeable row instead:
+	   a couple on screen at a time, big enough to see, the rest a flick away.
+	   The row bleeds to the window edges so it reads as scrollable, while the
+	   padding keeps the first tile lined up with the text above it. */
+	@media (max-width: 45rem) {
 		.discover-grid {
-			gap: 2px;
+			display: flex;
+			gap: 8px;
+			overflow-x: auto;
+			scroll-snap-type: x mandatory;
+			overscroll-behavior-x: contain;
+			scrollbar-width: none;
+			-ms-overflow-style: none;
+			/* `--sl-content-pad-x` is the padding on the content panel this sits
+			   in, so cancelling it lands the row exactly on the window edges.
+			   A `100vw` bleed would overshoot by the scrollbar width. */
+			margin-inline: calc(-1 * var(--sl-content-pad-x, 1rem));
+			padding-inline: var(--sl-content-pad-x, 1rem);
+			scroll-padding-inline-start: var(--sl-content-pad-x, 1rem);
+		}
+		.discover-grid::-webkit-scrollbar {
+			display: none;
+		}
+		.tile,
+		.tile.featured {
+			flex: 0 0 76%;
+			scroll-snap-align: start;
+			border-radius: 8px;
 		}
 		.label {
-			font-size: 0.7rem;
+			opacity: 1;
+			font-size: 0.8rem;
 		}
 	}
 </style>

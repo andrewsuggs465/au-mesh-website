@@ -401,8 +401,31 @@
 		.legend span.gap {
 			margin-left: 0;
 		}
+		/* The timeline is what the page is for, so the columns either side of it
+		   give up what they can: narrower name column, tighter meters, and a
+		   toolbar that wraps rather than squeezing the speed slider. */
 		.stage {
 			padding-inline: 0.5rem;
+			grid-template-columns: 1.4rem minmax(0, 1fr) auto;
+		}
+		.meters :global(.meter) {
+			padding-left: 0.4rem;
+			gap: 0.3rem;
+		}
+		.meters :global(.q),
+		.meters :global(.b) {
+			min-width: 1.1rem;
+		}
+		.bar {
+			flex-wrap: wrap;
+		}
+		.speed {
+			width: auto;
+			flex: 1 1 6rem;
+		}
+		.toggle {
+			white-space: nowrap;
+			margin-left: 0;
 		}
 	}
 </style>

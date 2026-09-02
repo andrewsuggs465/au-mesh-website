@@ -45,6 +45,30 @@ const isCurrent = (href: string) =>
 	</div>
 </div>
 
+<script>
+	// Only three or four of the six links fit on a phone, so the nav scrolls.
+	// Nothing says so, and it starts at "Home" with the page you are actually on
+	// off the end. Start it on the current section and fade the edge while there
+	// is more to reach.
+	const nav = document.querySelector<HTMLElement>('.site-nav');
+	if (nav) {
+		const current = nav.querySelector<HTMLAnchorElement>('[aria-current="page"]');
+		if (current) {
+			const link = current.getBoundingClientRect();
+			const box = nav.getBoundingClientRect();
+			nav.scrollLeft += link.left - box.left - (box.width - link.width) / 2;
+		}
+		const sync = () => {
+			const end = nav.scrollWidth - nav.clientWidth;
+			nav.style.setProperty('--fade-start', nav.scrollLeft > 1 ? '2rem' : '0px');
+			nav.style.setProperty('--fade-end', nav.scrollLeft < end - 1 ? '2rem' : '0px');
+		};
+		nav.addEventListener('scroll', sync, { passive: true });
+		window.addEventListener('resize', sync);
+		sync();
+	}
+</script>
+
 <style>
 	.header {
 		gap: var(--sl-nav-gap);
@@ -65,6 +89,20 @@ const isCurrent = (href: string) =>
 		min-width: 0;
 	}
 
+	/* On a phone there is not room for the logo, the site name and the nav, so
+	   the name gets clipped mid-word. Drop it to the logo, which is the same
+	   link home, and keep the text for screen readers. */
+	@media (max-width: 50rem) {
+		.title-wrapper :global(.site-title > span) {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			overflow: hidden;
+			clip-path: inset(50%);
+			white-space: nowrap;
+		}
+	}
+
 	.site-nav {
 		gap: 1.25rem;
 		align-items: center;
@@ -72,6 +110,24 @@ const isCurrent = (href: string) =>
 		overflow-x: auto;
 		scrollbar-width: none;
 		-ms-overflow-style: none;
+		/* The script above widens whichever end still has links behind it, so an
+		   edge is faded only while there is something past it to scroll to. */
+		--fade-start: 0px;
+		--fade-end: 0px;
+		-webkit-mask-image: linear-gradient(
+			to right,
+			transparent,
+			#000 var(--fade-start),
+			#000 calc(100% - var(--fade-end)),
+			transparent
+		);
+		mask-image: linear-gradient(
+			to right,
+			transparent,
+			#000 var(--fade-start),
+			#000 calc(100% - var(--fade-end)),
+			transparent
+		);
 	}
 	.site-nav::-webkit-scrollbar {
 		display: none;
