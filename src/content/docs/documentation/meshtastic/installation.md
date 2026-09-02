@@ -34,7 +34,7 @@ Go to [Meshtastic Web Flasher](https://flasher.meshtastic.org), choose your devi
 
 1. Double-tap the **reset** button quickly
 2. A USB mass storage drive appears (e.g., `NRF52BOOT`)
-3. Drag and drop your `.uf2` file onto the drive — done
+3. Drag and drop your `.uf2` file onto the drive, and you are done
 
 ---
 

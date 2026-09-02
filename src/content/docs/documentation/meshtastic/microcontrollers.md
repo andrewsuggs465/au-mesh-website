@@ -19,7 +19,7 @@ sidebar:
 | **Architecture** | Xtensa LX6 dual-core @ 240 MHz (ESP32); LX7 dual-core @ 240 MHz (S3) |
 | **RAM** | 520 KB SRAM (ESP32); 512 KB + optional PSRAM (S3) |
 | **Flash** | External, typically 4–16 MB |
-| **Wi-Fi** | 802.11 b/g/n 2.4 GHz — yes on both |
+| **Wi-Fi** | 802.11 b/g/n 2.4 GHz, yes on both |
 | **Bluetooth** | BT Classic + BLE 4.2 (ESP32); BLE 5.0 (S3) |
 | **Sleep Current** | ~10 µA deep sleep; ~40–80 mA typical active RX |
 | **Operating Voltage** | 3.0–3.6 V |

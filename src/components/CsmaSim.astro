@@ -1,0 +1,408 @@
+---
+/**
+ * CSMA/CA animation. The model lives in `src/lib/csma.ts`; this is the canvas
+ * view over it, plus the transport controls.
+ */
+---
+
+<div class="csma not-content" data-csma>
+	<div class="bar">
+		<button type="button" class="play" data-run aria-label="Start">
+			<svg viewBox="0 0 24 24" aria-hidden="true">
+				<path d="M8 5v14l11-7z" data-run-icon></path>
+			</svg>
+		</button>
+		<button type="button" class="ghost" data-reset aria-label="Reset">
+			<svg viewBox="0 0 24 24" aria-hidden="true">
+				<path d="M12 5V2L8 6l4 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"></path>
+			</svg>
+		</button>
+
+		<label class="speed">
+			<input type="range" min="6" max="90" step="1" value="30" data-speed aria-label="Speed" />
+		</label>
+
+		<label class="toggle">
+			<input type="checkbox" data-hidden />
+			<span>Hidden terminals</span>
+		</label>
+	</div>
+
+	<div class="stage">
+		<div class="names" data-names></div>
+		<div class="track"><canvas data-canvas></canvas></div>
+		<div class="meters" data-meters></div>
+	</div>
+
+	<div class="legend">
+		<span><i style="background:#38bdf8"></i>RTS</span>
+		<span><i style="background:#a78bfa"></i>CTS</span>
+		<span><i style="background:#f97316"></i>Data</span>
+		<span><i style="background:#4ade80"></i>ACK</span>
+		<span class="gap"><i style="background:#3f4548"></i>Free</span>
+		<span><i style="background:#ef4444"></i>Busy</span>
+		<span><i style="background:#eab308"></i>NAV</span>
+		<span><i style="background:#8f9aa3"></i>Backoff</span>
+	</div>
+</div>
+
+<script>
+	import { Simulation, Frame, type Sample } from '../lib/csma';
+
+	const FRAME_COLOR = ['transparent', '#38bdf8', '#a78bfa', '#f97316', '#4ade80'];
+	const CARRIER_COLOR = ['#3f4548', '#ef4444', '#eab308'];
+	const BACKOFF_COLOR = '#8f9aa3';
+
+	const NAMES = ['A', 'B', 'C', 'AP'];
+	const ROW_H = 54;
+	const FRAME_H = 26;
+	const CARRIER_H = 8;
+	const SLOT_PX = 2;
+
+	const root = document.querySelector<HTMLElement>('[data-csma]');
+	if (root) init(root);
+
+	function init(root: HTMLElement) {
+		const canvas = root.querySelector<HTMLCanvasElement>('[data-canvas]')!;
+		const ctx = canvas.getContext('2d')!;
+		const track = root.querySelector<HTMLElement>('.track')!;
+		const namesEl = root.querySelector<HTMLElement>('[data-names]')!;
+		const metersEl = root.querySelector<HTMLElement>('[data-meters]')!;
+		const runBtn = root.querySelector<HTMLButtonElement>('[data-run]')!;
+		const speedInput = root.querySelector<HTMLInputElement>('[data-speed]')!;
+		const hiddenInput = root.querySelector<HTMLInputElement>('[data-hidden]')!;
+
+		// One path swapped between the two glyphs. Toggling `hidden` on a pair of
+		// SVGs does not work here: Starlight's reset sets `svg { display: block }`,
+		// and an author rule beats the user agent's `[hidden]`.
+		const runIcon = root.querySelector<SVGPathElement>('[data-run-icon]')!;
+		const PLAY = 'M8 5v14l11-7z';
+		const PAUSE = 'M6 5h4v14H6zM14 5h4v14h-4z';
+
+		namesEl.innerHTML = NAMES.map((n) => `<div class="name">${n}</div>`).join('');
+		metersEl.innerHTML = NAMES.map((n, i) =>
+			i === 3
+				? '<div class="meter"></div>'
+				: `<div class="meter">
+						<button type="button" class="emit" data-emit="${i}" aria-label="Send a frame from station ${n}">
+							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20.5v-17l19 8.5z"/></svg>
+						</button>
+						<span class="q" data-q="${i}">0</span>
+						<span class="b" data-b="${i}">0</span>
+					</div>`
+		).join('');
+
+		let sim = new Simulation(false);
+		let history: Sample[][] = NAMES.map(() => []);
+		let capacity = 0;
+		let running = false;
+		let raf = 0;
+		let last = 0;
+		let carry = 0;
+
+		resize();
+		new ResizeObserver(resize).observe(track);
+
+		function build() {
+			sim = new Simulation(hiddenInput.checked);
+			history = NAMES.map(() => []);
+			paint();
+		}
+
+		function resize() {
+			const dpr = window.devicePixelRatio || 1;
+			const w = Math.max(track.clientWidth, 240);
+			const h = ROW_H * NAMES.length;
+			canvas.width = Math.round(w * dpr);
+			canvas.height = Math.round(h * dpr);
+			canvas.style.height = `${h}px`;
+			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+			capacity = Math.ceil(w / SLOT_PX) + 2;
+			for (const row of history) if (row.length > capacity) row.splice(0, row.length - capacity);
+			paint();
+		}
+
+		function tick() {
+			const samples = sim.step();
+			samples.forEach((s, i) => {
+				history[i].push(s);
+				if (history[i].length > capacity) history[i].shift();
+			});
+		}
+
+		function paint() {
+			const w = canvas.width / (window.devicePixelRatio || 1);
+			ctx.clearRect(0, 0, w, ROW_H * NAMES.length);
+
+			history.forEach((row, node) => {
+				const top = node * ROW_H + 10;
+				// The newest slot sits at the right edge, so the timeline scrolls left.
+				const originX = w - row.length * SLOT_PX;
+
+				for (let i = 0; i < row.length; ) {
+					const s = row[i];
+					let run = 1;
+					while (
+						i + run < row.length &&
+						row[i + run].frame === s.frame &&
+						row[i + run].counting === s.counting
+					) {
+						run += 1;
+					}
+					const x = originX + i * SLOT_PX;
+					if (s.counting) {
+						ctx.fillStyle = BACKOFF_COLOR;
+						ctx.fillRect(x, top + FRAME_H - 6, run * SLOT_PX, 6);
+					} else if (s.frame !== Frame.None) {
+						ctx.fillStyle = FRAME_COLOR[s.frame];
+						ctx.fillRect(x, top, run * SLOT_PX, FRAME_H);
+					}
+					i += run;
+				}
+
+				const cTop = top + FRAME_H + 6;
+				for (let i = 0; i < row.length; ) {
+					const s = row[i];
+					let run = 1;
+					while (i + run < row.length && row[i + run].carrier === s.carrier) run += 1;
+					ctx.fillStyle = CARRIER_COLOR[s.carrier];
+					ctx.fillRect(originX + i * SLOT_PX, cTop, run * SLOT_PX, CARRIER_H);
+					i += run;
+				}
+			});
+
+			sim.stations.forEach((s, i) => {
+				root.querySelector(`[data-q="${i}"]`)!.textContent = String(s.queue);
+				root.querySelector(`[data-b="${i}"]`)!.textContent = String(s.backoff());
+			});
+		}
+
+		function frame(now: number) {
+			raf = requestAnimationFrame(frame);
+			const dt = Math.min(now - last, 250) / 1000;
+			last = now;
+			carry += dt * Number(speedInput.value);
+			let budget = 400; // a backgrounded tab must not spiral
+			while (carry >= 1 && budget-- > 0) {
+				carry -= 1;
+				tick();
+			}
+			paint();
+		}
+
+		function start() {
+			if (running) return;
+			running = true;
+			last = performance.now();
+			carry = 0;
+			raf = requestAnimationFrame(frame);
+			runIcon.setAttribute('d', PAUSE);
+			runBtn.setAttribute('aria-label', 'Pause');
+		}
+
+		function stop() {
+			running = false;
+			cancelAnimationFrame(raf);
+			runIcon.setAttribute('d', PLAY);
+			runBtn.setAttribute('aria-label', 'Start');
+		}
+
+		runBtn.addEventListener('click', () => (running ? stop() : start()));
+		canvas.addEventListener('click', () => (running ? stop() : start()));
+		root.querySelector('[data-reset]')!.addEventListener('click', () => {
+			stop();
+			build();
+		});
+		hiddenInput.addEventListener('change', () => {
+			const wasRunning = running;
+			stop();
+			build();
+			if (wasRunning) start();
+		});
+		root.querySelectorAll<HTMLButtonElement>('[data-emit]').forEach((btn) => {
+			btn.addEventListener('click', () => {
+				sim.stations[Number(btn.dataset.emit)].enqueue();
+				paint();
+				start();
+			});
+		});
+		document.addEventListener('visibilitychange', () => {
+			if (document.hidden) stop();
+		});
+	}
+</script>
+
+<style>
+	.csma {
+		margin: 0 0 1.5rem;
+		border: 1px solid var(--border-color);
+		border-radius: 12px;
+		overflow: hidden;
+		background: #131517;
+	}
+
+	@media (min-width: 72rem) {
+		:global(body:has(.csma) .sl-container) {
+			max-width: 58rem;
+		}
+	}
+
+	/* ── controls ── */
+	.bar {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.7rem 0.9rem;
+		border-bottom: 1px solid var(--sl-color-gray-6);
+	}
+	.bar button {
+		display: grid;
+		place-items: center;
+		width: 2.1rem;
+		height: 2.1rem;
+		border-radius: 50%;
+		border: 1px solid var(--border-color);
+		background: transparent;
+		color: var(--primary-color);
+		cursor: pointer;
+		padding: 0;
+	}
+	.bar button:hover {
+		background: var(--hover-bg);
+	}
+	.bar button svg {
+		width: 15px;
+		height: 15px;
+		fill: currentColor;
+	}
+	.bar button.ghost {
+		color: var(--sl-color-gray-3);
+	}
+	.bar button.ghost:hover {
+		color: var(--primary-color);
+	}
+
+	.speed {
+		display: flex;
+		width: 8rem;
+	}
+	.speed input {
+		width: 100%;
+		accent-color: var(--primary-color);
+	}
+
+	.toggle {
+		display: flex;
+		align-items: center;
+		gap: 0.45rem;
+		margin-left: auto;
+		font-size: 0.8rem;
+		color: var(--sl-color-gray-3);
+		cursor: pointer;
+	}
+	.toggle input {
+		accent-color: var(--primary-color);
+	}
+
+	/* ── stage ── */
+	.stage {
+		display: grid;
+		grid-template-columns: 2.4rem minmax(0, 1fr) auto;
+		align-items: start;
+		padding: 0.4rem 0.9rem 0.6rem;
+	}
+	.names,
+	.meters {
+		display: grid;
+	}
+	.names :global(.name) {
+		height: 54px;
+		display: flex;
+		align-items: center;
+		font-family: var(--sl-font-mono), monospace;
+		font-size: 0.8rem;
+		color: var(--sl-color-gray-3);
+	}
+	.track {
+		min-width: 0;
+	}
+	.track canvas {
+		display: block;
+		width: 100%;
+	}
+
+	.meters :global(.meter) {
+		height: 54px;
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding-left: 0.75rem;
+	}
+	.meters :global(.emit) {
+		display: grid;
+		place-items: center;
+		width: 1.6rem;
+		height: 1.6rem;
+		border-radius: 6px;
+		border: 1px solid var(--border-color);
+		background: transparent;
+		color: var(--sl-color-gray-2);
+		cursor: pointer;
+		padding: 0;
+	}
+	.meters :global(.emit:hover) {
+		color: var(--primary-color);
+		border-color: var(--primary-color);
+	}
+	.meters :global(.emit svg) {
+		width: 11px;
+		height: 11px;
+		fill: currentColor;
+	}
+	.meters :global(.q),
+	.meters :global(.b) {
+		font-family: var(--sl-font-mono), monospace;
+		font-size: 0.72rem;
+		min-width: 1.6rem;
+		text-align: right;
+	}
+	.meters :global(.q) {
+		color: var(--sl-color-gray-2);
+	}
+	.meters :global(.b) {
+		color: var(--sl-color-gray-4);
+	}
+
+	/* ── legend ── */
+	.legend {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.3rem 0.9rem;
+		padding: 0.6rem 0.9rem 0.75rem;
+		border-top: 1px solid var(--sl-color-gray-6);
+		font-size: 0.72rem;
+		color: var(--sl-color-gray-4);
+	}
+	.legend span {
+		display: flex;
+		align-items: center;
+		gap: 0.35rem;
+	}
+	.legend span.gap {
+		margin-left: auto;
+	}
+	.legend i {
+		width: 10px;
+		height: 10px;
+		border-radius: 2px;
+	}
+
+	@media (max-width: 40rem) {
+		.legend span.gap {
+			margin-left: 0;
+		}
+		.stage {
+			padding-inline: 0.5rem;
+		}
+	}
+</style>

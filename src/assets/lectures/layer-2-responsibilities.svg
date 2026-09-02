@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 481" width="680" height="481" role="img" aria-label="Functions of the Data Link Layer">
+<rect x="0" y="0" width="680" height="481" fill="#0D1117"/>
+  <title>Functions of the Data Link Layer</title>
+  <style>
+    .ttl  { font-family: Calibri, "Segoe UI", Arial, sans-serif; font-size: 21px; font-weight: 700; fill: #FFFFFF; }
+    .lbl  { font-family: Calibri, "Segoe UI", Arial, sans-serif; font-size: 17px; font-weight: 700; fill: #FFFFFF; }
+    .desc { font-family: Calibri, "Segoe UI", Arial, sans-serif; font-size: 12.5px; font-weight: 400; fill: #B0BEC5; }
+    .num  { font-family: Calibri, "Segoe UI", Arial, sans-serif; font-size: 16px; font-weight: 700; fill: #E76324; }
+    .chip { font-family: Calibri, "Segoe UI", Arial, sans-serif; font-size: 13px; font-weight: 700; fill: #3B8BD4; }
+    .csub { font-family: Calibri, "Segoe UI", Arial, sans-serif; font-size: 10.5px; font-weight: 400; fill: #8FA0AD; }
+  </style>
+  <text class="ttl" x="40" y="34">Functions of the Data Link Layer</text>
+  <!-- 1. Framing -->
+  <rect x="40" y="62" width="600" height="58" rx="6" fill="#161B22" stroke="#1F2B38" stroke-width="1" />
+  <rect x="56" y="74" width="34" height="34" rx="5" fill="#1F2B38" />
+  <text class="num" x="73" y="97" text-anchor="middle">1</text>
+  <text class="lbl" x="104" y="90">Framing</text>
+  <text class="desc" x="104" y="107">Divides the raw bitstream into discrete, delimited frames</text>
+  <!-- 2. Error Detection -->
+  <rect x="40" y="132" width="600" height="124" rx="6" fill="#161B22" stroke="#1F2B38" stroke-width="1" />
+  <rect x="56" y="146" width="34" height="34" rx="5" fill="#1F2B38" />
+  <text class="num" x="73" y="169" text-anchor="middle">2</text>
+  <text class="lbl" x="104" y="162">Error Detection</text>
+  <text class="desc" x="104" y="179">Checks whether the frame survived the medium intact</text>
+  <text class="chip" x="118" y="213">Parity</text>
+  <text class="csub" x="118" y="229">Single bit, weakest</text>
+  <rect x="286" y="194" width="170" height="44" rx="5" fill="#0D1117" stroke="#1F2B38" stroke-width="1" />
+  <text class="chip" x="300" y="213">Checksum</text>
+  <text class="csub" x="300" y="229">Sum over segments</text>
+  <rect x="468" y="194" width="170" height="44" rx="5" fill="#0D1117" stroke="#1F2B38" stroke-width="1" />
+  <text class="chip" x="482" y="213">CRC</text>
+  <text class="csub" x="482" y="229">Used in Ethernet FCS</text>
+  <!-- 3. Error Correction -->
+  <rect x="40" y="268" width="600" height="58" rx="6" fill="#161B22" stroke="#1F2B38" stroke-width="1" />
+  <rect x="56" y="280" width="34" height="34" rx="5" fill="#1F2B38" />
+  <text class="num" x="73" y="303" text-anchor="middle">3</text>
+  <text class="lbl" x="104" y="296">Error Correction</text>
+  <text class="desc" x="104" y="313">Repairs the frame, or requests a resend of a failed one</text>
+  <!-- 4. Flow Control -->
+  <rect x="40" y="338" width="600" height="58" rx="6" fill="#161B22" stroke="#1F2B38" stroke-width="1" />
+  <rect x="56" y="350" width="34" height="34" rx="5" fill="#1F2B38" />
+  <text class="num" x="73" y="373" text-anchor="middle">4</text>
+  <text class="lbl" x="104" y="366">Flow Control</text>
+  <text class="desc" x="104" y="383">Keeps a fast sender from overwhelming a slower receiver</text>
+  <!-- 5. Addressing -->
+  <rect x="40" y="408" width="600" height="58" rx="6" fill="#161B22" stroke="#1F2B38" stroke-width="1" />
+  <rect x="56" y="420" width="34" height="34" rx="5" fill="#1F2B38" />
+  <text class="num" x="73" y="443" text-anchor="middle">5</text>
+  <text class="lbl" x="104" y="436">Addressing</text>
+  <text class="desc" x="104" y="453">MAC addresses identify each node on the local link</text>
+</svg>

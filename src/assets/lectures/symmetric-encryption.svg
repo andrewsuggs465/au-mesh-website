@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="329" viewBox="0 0 720 329">
+<rect x="0" y="0" width="720" height="329" fill="#0D1117"/>
+<text x="360.0" y="40" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">Symmetric Encryption</text>
+<text x="360.0" y="86" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" fill="#E76324" text-anchor="middle" letter-spacing="1.6">SHARED SECRET KEY</text>
+<circle cx="360.0" cy="106" r="10.4" fill="none" stroke="#E76324" stroke-width="5.2"/>
+<line x1="360.0" y1="116.5" x2="360.0" y2="144.0" stroke="#E76324" stroke-width="5.2" stroke-linecap="round"/>
+<line x1="360.0" y1="130.7" x2="369.5" y2="130.7" stroke="#E76324" stroke-width="4.3" stroke-linecap="round"/>
+<line x1="360.0" y1="138.3" x2="369.5" y2="138.3" stroke="#E76324" stroke-width="4.3" stroke-linecap="round"/>
+<line x1="360.0" y1="150.0" x2="360.0" y2="168.0" stroke="#E76324" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="220.0" y1="168.0" x2="494.0" y2="168.0" stroke="#E76324" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="220.0" y1="168.0" x2="220.0" y2="187.0" stroke="#E76324" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="220.0,198.0 216.0,187.0 224.0,187.0" fill="#E76324"/>
+<line x1="494.0" y1="168.0" x2="494.0" y2="187.0" stroke="#E76324" stroke-width="2.2" stroke-linecap="round"/>
+<polygon points="494.0,198.0 490.0,187.0 498.0,187.0" fill="#E76324"/>
+<path d="M44 198 q0 -6 6 -6 H95.68 L120 216.32 V282 q0 6 -6 6 H50 q-6 0 -6 -6 Z" fill="#161B22" stroke="#B0BEC5" stroke-width="2" stroke-linejoin="round"/>
+<path d="M95.68 192 L120 216.32 H95.68 Z" fill="#1F2B38" stroke="#B0BEC5" stroke-width="2" stroke-linejoin="round"/>
+<line x1="55.0" y1="232.0" x2="93.9" y2="232.0" stroke="#B0BEC5" stroke-width="2" stroke-linecap="round"/>
+<line x1="55.0" y1="246.0" x2="93.9" y2="246.0" stroke="#B0BEC5" stroke-width="2" stroke-linecap="round"/>
+<line x1="55.0" y1="260.0" x2="93.9" y2="260.0" stroke="#B0BEC5" stroke-width="2" stroke-linecap="round"/>
+<line x1="55.0" y1="274.0" x2="82.0" y2="274.0" stroke="#B0BEC5" stroke-width="2" stroke-linecap="round"/>
+<line x1="126.0" y1="240.0" x2="145.0" y2="240.0" stroke="#B0BEC5" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="156.0,240.0 145.0,244.0 145.0,236.0" fill="#B0BEC5"/>
+<rect x="160" y="202" width="120" height="76" rx="8" fill="#161B22" stroke="#1F2B38" stroke-width="2"/>
+<text x="220.0" y="245.25" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">Encrypt</text>
+<line x1="286.0" y1="240.0" x2="297.0" y2="240.0" stroke="#B0BEC5" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="308.0,240.0 297.0,244.0 297.0,236.0" fill="#B0BEC5"/>
+<path d="M312 198 q0 -6 6 -6 H363.68 L388 216.32 V282 q0 6 -6 6 H318 q-6 0 -6 -6 Z" fill="#161B22" stroke="#B0BEC5" stroke-width="2" stroke-linejoin="round"/>
+<path d="M363.68 192 L388 216.32 H363.68 Z" fill="#1F2B38" stroke="#B0BEC5" stroke-width="2" stroke-linejoin="round"/>
+<text x="350.0" y="232" font-family="Consolas, 'Courier New', monospace" font-size="11.5" font-weight="normal" fill="#E76324" text-anchor="middle" letter-spacing="0">A4$h*L@9</text>
+<text x="350.0" y="249" font-family="Consolas, 'Courier New', monospace" font-size="11.5" font-weight="normal" fill="#E76324" text-anchor="middle" letter-spacing="0">T6=#/>B#1</text>
+<text x="350.0" y="266" font-family="Consolas, 'Courier New', monospace" font-size="11.5" font-weight="normal" fill="#E76324" text-anchor="middle" letter-spacing="0">R06/J2.>1</text>
+<line x1="408.0" y1="240.0" x2="419.0" y2="240.0" stroke="#B0BEC5" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="430.0,240.0 419.0,244.0 419.0,236.0" fill="#B0BEC5"/>
+<rect x="434" y="202" width="120" height="76" rx="8" fill="#161B22" stroke="#1F2B38" stroke-width="2"/>
+<text x="494.0" y="245.25" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">Decrypt</text>
+<line x1="560.0" y1="240.0" x2="571.0" y2="240.0" stroke="#B0BEC5" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="582.0,240.0 571.0,244.0 571.0,236.0" fill="#B0BEC5"/>
+<path d="M600 198 q0 -6 6 -6 H651.68 L676 216.32 V282 q0 6 -6 6 H606 q-6 0 -6 -6 Z" fill="#161B22" stroke="#B0BEC5" stroke-width="2" stroke-linejoin="round"/>
+<path d="M651.68 192 L676 216.32 H651.68 Z" fill="#1F2B38" stroke="#B0BEC5" stroke-width="2" stroke-linejoin="round"/>
+<line x1="611.0" y1="232.0" x2="649.9" y2="232.0" stroke="#B0BEC5" stroke-width="2" stroke-linecap="round"/>
+<line x1="611.0" y1="246.0" x2="649.9" y2="246.0" stroke="#B0BEC5" stroke-width="2" stroke-linecap="round"/>
+<line x1="611.0" y1="260.0" x2="649.9" y2="260.0" stroke="#B0BEC5" stroke-width="2" stroke-linecap="round"/>
+<line x1="611.0" y1="274.0" x2="638.0" y2="274.0" stroke="#B0BEC5" stroke-width="2" stroke-linecap="round"/>
+<text x="82" y="312" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#B0BEC5" text-anchor="middle" letter-spacing="0">Plaintext</text>
+<text x="357" y="312" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#B0BEC5" text-anchor="middle" letter-spacing="0">Ciphertext</text>
+<text x="638" y="312" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#B0BEC5" text-anchor="middle" letter-spacing="0">Plaintext</text>
+</svg>

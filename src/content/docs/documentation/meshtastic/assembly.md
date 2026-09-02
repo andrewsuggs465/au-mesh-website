@@ -33,7 +33,7 @@ Here's what the wiring harness would look like for an 18650 battery. The "on" po
 
 To add more capacity, wire the batteries in parallel. When they are wired in series the voltage is added.
 
-![Wiring Harness](/images/wiring_harness.png)
-![Wiring Harness](/images/wiring_harness_parallel.png)
+![Wiring Harness](../../../../assets/meshtastic/wiring_harness.png)
+![Wiring Harness](../../../../assets/meshtastic/wiring_harness_parallel.png)
 
 ## Peripherals

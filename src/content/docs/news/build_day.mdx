@@ -1,0 +1,72 @@
+---
+title: 2026 Build Day
+description: Twenty Auburn engineering students built their own Meshtastic radios in the Makerspace.
+date: 2026-09-01
+author: Andrew Suggs
+template: splash
+editUrl: false
+cover: ../../../assets/news/build_day_2026/IMG_2735.JPG
+coverAlt: Twelve students standing in a row in the Makerspace, each holding the Meshtastic radio they built.
+---
+
+import Figure from '../../../components/Figure.astro';
+import walkthrough from '../../../assets/news/build_day_2026/IMG_2708.JPG';
+import soldering from '../../../assets/news/build_day_2026/IMG_2713.JPG';
+import benches from '../../../assets/news/build_day_2026/IMG_2725.JPG';
+
+On Tuesday, April 14th, twenty Auburn University engineering students spent the afternoon in the Makerspace turning loose components into working Meshtastic radios. Every student soldered components, printed a case, flashed firmware, and kept their radio. With the new academic year well on its way, here's a look back at the build day and where the radios are now.
+
+## What a Meshtastic node is
+
+[Meshtastic](https://meshtastic.org/) is open-source firmware that turns inexpensive LoRa radio parts into a node that can participate in a self-healing mesh network. Nodes relay each other's traffic, so a message hops radio to radio until it reaches its destination with no cell service, Wi-Fi, or other infrastructure. Each node pairs to a phone over Bluetooth and appears in the Meshtastic app, which adds features like position sharing. The parts cost around $50 per node, which makes them a practical build for beginners.
+
+## The build
+
+<Figure
+	src={walkthrough}
+	alt="A student presents the Meshtastic Web Flasher on a projector screen to a group seated around a workbench."
+	caption="Walking through the Meshtastic Web Flasher"
+/>
+
+First, each member picked a board. Our [build options page](/documentation/meshtastic/build-options/) compares the three we recommend: the RAK WisBlock starter kit, the Heltec V4, and the Lilygo T-Beam.
+
+Then, everyone worked through the build process:
+
+- Gather components for the chosen build
+- Solder the battery harness: switch, 18650 holder, and JST connector
+- Pick a compatible 3D print design
+- Slice and print the case
+- Assemble with metric screws and nuts
+- Flash the Meshtastic firmware
+- Install the Meshtastic app and pair over Bluetooth
+- Send a first message
+
+<Figure
+	src={soldering}
+	alt="A student in safety glasses solders a battery harness at a bench, with a row of 3D printers running behind them."
+	caption="The soldering station where the battery harness was prepared"
+/>
+
+The 3D printing queue took the longest, so we split into two groups. Half started printing while the other half worked on soldering, then the groups swapped.
+
+## Equipment and funding
+
+Dr. Mark Nelms, chair of the [Electrical and Computer Engineering department](https://www.eng.auburn.edu/ece/), sponsored the event with $2,500 for parts and test equipment, so students paid nothing for their radios. The equipment includes a handheld vector network analyzer, a handheld spectrum analyzer, and a HackRF One SDR kit. Members measured their antennas before mounting them instead of guessing at performance, and we plan to use the kit in upcoming labs for antenna testing, spectrum analysis, and live signal work.
+
+## Building out the Auburn-Opelika network
+
+Adding new nodes to the local network was one major ambition of the new club. Twenty radios make a meaningful difference in message reliability and in how far the network reaches across town.
+
+<Figure
+	src={benches}
+	alt="Students gathered around a long Makerspace bench covered in laptops, tools, and partly assembled radios."
+	caption="Students flashing firmware and printing cases"
+/>
+
+The other goal was practice. An afternoon where students can hang out, learn casually, and gain experience that carries into their careers is a chief goal of the Mesh Club. We hope to equip students for careers in embedded systems, radio, mesh networking, and more! Putting knowledge to work on a project like this gives students a clearer sense of where to go next.
+
+## Future ambitions
+
+We plan to run the build day every year with a similar cohort. We would also like to hold workshops where students bring in their nodes, make repairs, and compare performance. We hope to see you at the next event!
+
+See the [Instagram post](https://www.instagram.com/p/DcPYqUNFN0y/) from the build day.

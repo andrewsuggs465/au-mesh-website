@@ -13,6 +13,6 @@ sidebar:
 
 | Cable / Connector | Example |
 | --- | --- |
-| **U.FL** | ![SMA vs UFL](/images/sma_ufl.jpg) |
-| **U.FL Board Connector** | ![U.FL Board Connector](/images/ufl.jpg) |
-| **SMA vs RP-SMA Types** | ![SMA vs RP-SMA Types](/images/rp-sma_sma.webp) |
+| **U.FL** | ![SMA vs UFL](../../../../assets/meshtastic/sma_ufl.jpg) |
+| **U.FL Board Connector** | ![U.FL Board Connector](../../../../assets/meshtastic/ufl.jpg) |
+| **SMA vs RP-SMA Types** | ![SMA vs RP-SMA Types](../../../../assets/meshtastic/rp-sma_sma.webp) |

@@ -42,7 +42,7 @@ editUrl: false
 - [PlatformIO](https://platformio.org/) - Embedded development
 - [Arduino IDE](https://www.arduino.cc/en/software) - Arduino programming
 - [Fusion 360](https://www.autodesk.com/products/fusion-360/) - 3D design
-- [FreeCAD](https://www.freecadweb.org/) - Open-source CAD
+- [FreeCAD](https://www.freecad.org/) - Open-source CAD
 
 ## Campus Resources
 

@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1061" width="1920" height="1061" font-family="'Inter','Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif">
+<rect x="0" y="0" width="1920" height="1061" fill="#0D1117"/>
+  <defs>
+    <linearGradient id="bgw" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c1c28" />
+      <stop offset="1" stop-color="#081420" />
+    </linearGradient>
+  </defs>
+  <rect x="60" y="52" width="6" height="74" fill="#e76324" />
+  <text x="88" y="88" font-size="38" font-weight="600" fill="#e6eef4" letter-spacing="0.2">RTS / CTS handshake and the hidden node</text>
+  <text x="60" y="172" font-size="13" font-weight="600" fill="#5f7788" letter-spacing="1.6">FRAME</text>
+  <rect x="148" y="156" width="22" height="16" rx="3" fill="#4bc0ea" />
+  <text x="178" y="170" font-size="16" fill="#8fa6b8">RTS</text>
+  <rect x="238.9" y="156" width="22" height="16" rx="3" fill="#1a6fa0" />
+  <text x="268.9" y="170" font-size="16" fill="#8fa6b8">CTS</text>
+  <rect x="329.8" y="156" width="22" height="16" rx="3" fill="#e76324" />
+  <text x="359.8" y="170" font-size="16" fill="#8fa6b8">data</text>
+  <rect x="429.0" y="156" width="22" height="16" rx="3" fill="#46b06f" />
+  <text x="459.0" y="170" font-size="16" fill="#8fa6b8">ACK</text>
+  <line x1="507.9" y1="152" x2="507.9" y2="176" stroke="#1b2f3d" stroke-width="2" />
+  <text x="535.9" y="172" font-size="13" font-weight="600" fill="#5f7788" letter-spacing="1.6">CHANNEL</text>
+  <rect x="623.9" y="156" width="22" height="16" rx="3" fill="#223543" stroke="#1b2f3d" stroke-width="1" />
+  <text x="653.9" y="170" font-size="16" fill="#8fa6b8">idle</text>
+  <rect x="723.1" y="156" width="22" height="16" rx="3" fill="#d94f45" />
+  <text x="753.1" y="170" font-size="16" fill="#8fa6b8">busy (physical CS)</text>
+  <rect x="938.5" y="156" width="22" height="16" rx="3" fill="#d9a441" />
+  <text x="968.5" y="170" font-size="16" fill="#8fa6b8">busy (NAV)</text>
+  <rect x="1087.5" y="156" width="22" height="16" rx="3" fill="#5f7788" />
+  <text x="1117.5" y="170" font-size="16" fill="#8fa6b8">backoff countdown</text>
+  <line x1="60" y1="206" x2="1860" y2="206" stroke="#1b2f3d" stroke-width="2" />
+  <text x="60" y="292" font-size="24" font-weight="600" fill="#e6eef4">station A</text>
+  <text x="60" y="318" font-size="15" font-weight="600" fill="#e76324" letter-spacing="0.6">sender</text>
+  <text x="60" y="340" font-size="13" fill="#5f7788">in range of every node</text>
+  <line x1="265" y1="250" x2="265" y2="390" stroke="#1b2f3d" stroke-width="2" />
+  <rect x="480.0" y="283.0" width="78.0" height="62" rx="4" fill="#4bc0ea" />
+  <text x="519.0" y="271.0" font-size="15" font-weight="600" fill="#8fa6b8" text-anchor="middle" font-family="'JetBrains Mono','DejaVu Sans Mono',ui-monospace,monospace">12</text>
+  <text x="519.0" y="321.0" font-size="19" font-weight="600" fill="#08202c" text-anchor="middle">RTS</text>
+  <rect x="714.0" y="253.0" width="663.0" height="92" rx="4" fill="#e76324" />
+  <text x="1045.5" y="241.0" font-size="15" font-weight="600" fill="#8fa6b8" text-anchor="middle" font-family="'JetBrains Mono','DejaVu Sans Mono',ui-monospace,monospace">14</text>
+  <text x="1045.5" y="306.0" font-size="19" font-weight="600" fill="#2a1004" text-anchor="middle">data frame</text>
+  <text x="1045.5" y="329.0" font-size="14" fill="#2a1004" fill-opacity="0.72" text-anchor="middle">payload to the AP</text>
+  <rect x="1572.0" y="301.0" width="78.0" height="44" rx="4" fill="#5f7788" />
+  <text x="1664.0" y="329.0" font-size="15" fill="#8fa6b8">next backoff countdown</text>
+  <rect x="285.0" y="358" width="1560.0" height="24" rx="4" fill="#223543" />
+  <rect x="480.0" y="358" width="78.0" height="24" fill="#d94f45" />
+  <rect x="597.0" y="358" width="78.0" height="24" fill="#d94f45" />
+  <rect x="714.0" y="358" width="663.0" height="24" fill="#d94f45" />
+  <rect x="1416.0" y="358" width="78.0" height="24" fill="#d94f45" />
+  <rect x="285.0" y="358" width="1560.0" height="24" rx="4" fill="none" stroke="#1b2f3d" stroke-width="1" />
+  <line x1="60" y1="408" x2="1860" y2="408" stroke="#1b2f3d" stroke-width="1.5" />
+  <text x="60" y="467" font-size="24" font-weight="600" fill="#e6eef4">station B</text>
+  <text x="60" y="493" font-size="15" font-weight="600" fill="#d9a441" letter-spacing="0.6">hidden node</text>
+  <text x="60" y="515" font-size="13" fill="#5f7788">hears the AP, not station A</text>
+  <line x1="265" y1="425" x2="265" y2="565" stroke="#1b2f3d" stroke-width="2" />
+  <rect x="285.0" y="533" width="1560.0" height="24" rx="4" fill="#223543" />
+  <rect x="597.0" y="533" width="78.0" height="24" fill="#d94f45" />
+  <rect x="675.0" y="533" width="741.0" height="24" fill="#d9a441" />
+  <text x="1045.5" y="550.0" font-size="13" font-weight="600" fill="#22160a" text-anchor="middle" letter-spacing="1">NAV set by CTS</text>
+  <rect x="1416.0" y="533" width="78.0" height="24" fill="#d94f45" />
+  <rect x="285.0" y="533" width="1560.0" height="24" rx="4" fill="none" stroke="#1b2f3d" stroke-width="1" />
+  <text x="1026.0" y="483.0" font-size="17" fill="#8fa6b8" text-anchor="middle">never hears the RTS or the data frame, defers anyway</text>
+  <line x1="675.0" y1="497.0" x2="675.0" y2="527" stroke="#d9a441" stroke-width="1.5" stroke-dasharray="4 4" />
+  <line x1="1416.0" y1="497.0" x2="1416.0" y2="527" stroke="#d9a441" stroke-width="1.5" stroke-dasharray="4 4" />
+  <line x1="675.0" y1="497.0" x2="1416.0" y2="497.0" stroke="#d9a441" stroke-width="1.5" stroke-dasharray="4 4" />
+  <line x1="60" y1="583" x2="1860" y2="583" stroke="#1b2f3d" stroke-width="1.5" />
+  <text x="60" y="642" font-size="24" font-weight="600" fill="#e6eef4">station C</text>
+  <text x="60" y="668" font-size="15" font-weight="600" fill="#d9a441" letter-spacing="0.6">hidden node</text>
+  <text x="60" y="690" font-size="13" fill="#5f7788">hears the AP, not station A</text>
+  <line x1="265" y1="600" x2="265" y2="740" stroke="#1b2f3d" stroke-width="2" />
+  <rect x="285.0" y="708" width="1560.0" height="24" rx="4" fill="#223543" />
+  <rect x="597.0" y="708" width="78.0" height="24" fill="#d94f45" />
+  <rect x="675.0" y="708" width="741.0" height="24" fill="#d9a441" />
+  <text x="1045.5" y="725.0" font-size="13" font-weight="600" fill="#22160a" text-anchor="middle" letter-spacing="1">NAV set by CTS</text>
+  <rect x="1416.0" y="708" width="78.0" height="24" fill="#d94f45" />
+  <rect x="285.0" y="708" width="1560.0" height="24" rx="4" fill="none" stroke="#1b2f3d" stroke-width="1" />
+  <text x="1026.0" y="658.0" font-size="17" fill="#8fa6b8" text-anchor="middle">never hears the RTS or the data frame, defers anyway</text>
+  <line x1="675.0" y1="672.0" x2="675.0" y2="702" stroke="#d9a441" stroke-width="1.5" stroke-dasharray="4 4" />
+  <line x1="1416.0" y1="672.0" x2="1416.0" y2="702" stroke="#d9a441" stroke-width="1.5" stroke-dasharray="4 4" />
+  <line x1="675.0" y1="672.0" x2="1416.0" y2="672.0" stroke="#d9a441" stroke-width="1.5" stroke-dasharray="4 4" />
+  <line x1="60" y1="758" x2="1860" y2="758" stroke="#1b2f3d" stroke-width="1.5" />
+  <text x="60" y="817" font-size="24" font-weight="600" fill="#e6eef4">access point</text>
+  <text x="60" y="843" font-size="15" font-weight="600" fill="#e76324" letter-spacing="0.6">receiver</text>
+  <text x="60" y="865" font-size="13" fill="#5f7788">in range of every node</text>
+  <line x1="265" y1="775" x2="265" y2="915" stroke="#1b2f3d" stroke-width="2" />
+  <rect x="597.0" y="808.0" width="78.0" height="62" rx="4" fill="#1a6fa0" />
+  <text x="636.0" y="796.0" font-size="15" font-weight="600" fill="#8fa6b8" text-anchor="middle" font-family="'JetBrains Mono','DejaVu Sans Mono',ui-monospace,monospace">13</text>
+  <text x="636.0" y="846.0" font-size="19" font-weight="600" fill="#dff0fa" text-anchor="middle">CTS</text>
+  <rect x="1416.0" y="808.0" width="78.0" height="62" rx="4" fill="#46b06f" />
+  <text x="1455.0" y="796.0" font-size="15" font-weight="600" fill="#8fa6b8" text-anchor="middle" font-family="'JetBrains Mono','DejaVu Sans Mono',ui-monospace,monospace">15</text>
+  <text x="1455.0" y="846.0" font-size="19" font-weight="600" fill="#08210f" text-anchor="middle">ACK</text>
+  <rect x="285.0" y="883" width="1560.0" height="24" rx="4" fill="#223543" />
+  <rect x="480.0" y="883" width="78.0" height="24" fill="#d94f45" />
+  <rect x="597.0" y="883" width="78.0" height="24" fill="#d94f45" />
+  <rect x="714.0" y="883" width="663.0" height="24" fill="#d94f45" />
+  <rect x="1416.0" y="883" width="78.0" height="24" fill="#d94f45" />
+  <rect x="285.0" y="883" width="1560.0" height="24" rx="4" fill="none" stroke="#1b2f3d" stroke-width="1" />
+  <line x1="285.0" y1="950" x2="1845.0" y2="950" stroke="#1b2f3d" stroke-width="2" />
+  <line x1="402.0" y1="943" x2="402.0" y2="957" stroke="#5f7788" stroke-width="2" />
+  <line x1="480.0" y1="943" x2="480.0" y2="957" stroke="#5f7788" stroke-width="2" />
+  <line x1="558.0" y1="943" x2="558.0" y2="957" stroke="#5f7788" stroke-width="2" />
+  <line x1="597.0" y1="943" x2="597.0" y2="957" stroke="#5f7788" stroke-width="2" />
+  <line x1="675.0" y1="943" x2="675.0" y2="957" stroke="#5f7788" stroke-width="2" />
+  <line x1="714.0" y1="943" x2="714.0" y2="957" stroke="#5f7788" stroke-width="2" />
+  <line x1="1377.0" y1="943" x2="1377.0" y2="957" stroke="#5f7788" stroke-width="2" />
+  <line x1="1416.0" y1="943" x2="1416.0" y2="957" stroke="#5f7788" stroke-width="2" />
+  <line x1="1494.0" y1="943" x2="1494.0" y2="957" stroke="#5f7788" stroke-width="2" />
+  <line x1="1572.0" y1="943" x2="1572.0" y2="957" stroke="#5f7788" stroke-width="2" />
+  <line x1="1650.0" y1="943" x2="1650.0" y2="957" stroke="#5f7788" stroke-width="2" />
+  <text x="441.0" y="978" font-size="15" fill="#8fa6b8" text-anchor="middle">DIFS</text>
+  <text x="519.0" y="978" font-size="15" fill="#8fa6b8" text-anchor="middle">RTS</text>
+  <text x="577.5" y="978" font-size="12" fill="#8fa6b8" text-anchor="middle">SIFS</text>
+  <text x="636.0" y="978" font-size="15" fill="#8fa6b8" text-anchor="middle">CTS</text>
+  <text x="694.5" y="978" font-size="12" fill="#8fa6b8" text-anchor="middle">SIFS</text>
+  <text x="1045.5" y="978" font-size="15" fill="#8fa6b8" text-anchor="middle">data frame</text>
+  <text x="1396.5" y="978" font-size="12" fill="#8fa6b8" text-anchor="middle">SIFS</text>
+  <text x="1455.0" y="978" font-size="15" fill="#8fa6b8" text-anchor="middle">ACK</text>
+  <text x="1533.0" y="978" font-size="15" fill="#8fa6b8" text-anchor="middle">DIFS</text>
+  <text x="1611.0" y="978" font-size="15" fill="#8fa6b8" text-anchor="middle">backoff</text>
+  <text x="1845.0" y="934" font-size="14" fill="#5f7788" text-anchor="end" letter-spacing="1.4">TIME</text>
+  <path d="M 1785.0 950 L 1845.0 950" stroke="#5f7788" stroke-width="2" />
+  <path d="M 1835.0 945 L 1845.0 950 L 1835.0 955 Z" fill="#5f7788" />
+  <line x1="60" y1="1012" x2="1860" y2="1012" stroke="#1b2f3d" stroke-width="2" />
+  <text x="1860" y="1046" font-size="15" font-weight="600" fill="#e76324" text-anchor="end" letter-spacing="1.2">AU MESH</text>
+</svg>

@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════
-   AU Mesh theme — ported from the original Zensical/mkdocs site
+   AU Mesh theme, ported from the original Zensical/mkdocs site
    (docs/assets/styles/extra.css). Mint green on near-black,
    Outfit + JetBrains Mono, green accents. Dark-only.
    ══════════════════════════════════════════════════════════════ */
@@ -15,7 +15,7 @@
 	--hover-bg: rgba(104, 234, 149, 0.1);
 	--glow: 0 0 24px oklch(75% 0.14 175 / 0.15);
 
-	/* widest the page frame gets — the header bar stays full-bleed but lines
+	/* widest the page frame gets. The header bar stays full-bleed but lines
 	   its contents up with this, and the docs layout centres inside it */
 	--au-frame-width: 96rem;
 
@@ -139,7 +139,7 @@ starlight-menu-button button {
 
 /* Starlight separates the title panel from the content panel with its own
    rule. The h1 above already carries a themed underline, so that second line
-   is a duplicate — and it spans the whole window while the rest of the page
+   is a duplicate, and it spans the whole window while the rest of the page
    is centred. Drop it and keep the underline. */
 .content-panel {
 	border-top: none;
@@ -177,7 +177,7 @@ starlight-menu-button button {
 
 /* ── readable measure on sidebar-less pages ──
    Every page outside /documentation/ uses `template: splash`, whose container
-   is 1080px — fine for a landing page, far too wide for body text (~150
+   is 1080px, fine for a landing page, far too wide for body text (~150
    characters a line). Narrow the page, then narrow running text further so it
    reads like prose while cards and event lists keep the full column.
    The homepage opts out: it really is a landing page. */
@@ -224,6 +224,23 @@ body:not(:has(.sidebar-pane)):not(:has(.home-hero))
 }
 .sl-markdown-content tr:hover td {
 	background-color: var(--hover-bg);
+}
+
+/* Markdown always emits a header row. A two-column reference table does not
+   need one, so hide it when every cell in it is empty. */
+.sl-markdown-content thead:not(:has(th:not(:empty))) {
+	display: none;
+}
+
+/* Per-page note on the lecture pages saying what Claude was used for. Quiet,
+   and set off from the material it is talking about. */
+.sl-markdown-content .lecture-note {
+	margin-top: 2.5rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--border-color);
+	font-size: 0.78rem;
+	line-height: 1.6;
+	color: var(--sl-color-gray-4);
 }
 
 /* ── blockquotes ── */
@@ -299,7 +316,7 @@ body:not(:has(.sidebar-pane)):not(:has(.home-hero))
 	border-radius: 10px;
 	padding: 1.1rem 1.2rem;
 }
-.info-card h4 {
+.info-card h3 {
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;

@@ -9,13 +9,13 @@ sidebar:
 
 [Meshtastic](https://meshtastic.org/docs/introduction/) is an open-source, decentralized communication system that uses LoRa (Long Range) radio technology to enable encrypted, low-power digital messaging between devices known as *nodes*. Nodes can take several forms, including handheld devices with integrated displays, compact Bluetooth-enabled units that interface with smartphones, or permanently installed high-power stations designed for wide-area coverage.
 
-![Meshtastic Nodes](/images/meshtastic-nodes.jpg)
+![Meshtastic Nodes](../../../../assets/meshtastic/meshtastic-nodes.jpg)
 
 ## Target Audience
 
 Meshtastic is commonly used by hobbyists, outdoor enthusiasts operating beyond cellular coverage, and for emergency or resilient communications during network outages. Its decentralized architecture and low cost make it well suited as an educational platform for students.
 
-![Meshtastic Diagram Visual](/images/lora-topology.webp)
+![Meshtastic Diagram Visual](../../../../assets/meshtastic/lora-topology.webp)
 
 Check out these interactive maps
 

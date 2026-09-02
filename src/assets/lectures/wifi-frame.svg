@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="237" viewBox="0 0 1120 237">
+<rect x="0" y="0" width="1120" height="237" fill="#0D1117"/>
+<text x="86.0" y="26.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" fill="#5A6672" text-anchor="middle" letter-spacing="1.4">SYNC</text>
+<rect x="24.0" y="36" width="121.0" height="3" rx="1.5" fill="#5A6672"/>
+<text x="475.6" y="26.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" fill="#3E8CC0" text-anchor="middle" letter-spacing="1.4">MAC HEADER</text>
+<rect x="148.0" y="36" width="652.4" height="3" rx="1.5" fill="#3E8CC0"/>
+<text x="897.4" y="26.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" fill="#E76324" text-anchor="middle" letter-spacing="1.4">PAYLOAD</text>
+<rect x="803.3" y="36" width="185.2" height="3" rx="1.5" fill="#E76324"/>
+<text x="1043.8" y="26.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" fill="#3E8CC0" text-anchor="middle" letter-spacing="1.4">TRAILER</text>
+<rect x="991.6" y="36" width="101.4" height="3" rx="1.5" fill="#3E8CC0"/>
+<rect x="26.0" y="52" width="120.0" height="124" rx="7" fill="#161B22" stroke="#5A6672" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="86.0" y="110.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">PLCP Preamble</text>
+<text x="86.0" y="128.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">+ PHY Header</text>
+<text x="86.0" y="200.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" fill="#5A6672" text-anchor="middle" letter-spacing="0">PHY, varies</text>
+<rect x="150.0" y="52" width="95.9" height="124" rx="7" fill="#161B22" stroke="#1A6A9E" stroke-width="2"/>
+<text x="197.9" y="110.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">Frame</text>
+<text x="197.9" y="128.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">Control</text>
+<text x="197.9" y="200.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" fill="#1A6A9E" text-anchor="middle" letter-spacing="0">2 bytes</text>
+<rect x="249.8" y="52" width="97.0" height="124" rx="7" fill="#161B22" stroke="#1A6A9E" stroke-width="2"/>
+<text x="298.3" y="110.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">Duration</text>
+<text x="298.3" y="128.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">/ ID</text>
+<text x="298.3" y="200.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" fill="#1A6A9E" text-anchor="middle" letter-spacing="0">2 bytes</text>
+<rect x="350.8" y="52" width="114.2" height="124" rx="7" fill="#161B22" stroke="#1A6A9E" stroke-width="2"/>
+<text x="407.9" y="110.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">Address 1</text>
+<text x="407.9" y="128.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">(Receiver)</text>
+<text x="407.9" y="200.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" fill="#1A6A9E" text-anchor="middle" letter-spacing="0">6 bytes</text>
+<rect x="469.0" y="52" width="113.1" height="124" rx="7" fill="#161B22" stroke="#1A6A9E" stroke-width="2"/>
+<text x="525.6" y="110.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">Address 2</text>
+<text x="525.6" y="128.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">(Transmitter)</text>
+<text x="525.6" y="200.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" fill="#1A6A9E" text-anchor="middle" letter-spacing="0">6 bytes</text>
+<rect x="586.1" y="52" width="114.2" height="124" rx="7" fill="#161B22" stroke="#1A6A9E" stroke-width="2"/>
+<text x="643.2" y="110.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">Address 3</text>
+<text x="643.2" y="128.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">(DA / SA)</text>
+<text x="643.2" y="200.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" fill="#1A6A9E" text-anchor="middle" letter-spacing="0">6 bytes</text>
+<rect x="704.3" y="52" width="97.0" height="124" rx="7" fill="#161B22" stroke="#1A6A9E" stroke-width="2"/>
+<text x="752.8" y="110.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">Sequence</text>
+<text x="752.8" y="128.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">Control</text>
+<text x="752.8" y="200.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" fill="#1A6A9E" text-anchor="middle" letter-spacing="0">2 bytes</text>
+<rect x="805.3" y="52" width="184.2" height="124" rx="7" fill="#161B22" stroke="#E76324" stroke-width="2"/>
+<text x="897.4" y="119.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">Frame Body</text>
+<text x="897.4" y="200.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" fill="#E76324" text-anchor="middle" letter-spacing="0">0–2304 bytes</text>
+<rect x="993.6" y="52" width="100.4" height="124" rx="7" fill="#161B22" stroke="#1A6A9E" stroke-width="2"/>
+<text x="1043.8" y="110.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">FCS</text>
+<text x="1043.8" y="128.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">(CRC)</text>
+<text x="1043.8" y="200.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" fill="#1A6A9E" text-anchor="middle" letter-spacing="0">4 bytes</text>
+<line x1="24" y1="222" x2="1096" y2="222" stroke="#1F2B38" stroke-width="1.5"/>
+</svg>

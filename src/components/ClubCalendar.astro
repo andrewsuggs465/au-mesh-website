@@ -1,0 +1,717 @@
+---
+/**
+ * The club calendar: meetings, workshops, and everything else in one place.
+ *
+ * The list is rendered on the server so the page works without JavaScript and
+ * so search indexes it. The month grid, the filters, and the .ics downloads are
+ * layered on top from the same data.
+ *
+ * Per-event iCalendar text is generated at build time and shipped in the JSON
+ * payload, which keeps one implementation of the format instead of a server
+ * copy and a browser copy that drift apart.
+ */
+import {
+	upcomingEntries,
+	pastEntries,
+	toIcs,
+	type CalendarEntry,
+} from '../lib/calendar';
+
+const upcoming = upcomingEntries();
+const past = pastEntries();
+const siteUrl = Astro.site?.origin ?? 'https://aumesh.club';
+const feedUrl = `webcal://${new URL(siteUrl).host}/aumesh.ics`;
+
+const TYPES = [
+	{ id: 'meeting', label: 'Meetings' },
+	{ id: 'workshop', label: 'Workshops' },
+	{ id: 'social', label: 'Social' },
+	{ id: 'special', label: 'Special' },
+] as const;
+
+const longDate = (d: Date) =>
+	d.toLocaleDateString('en-US', {
+		weekday: 'long',
+		month: 'long',
+		day: 'numeric',
+		year: 'numeric',
+		timeZone: 'UTC',
+	});
+
+/** Month heading used to break the list up, e.g. "September 2026". */
+const monthLabel = (d: Date) =>
+	d.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+
+/** Group consecutive dated entries under their month; undated ones go last. */
+function byMonth(entries: CalendarEntry[]) {
+	const groups: { label: string; entries: CalendarEntry[] }[] = [];
+	for (const entry of entries) {
+		const label = entry.date ? monthLabel(entry.date) : 'Date to be announced';
+		const last = groups[groups.length - 1];
+		if (last && last.label === label) last.entries.push(entry);
+		else groups.push({ label, entries: [entry] });
+	}
+	return groups;
+}
+
+const payload = [...upcoming, ...past].map((e) => ({
+	id: e.id,
+	title: e.title,
+	type: e.type,
+	tentative: e.tentative ?? false,
+	date: e.date ? e.date.toISOString().slice(0, 10) : null,
+	dateText: e.dateText ?? null,
+	time: e.time ?? null,
+	location: e.location ?? null,
+	link: e.link ?? null,
+	past: past.includes(e),
+	// Keep the default calendar name here too: a single-event download should
+	// still land in the AU Mesh Club calendar, not one named after the event.
+	ics: e.date ? toIcs([e], siteUrl) : null,
+}));
+---
+
+<div class="cal not-content" data-calendar>
+	<div class="cal-bar">
+		<div class="seg" role="group" aria-label="View">
+			<button type="button" data-view="list" class="on">List</button>
+			<button type="button" data-view="month">Month</button>
+		</div>
+
+		<div class="filters" role="group" aria-label="Filter by type">
+			{
+				TYPES.map((t) => (
+					<button type="button" class:list={['chip', t.id, 'on']} data-filter={t.id}>
+						{t.label}
+					</button>
+				))
+			}
+		</div>
+
+		<div class="subscribe">
+			<a class="btn primary" href="/aumesh.ics" download="aumesh.ics">Add to calendar</a>
+			<a class="btn" href={feedUrl} title="Subscribe so new events arrive on their own">
+				Subscribe
+			</a>
+		</div>
+	</div>
+
+	{/* ── month grid, built client-side from the payload ── */}
+	<section class="month-view" data-month-view hidden>
+		<header class="month-head">
+			<button type="button" class="nav-btn" data-month-prev aria-label="Previous month">
+				&#8592;
+			</button>
+			<h2 data-month-label>&nbsp;</h2>
+			<button type="button" class="nav-btn" data-month-next aria-label="Next month">
+				&#8594;
+			</button>
+			<button type="button" class="btn today-btn" data-month-today>Today</button>
+		</header>
+		<div class="weekdays" aria-hidden="true">
+			<span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span
+				>Fri</span
+			><span>Sat</span>
+		</div>
+		<div class="grid" data-month-grid></div>
+	</section>
+
+	{/* ── list, rendered on the server ── */}
+	<section class="list-view" data-list-view>
+		{
+			upcoming.length === 0 && (
+				<p class="empty">
+					Nothing on the calendar right now. Check back soon, or ask in Discord.
+				</p>
+			)
+		}
+
+		{
+			byMonth(upcoming).map((group) => (
+				<div class="month-group">
+					<h2>{group.label}</h2>
+					{group.entries.map((entry) => (
+						<article class="entry" id={entry.id} data-entry={entry.id} data-type={entry.type}>
+							<div class="when">
+								{entry.date ? (
+									<>
+										<span class="dow">
+											{entry.date.toLocaleDateString('en-US', {
+												weekday: 'short',
+												timeZone: 'UTC',
+											})}
+										</span>
+										<span class="dnum">{entry.date.getUTCDate()}</span>
+									</>
+								) : (
+									<span class="tbd">TBD</span>
+								)}
+							</div>
+							<div class="what">
+								<h3>{entry.link ? <a href={entry.link}>{entry.title}</a> : entry.title}</h3>
+								<p class="meta">
+									<span class={`tag ${entry.type}`}>{entry.type}</span>
+									{entry.tentative && <span class="tag tentative">tentative</span>}
+									{entry.date && <span>{longDate(entry.date)}</span>}
+									{!entry.date && entry.dateText && <span>{entry.dateText}</span>}
+									{entry.time && <span>{entry.time}</span>}
+									{entry.location && <span>{entry.location}</span>}
+								</p>
+								{entry.details && <p class="details">{entry.details}</p>}
+								{entry.date && (
+									<button type="button" class="btn small" data-add={entry.id}>
+										Add this event
+									</button>
+								)}
+							</div>
+						</article>
+					))}
+				</div>
+			))
+		}
+
+		{
+			past.length > 0 && (
+				<details class="past">
+					<summary>Past events ({past.length})</summary>
+					{byMonth(past).map((group) => (
+						<div class="month-group">
+							<h2>{group.label}</h2>
+							{group.entries.map((entry) => (
+								<article
+									class="entry is-past"
+									id={entry.id}
+									data-entry={entry.id}
+									data-type={entry.type}
+								>
+									<div class="when">
+										<span class="dow">
+											{entry.date!.toLocaleDateString('en-US', {
+												weekday: 'short',
+												timeZone: 'UTC',
+											})}
+										</span>
+										<span class="dnum">{entry.date!.getUTCDate()}</span>
+									</div>
+									<div class="what">
+										<h3>{entry.link ? <a href={entry.link}>{entry.title}</a> : entry.title}</h3>
+										<p class="meta">
+											<span class={`tag ${entry.type}`}>{entry.type}</span>
+											<span>{longDate(entry.date!)}</span>
+											{entry.location && <span>{entry.location}</span>}
+										</p>
+									</div>
+								</article>
+							))}
+						</div>
+					))}
+				</details>
+			)
+		}
+	</section>
+
+	<script type="application/json" data-calendar-data set:html={JSON.stringify(payload)} />
+</div>
+
+<script>
+	interface Entry {
+		id: string;
+		title: string;
+		type: 'meeting' | 'workshop' | 'social' | 'special';
+		tentative: boolean;
+		date: string | null;
+		dateText: string | null;
+		time: string | null;
+		location: string | null;
+		link: string | null;
+		past: boolean;
+		ics: string | null;
+	}
+
+	const root = document.querySelector<HTMLElement>('[data-calendar]');
+	if (root) init(root);
+
+	function init(root: HTMLElement) {
+		const raw = root.querySelector<HTMLScriptElement>('[data-calendar-data]')?.textContent;
+		const entries: Entry[] = raw ? JSON.parse(raw) : [];
+		const byId = new Map(entries.map((e) => [e.id, e]));
+
+		const listView = root.querySelector<HTMLElement>('[data-list-view]')!;
+		const monthView = root.querySelector<HTMLElement>('[data-month-view]')!;
+		const grid = root.querySelector<HTMLElement>('[data-month-grid]')!;
+		const monthLabel = root.querySelector<HTMLElement>('[data-month-label]')!;
+
+		const active = new Set(['meeting', 'workshop', 'social', 'special']);
+		// Open on the month holding the next thing that has not happened yet, so
+		// the useful month is on screen without anyone clicking an arrow.
+		const firstUpcoming = entries.find((e) => !e.past && e.date);
+		const startFrom = firstUpcoming?.date ? new Date(`${firstUpcoming.date}T00:00:00Z`) : new Date();
+		let cursor = { y: startFrom.getUTCFullYear(), m: startFrom.getUTCMonth() };
+
+		// ── view toggle ──
+		root.querySelectorAll<HTMLButtonElement>('[data-view]').forEach((btn) => {
+			btn.addEventListener('click', () => {
+				const month = btn.dataset.view === 'month';
+				root.querySelectorAll('[data-view]').forEach((b) => b.classList.toggle('on', b === btn));
+				monthView.hidden = !month;
+				listView.hidden = month;
+				if (month) renderMonth();
+			});
+		});
+
+		// ── type filters ──
+		root.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((btn) => {
+			btn.addEventListener('click', () => {
+				const type = btn.dataset.filter!;
+				if (active.has(type)) active.delete(type);
+				else active.add(type);
+				// Leave one filter on rather than showing an empty page.
+				if (active.size === 0) {
+					active.add(type);
+					return;
+				}
+				btn.classList.toggle('on', active.has(type));
+				applyFilter();
+			});
+		});
+
+		function applyFilter() {
+			root.querySelectorAll<HTMLElement>('[data-entry]').forEach((el) => {
+				el.hidden = !active.has(el.dataset.type!);
+			});
+			// A month heading with everything filtered out of it is just noise.
+			root.querySelectorAll<HTMLElement>('.month-group').forEach((group) => {
+				const shown = group.querySelectorAll<HTMLElement>('[data-entry]:not([hidden])').length;
+				group.hidden = shown === 0;
+			});
+			if (!monthView.hidden) renderMonth();
+		}
+
+		// ── month grid ──
+		function renderMonth() {
+			const first = new Date(Date.UTC(cursor.y, cursor.m, 1));
+			monthLabel.textContent = first.toLocaleDateString('en-US', {
+				month: 'long',
+				year: 'numeric',
+				timeZone: 'UTC',
+			});
+
+			const daysInMonth = new Date(Date.UTC(cursor.y, cursor.m + 1, 0)).getUTCDate();
+			const lead = first.getUTCDay();
+			const now = new Date();
+			const todayKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(
+				now.getDate()
+			).padStart(2, '0')}`;
+
+			const cells: string[] = [];
+			for (let i = 0; i < lead; i += 1) cells.push('<div class="cell blank"></div>');
+
+			for (let day = 1; day <= daysInMonth; day += 1) {
+				const key = `${cursor.y}-${String(cursor.m + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+				const onDay = entries.filter((e) => e.date === key && active.has(e.type));
+				const pills = onDay
+					.map(
+						(e) =>
+							`<button type="button" class="pill${e.past ? ' past' : ''}" data-goto="${e.id}" title="${escapeAttr(e.title)}">${escapeHtml(e.title)}</button>`
+					)
+					.join('');
+				cells.push(
+					`<div class="cell${key === todayKey ? ' today' : ''}">` +
+						`<span class="num">${day}</span>${pills}</div>`
+				);
+			}
+
+			grid.innerHTML = cells.join('');
+		}
+
+		root.querySelector('[data-month-prev]')!.addEventListener('click', () => {
+			cursor = cursor.m === 0 ? { y: cursor.y - 1, m: 11 } : { y: cursor.y, m: cursor.m - 1 };
+			renderMonth();
+		});
+		root.querySelector('[data-month-next]')!.addEventListener('click', () => {
+			cursor = cursor.m === 11 ? { y: cursor.y + 1, m: 0 } : { y: cursor.y, m: cursor.m + 1 };
+			renderMonth();
+		});
+		root.querySelector('[data-month-today]')!.addEventListener('click', () => {
+			const now = new Date();
+			cursor = { y: now.getFullYear(), m: now.getMonth() };
+			renderMonth();
+		});
+
+		// Clicking a pill drops back to the list at that entry, which is where the
+		// details live. The grid only has room for a title.
+		grid.addEventListener('click', (event) => {
+			const pill = (event.target as HTMLElement).closest<HTMLElement>('[data-goto]');
+			if (!pill) return;
+			const target = root.querySelector<HTMLElement>(`#${CSS.escape(pill.dataset.goto!)}`);
+			if (!target) return;
+			(root.querySelector('[data-view="list"]') as HTMLButtonElement).click();
+			target.closest('details')?.setAttribute('open', '');
+			target.scrollIntoView({ block: 'center' });
+			target.classList.add('flash');
+			window.setTimeout(() => target.classList.remove('flash'), 1600);
+		});
+
+		// ── downloads ──
+		root.querySelectorAll<HTMLButtonElement>('[data-add]').forEach((btn) => {
+			btn.addEventListener('click', () => {
+				const entry = byId.get(btn.dataset.add!);
+				if (!entry?.ics) return;
+				download(`${entry.id}.ics`, entry.ics);
+			});
+		});
+
+		function download(filename: string, text: string) {
+			const url = URL.createObjectURL(new Blob([text], { type: 'text/calendar;charset=utf-8' }));
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = filename;
+			a.click();
+			URL.revokeObjectURL(url);
+		}
+
+		const escapeHtml = (s: string) =>
+			s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+		const escapeAttr = (s: string) => escapeHtml(s).replace(/"/g, '&quot;');
+	}
+</script>
+
+<style>
+	.cal {
+		margin: 0.5rem 0 1.5rem;
+	}
+
+	/* ── toolbar ── */
+	.cal-bar {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.6rem 1rem;
+		padding-bottom: 0.9rem;
+		border-bottom: 1px solid var(--border-color);
+	}
+	.seg {
+		display: inline-flex;
+		border: 1px solid var(--border-color);
+		border-radius: 8px;
+		overflow: hidden;
+	}
+	.seg button {
+		font: inherit;
+		font-size: 0.8rem;
+		padding: 0.3rem 0.9rem;
+		background: transparent;
+		color: var(--sl-color-gray-2);
+		border: 0;
+		cursor: pointer;
+	}
+	.seg button + button {
+		border-left: 1px solid var(--border-color);
+	}
+	.seg button:hover {
+		background: var(--hover-bg);
+	}
+	.seg button.on {
+		background: var(--primary-color);
+		color: #06231a;
+		font-weight: 600;
+	}
+
+	.filters {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+	}
+	.chip {
+		font: inherit;
+		font-size: 0.8rem;
+		padding: 0.2rem 0.1rem;
+		border: 0;
+		background: transparent;
+		color: var(--sl-color-gray-5);
+		cursor: pointer;
+		text-decoration: line-through;
+	}
+	.chip.on {
+		color: var(--sl-color-gray-2);
+		text-decoration: none;
+	}
+	.chip:hover {
+		color: var(--primary-color);
+	}
+
+	.subscribe {
+		display: flex;
+		gap: 0.5rem;
+		margin-left: auto;
+	}
+	.btn {
+		font: inherit;
+		font-size: 0.8rem;
+		padding: 0.35rem 0.85rem;
+		border-radius: 8px;
+		border: 1px solid var(--border-color);
+		background: transparent;
+		color: var(--sl-color-gray-2);
+		cursor: pointer;
+		text-decoration: none;
+		white-space: nowrap;
+	}
+	.btn:hover {
+		background: var(--hover-bg);
+		border-color: var(--primary-color);
+		color: #fff;
+		text-decoration: none;
+	}
+	.btn.primary {
+		border-color: var(--primary-color);
+		color: var(--primary-color);
+	}
+	.btn.small {
+		font-size: 0.72rem;
+		padding: 0.2rem 0.6rem;
+		margin-top: 0.6rem;
+	}
+
+	.feed-note {
+		margin: 0.8rem 0 1.4rem;
+		font-size: 0.78rem;
+		line-height: 1.6;
+		color: var(--sl-color-gray-3);
+		max-width: 46rem;
+	}
+	.feed-note code {
+		background: var(--code-bg-color);
+		color: var(--primary-color);
+		border-radius: 4px;
+		padding: 0.1em 0.35em;
+		font-family: var(--sl-font-mono), monospace;
+		font-size: 0.9em;
+	}
+	.status {
+		margin: 1rem 0 0;
+		font-size: 0.78rem;
+		color: var(--primary-color);
+		min-height: 1.2em;
+	}
+
+	/* ── month grid ── */
+	.month-head {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		margin-bottom: 0.8rem;
+	}
+	.month-head h2 {
+		margin: 0;
+		font-size: 1.15rem;
+		color: var(--fg-color);
+		min-width: 12rem;
+	}
+	.nav-btn {
+		font: inherit;
+		width: 2rem;
+		height: 2rem;
+		border-radius: 8px;
+		border: 1px solid var(--border-color);
+		background: transparent;
+		color: var(--sl-color-gray-2);
+		cursor: pointer;
+	}
+	.nav-btn:hover {
+		background: var(--hover-bg);
+		border-color: var(--primary-color);
+	}
+	.today-btn {
+		margin-left: auto;
+	}
+
+	.weekdays,
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(7, minmax(0, 1fr));
+		gap: 4px;
+	}
+	.weekdays {
+		margin-bottom: 4px;
+		font-size: 0.7rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--sl-color-gray-4);
+		text-align: center;
+	}
+	.grid :global(.cell) {
+		min-height: 5.5rem;
+		padding: 0.35rem 0.1rem;
+		border-top: 1px solid var(--sl-color-gray-6);
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+	.grid :global(.num) {
+		font-size: 0.75rem;
+		color: var(--sl-color-gray-4);
+		font-family: var(--sl-font-mono), monospace;
+	}
+	.grid :global(.cell.today .num) {
+		color: var(--primary-color);
+		font-weight: 700;
+	}
+	.grid :global(.pill) {
+		font: inherit;
+		font-size: 0.7rem;
+		line-height: 1.3;
+		text-align: left;
+		padding: 0.1rem 0 0.1rem 0.5rem;
+		border: 0;
+		border-left: 2px solid currentColor;
+		background: transparent;
+		color: var(--sl-color-gray-2);
+		cursor: pointer;
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+	}
+	.grid :global(.pill:hover) {
+		color: var(--primary-color);
+	}
+	.grid :global(.pill.past) {
+		opacity: 0.4;
+	}
+
+	/* ── list ── */
+	.month-group h2 {
+		margin: 1.8rem 0 0.7rem;
+		font-size: 0.8rem;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--sl-color-gray-4);
+		border-bottom: 1px solid var(--border-color);
+		padding-bottom: 0.35rem;
+	}
+	.entry {
+		display: flex;
+		gap: 1rem;
+		padding: 0.9rem 0;
+		border-bottom: 1px solid var(--sl-color-gray-6);
+		scroll-margin-top: 6rem;
+	}
+	.entry.flash {
+		background: rgba(104, 234, 149, 0.08);
+		border-radius: 8px;
+		padding-inline: 0.6rem;
+	}
+	.entry.is-past {
+		opacity: 0.55;
+	}
+	.when {
+		flex: 0 0 3.2rem;
+		text-align: center;
+		padding-top: 0.15rem;
+	}
+	.dow {
+		display: block;
+		font-size: 0.68rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--sl-color-gray-4);
+	}
+	.dnum {
+		display: block;
+		font-size: 1.5rem;
+		font-weight: 650;
+		line-height: 1.1;
+		color: var(--primary-color);
+		font-family: var(--sl-font-mono), monospace;
+	}
+	.tbd {
+		display: block;
+		font-size: 0.8rem;
+		font-family: var(--sl-font-mono), monospace;
+		color: var(--sl-color-gray-4);
+		padding-top: 0.5rem;
+	}
+	.what {
+		min-width: 0;
+		flex: 1;
+	}
+	.what h3 {
+		margin: 0;
+		font-size: 1.05rem;
+		font-weight: 650;
+		line-height: 1.3;
+		color: #fff;
+	}
+	.what h3 a {
+		color: inherit;
+		text-decoration: none;
+	}
+	.what h3 a:hover {
+		color: var(--primary-color);
+	}
+	.meta {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.3rem 0.6rem;
+		margin: 0.35rem 0 0;
+		font-size: 0.8rem;
+		color: var(--sl-color-gray-3);
+	}
+	.meta > span + span::before {
+		content: '·';
+		margin-right: 0.6rem;
+		color: var(--sl-color-gray-5);
+	}
+	.meta > .tag + span::before {
+		content: none;
+	}
+	.tag {
+		font-size: 0.72rem;
+		text-transform: capitalize;
+		color: var(--sl-color-gray-4);
+	}
+	.details {
+		margin: 0.5rem 0 0;
+		font-size: 0.9rem;
+		line-height: 1.6;
+		color: var(--fg-color);
+	}
+	.empty {
+		color: var(--sl-color-gray-3);
+	}
+
+	.past {
+		margin-top: 2.5rem;
+	}
+	.past > summary {
+		cursor: pointer;
+		font-size: 0.85rem;
+		color: var(--sl-color-gray-3);
+		padding: 0.5rem 0;
+	}
+	.past > summary:hover {
+		color: var(--primary-color);
+	}
+
+	@media (max-width: 45rem) {
+		.subscribe {
+			margin-left: 0;
+			width: 100%;
+		}
+		.grid :global(.cell) {
+			min-height: 4rem;
+			padding: 0.2rem;
+		}
+		.grid :global(.pill) {
+			font-size: 0;
+			line-height: 0;
+			padding: 0;
+			height: 4px;
+			border-left: 0;
+			background: var(--primary-color);
+		}
+	}
+</style>

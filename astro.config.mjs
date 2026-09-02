@@ -11,8 +11,15 @@ export default defineConfig({
 	// anyone following an old link or bookmark.
 	redirects: {
 		'/join': '/',
+		// The encryption talk moved under /documentation/lectures/ when the other
+		// lecture notes joined it. Keep the old URL working.
+		'/documentation/encryption/encryption': '/documentation/lectures/encryption-algorithms/',
+		// Events and workshops merged into one calendar. Both URLs were linked
+		// from AUInvolve and Discord, so they keep working.
+		'/events': '/calendar/',
+		'/workshops': '/calendar/',
 	},
-	// Photos live in src/assets/ so Astro resizes them and emits a srcset —
+	// Photos live in src/assets/ so Astro resizes them and emits a srcset;
 	// the raw phone JPEGs are 3–4 MB each. Anything in public/ is served as-is.
 	image: {
 		layout: 'constrained',
@@ -57,6 +64,9 @@ export default defineConfig({
 			],
 			components: {
 				Header: './src/components/Header.astro',
+				// Renders the `cover:` image on news posts. Every other page gets
+				// Starlight's default title and nothing else.
+				PageTitle: './src/components/PageTitle.astro',
 				Footer: './src/components/Footer.astro',
 				ThemeProvider: './src/components/ThemeProvider.astro',
 				ThemeSelect: './src/components/ThemeSelect.astro',
@@ -73,7 +83,10 @@ export default defineConfig({
 					label: 'Meshtastic',
 					items: [{ autogenerate: { directory: 'documentation/meshtastic' } }],
 				},
-				{ label: 'Encryption', link: '/documentation/encryption/encryption/' },
+				{
+					label: 'Lectures',
+					items: [{ autogenerate: { directory: 'documentation/lectures' } }],
+				},
 			],
 		}),
 	],

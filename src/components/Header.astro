@@ -6,13 +6,12 @@ import SiteTitle from '@astrojs/starlight/components/SiteTitle.astro';
 import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
 
 // Top-level sections. Everything outside /documentation/ is a sidebar-less
-// splash page, so this nav is the only way between sections — it stays
+// splash page, so this nav is the only way between sections, so it stays
 // visible at every width (scrolls sideways when it doesn't fit).
 const links = [
 	{ label: 'Home', href: '/' },
 	{ label: 'News', href: '/news/' },
-	{ label: 'Events', href: '/events/' },
-	{ label: 'Workshops', href: '/workshops/' },
+	{ label: 'Calendar', href: '/calendar/' },
 	{ label: 'Project Hub', href: '/projects/' },
 	{ label: 'Tools', href: '/tools/' },
 	{ label: 'Documentation', href: '/documentation/' },

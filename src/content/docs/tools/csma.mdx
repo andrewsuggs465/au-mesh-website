@@ -1,0 +1,29 @@
+---
+title: CSMA/CA
+description: Interactive animation of 802.11 medium access, with RTS/CTS, backoff, and hidden terminals.
+template: splash
+editUrl: false
+tableOfContents: false
+---
+
+import CsmaSim from '../../../components/CsmaSim.astro';
+
+<CsmaSim />
+
+{/* A div, not a p: MDX parses the blank-line-separated content below as
+    markdown and wraps it in its own <p>, which is only valid inside a div.
+    Nesting it in a <p> makes the parser close the outer one and drop the
+    class off the text. */}
+<div class="credit">
+
+Explained in [Standards & Protocols, Part 1](/documentation/lectures/standards-and-protocols-1/#carrier-sense-multiple-access)
+· Credit: [CSMA/CA animation](https://www.tkn.tu-berlin.de/teaching/rn/animations/csma/)
+
+</div>
+
+<style>{`
+	.credit p {
+		font-size: 0.78rem;
+		color: var(--sl-color-gray-4);
+	}
+`}</style>

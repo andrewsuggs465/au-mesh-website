@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="616" height="409.5" viewBox="139 68.5 616.5 409.5" role="img" aria-label="Checksum with end-around carry">
+<rect x="139" y="68.5" width="616.5" height="409.5" fill="#0D1117"/>
+  <text x="248" y="88" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" letter-spacing="1.6" fill="#FFFFFF">SENDER</text>
+  <text x="154.0" y="124" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#6D7D8A">1</text>
+  <text x="188.5" y="124" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="205.5" y="124" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="222.5" y="124" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="239.5" y="124" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="256.5" y="124" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="273.5" y="124" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="290.5" y="124" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="307.5" y="124" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="154.0" y="150" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#6D7D8A">2</text>
+  <text x="188.5" y="150" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="205.5" y="150" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="222.5" y="150" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="239.5" y="150" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="256.5" y="150" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="273.5" y="150" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="290.5" y="150" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="307.5" y="150" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <line x1="157.0" y1="159" x2="320" y2="159" stroke="#41505E" stroke-width="1.4" />
+  <text x="171.5" y="185" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">1</text>
+  <text x="188.5" y="185" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="205.5" y="185" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="222.5" y="185" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="239.5" y="185" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="256.5" y="185" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="273.5" y="185" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="290.5" y="185" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="307.5" y="185" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="307.5" y="209" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">1</text>
+  <path d="M 171.5 192 C 163.0 213, 265.0 215, 296.0 205" fill="none" stroke="#E76324" stroke-width="1.3" stroke-dasharray="4 4" />
+  <path d="M 290.0 198 L 298.0 206 L 287.0 208 Z" fill="#E76324" />
+  <line x1="174.0" y1="218" x2="320" y2="218" stroke="#41505E" stroke-width="1.4" />
+  <text x="188.5" y="244" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="205.5" y="244" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="222.5" y="244" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="239.5" y="244" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="256.5" y="244" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="273.5" y="244" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="290.5" y="244" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="307.5" y="244" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="154.0" y="270" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#6D7D8A">3</text>
+  <text x="188.5" y="270" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="205.5" y="270" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="222.5" y="270" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="239.5" y="270" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="256.5" y="270" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="273.5" y="270" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="290.5" y="270" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="307.5" y="270" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <line x1="174.0" y1="279" x2="320" y2="279" stroke="#41505E" stroke-width="1.4" />
+  <text x="188.5" y="305" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="205.5" y="305" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="222.5" y="305" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="239.5" y="305" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="256.5" y="305" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="273.5" y="305" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="290.5" y="305" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="307.5" y="305" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="154.0" y="331" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#6D7D8A">4</text>
+  <text x="188.5" y="331" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="205.5" y="331" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="222.5" y="331" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="239.5" y="331" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="256.5" y="331" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="273.5" y="331" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="290.5" y="331" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="307.5" y="331" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <line x1="157.0" y1="340" x2="320" y2="340" stroke="#41505E" stroke-width="1.4" />
+  <text x="171.5" y="366" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">1</text>
+  <text x="188.5" y="366" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="205.5" y="366" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="222.5" y="366" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="239.5" y="366" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="256.5" y="366" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="273.5" y="366" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">1</text>
+  <text x="290.5" y="366" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="307.5" y="366" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E6EDF3">0</text>
+  <text x="307.5" y="390" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">1</text>
+  <path d="M 171.5 373 C 163.0 394, 265.0 396, 296.0 386" fill="none" stroke="#E76324" stroke-width="1.3" stroke-dasharray="4 4" />
+  <path d="M 290.0 379 L 298.0 387 L 287.0 389 Z" fill="#E76324" />
+  <line x1="174.0" y1="399" x2="320" y2="399" stroke="#41505E" stroke-width="1.4" />
+  <text x="154.0" y="425" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">Σ</text>
+  <text x="188.5" y="425" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">0</text>
+  <text x="205.5" y="425" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">0</text>
+  <text x="222.5" y="425" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">1</text>
+  <text x="239.5" y="425" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">0</text>
+  <text x="256.5" y="425" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">0</text>
+  <text x="273.5" y="425" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">1</text>
+  <text x="290.5" y="425" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">0</text>
+  <text x="307.5" y="425" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">1</text>
+  <text x="154.0" y="459" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="#E76324">~</text>
+  <text x="188.5" y="459" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">1</text>
+  <text x="205.5" y="459" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">1</text>
+  <text x="222.5" y="459" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">0</text>
+  <text x="239.5" y="459" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">1</text>
+  <text x="256.5" y="459" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">1</text>
+  <text x="273.5" y="459" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">0</text>
+  <text x="290.5" y="459" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">1</text>
+  <text x="307.5" y="459" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">0</text>
+  <rect x="170.0" y="439" width="154" height="28" fill="#1A6A9E" fill-opacity="0.16" stroke="#1A6A9E" stroke-width="1.3" />
+  <text x="188.5" y="459" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">1</text>
+  <text x="205.5" y="459" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">1</text>
+  <text x="222.5" y="459" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">0</text>
+  <text x="239.5" y="459" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">1</text>
+  <text x="256.5" y="459" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">1</text>
+  <text x="273.5" y="459" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">0</text>
+  <text x="290.5" y="459" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">1</text>
+  <text x="307.5" y="459" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">0</text>
+  <text x="632" y="200" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" letter-spacing="1.6" fill="#FFFFFF">RECEIVER</text>
+  <text x="572.5" y="236" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">0</text>
+  <text x="589.5" y="236" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">0</text>
+  <text x="606.5" y="236" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">1</text>
+  <text x="623.5" y="236" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">0</text>
+  <text x="640.5" y="236" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">0</text>
+  <text x="657.5" y="236" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">1</text>
+  <text x="674.5" y="236" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">0</text>
+  <text x="691.5" y="236" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">1</text>
+  <text x="572.5" y="262" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">1</text>
+  <text x="589.5" y="262" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">1</text>
+  <text x="606.5" y="262" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">0</text>
+  <text x="623.5" y="262" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">1</text>
+  <text x="640.5" y="262" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">1</text>
+  <text x="657.5" y="262" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">0</text>
+  <text x="674.5" y="262" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">1</text>
+  <text x="691.5" y="262" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">0</text>
+  <line x1="558.0" y1="271" x2="704" y2="271" stroke="#41505E" stroke-width="1.4" />
+  <text x="538.0" y="297" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">Σ</text>
+  <text x="572.5" y="297" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">1</text>
+  <text x="589.5" y="297" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">1</text>
+  <text x="606.5" y="297" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">1</text>
+  <text x="623.5" y="297" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">1</text>
+  <text x="640.5" y="297" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">1</text>
+  <text x="657.5" y="297" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">1</text>
+  <text x="674.5" y="297" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">1</text>
+  <text x="691.5" y="297" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#E76324">1</text>
+  <text x="538.0" y="331" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="#E76324">~</text>
+  <rect x="554.0" y="311" width="154" height="28" fill="#1A6A9E" fill-opacity="0.16" stroke="#1A6A9E" stroke-width="1.3" />
+  <text x="572.5" y="331" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">0</text>
+  <text x="589.5" y="331" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">0</text>
+  <text x="606.5" y="331" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">0</text>
+  <text x="623.5" y="331" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">0</text>
+  <text x="640.5" y="331" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">0</text>
+  <text x="657.5" y="331" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">0</text>
+  <text x="674.5" y="331" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">0</text>
+  <text x="691.5" y="331" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#4FA3D1">0</text>
+  <path d="M 722 324 l 7 8 l 15 -19" fill="none" stroke="#4FA3D1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M 334 452 C 436 452, 487 292, 540.0 258" fill="none" stroke="#1A6A9E" stroke-width="1.6" stroke-dasharray="5 5" />
+  <path d="M 532.0 268 L 535.0 254 L 547.0 263 Z" fill="#1A6A9E" />
+</svg>

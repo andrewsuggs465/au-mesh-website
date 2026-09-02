@@ -3,7 +3,7 @@
  * Interactive link budget calculator.
  *
  * UI over `src/lib/link-budget.ts`. Runs entirely in the browser so it works on
- * a static GitHub Pages build — no backend. See the lib header for provenance.
+ * a static GitHub Pages build, so there is no backend. See the lib header for provenance.
  */
 ---
 
@@ -45,25 +45,25 @@
 
 		{/* ── readout ── */}
 		<section class="card readout">
-			<h3>At {''}<span data-op-label>5 km, 915 MHz</span></h3>
+			<h2>At {''}<span data-op-label>5 km, 915 MHz</span></h2>
 			<dl class="stats">
-				<div><dt>Received power</dt><dd data-out="pRx">—</dd></div>
-				<div><dt>Noise floor</dt><dd data-out="noise">—</dd></div>
-				<div><dt>SNR</dt><dd data-out="snr">—</dd></div>
-				<div class="margin"><dt>Link margin</dt><dd data-out="margin">—</dd></div>
+				<div><dt>Received power</dt><dd data-out="pRx">–</dd></div>
+				<div><dt>Noise floor</dt><dd data-out="noise">–</dd></div>
+				<div><dt>SNR</dt><dd data-out="snr">–</dd></div>
+				<div class="margin"><dt>Link margin</dt><dd data-out="margin">–</dd></div>
 			</dl>
 			<p class="verdict" data-verdict></p>
 			<p class="warn" data-horizon-warn hidden></p>
 
-			<h4>Path loss</h4>
+			<h3>Path loss</h3>
 			<table class="loss">
 				<tbody>
-					<tr><th>Free space</th><td data-out="lFs">—</td></tr>
-					<tr data-loss-row="atmo"><th>Atmospheric gases</th><td data-out="lAtmo">—</td></tr>
-					<tr data-loss-row="cloud"><th>Cloud / fog</th><td data-out="lCloud">—</td></tr>
-					<tr data-loss-row="rain"><th>Rain</th><td data-out="lRain">—</td></tr>
-					<tr><th>Feedline / system</th><td data-out="lSys">—</td></tr>
-					<tr class="tot"><th>Total</th><td data-out="lTot">—</td></tr>
+					<tr><th>Free space</th><td data-out="lFs">–</td></tr>
+					<tr data-loss-row="atmo"><th>Atmospheric gases</th><td data-out="lAtmo">–</td></tr>
+					<tr data-loss-row="cloud"><th>Cloud / fog</th><td data-out="lCloud">–</td></tr>
+					<tr data-loss-row="rain"><th>Rain</th><td data-out="lRain">–</td></tr>
+					<tr><th>Feedline / system</th><td data-out="lSys">–</td></tr>
+					<tr class="tot"><th>Total</th><td data-out="lTot">–</td></tr>
 				</tbody>
 			</table>
 		</section>
@@ -95,7 +95,7 @@
 						<label>TX antenna height (m)<input type="number" min="0" step="1" data-bind="link.hTxM" /></label>
 						<label>RX antenna height (m)<input type="number" min="0" step="1" data-bind="link.hRxM" /></label>
 					</div>
-					<p class="hint" data-out="horizon">—</p>
+					<p class="hint" data-out="horizon">–</p>
 					<div class="slide">
 						<label>Elevation angle (°)<input type="number" step="1" data-bind="link.elevDeg" /></label>
 						<input type="range" min="-90" max="90" step="1" data-bind="link.elevDeg" />
@@ -104,7 +104,7 @@
 						<label>Polarization tilt (°)<input type="number" step="1" data-bind="link.polarTiltDeg" /></label>
 						<input type="range" min="-90" max="90" step="1" data-bind="link.polarTiltDeg" />
 					</div>
-					<p class="hint">Tilt 0° is horizontal, 90° vertical — only affects rain loss.</p>
+					<p class="hint">Tilt 0° is horizontal, 90° vertical. Only affects rain loss.</p>
 				</fieldset>
 
 				<div class="two">
@@ -115,7 +115,7 @@
 							<label>Antenna gain (dBi)<input type="number" step="0.5" data-bind="cfg.gTx" /></label>
 							<label>Losses (dB)<input type="number" step="0.1" min="0" data-bind="cfg.lTx" /></label>
 						</div>
-						<p class="hint" data-out="watts">—</p>
+						<p class="hint" data-out="watts">–</p>
 					</fieldset>
 					<fieldset>
 						<legend>Receiver</legend>
@@ -184,32 +184,32 @@
 			</div>
 
 			<div class="panel about" data-panel="about" hidden>
-				<h4>What this models</h4>
+				<h3>What this models</h3>
 				<p>
 					Received power is <code>P_rx = P_tx + G_tx + G_rx − L_path − L_system</code>. Path loss is
 					free-space spreading plus optional atmospheric absorption, cloud, and rain. SNR compares
 					that against the Johnson–Nyquist thermal noise floor <code>kTB</code>.
 				</p>
 
-				<h4>Assumptions</h4>
+				<h3>Assumptions</h3>
 				<ul>
-					<li>Flat earth — no terrain, no obstructions, no Fresnel-zone clearance check</li>
+					<li>Flat earth, so no terrain, no obstructions, no Fresnel-zone clearance check</li>
 					<li>Line of sight, far field, no multipath or ground reflection</li>
 					<li>Uniform rainfall, pressure, and temperature along the whole path</li>
 					<li>Narrowband signal; thermal noise is the only noise source</li>
-					<li>Receiver noise figure is not modelled — real radios are worse than <code>kTB</code></li>
+					<li>Receiver noise figure is not modelled, so real radios are worse than <code>kTB</code></li>
 				</ul>
 
-				<h4>Valid range</h4>
+				<h3>Valid range</h3>
 				<p>
 					The ITU gas and rain models are specified for 1–1000&nbsp;GHz, and the cloud model to
-					200&nbsp;GHz. Below 1&nbsp;GHz — including the 915&nbsp;MHz Meshtastic band — the
+					200&nbsp;GHz. Below 1&nbsp;GHz, including the 915&nbsp;MHz Meshtastic band, the
 					free-space term is still exact, but the atmospheric terms are extrapolated. In practice
 					they are negligible down there, so this matters less than it sounds.
 				</p>
 				<p class="warn" data-range-warn hidden></p>
 
-				<h4>Credit</h4>
+				<h3>Credit</h3>
 				<p>
 					The physics is ported from
 					<a href="https://github.com/SpecterStrider/Link-Budget-GUI" rel="noopener">Link-Budget-GUI</a>
@@ -611,12 +611,12 @@
 
 			const verdict = root.querySelector<HTMLElement>('[data-verdict]')!;
 			verdict.textContent = beyondHorizon
-				? 'Over the horizon — the margin below is not achievable as-is.'
+				? 'Over the horizon. The margin below is not achievable as-is.'
 				: margin >= 10
-					? 'Comfortable margin — this link should be reliable.'
+					? 'Comfortable margin. This link should be reliable.'
 					: margin >= 0
-						? 'Marginal — works in clear conditions, fragile in weather or with obstructions.'
-						: 'Below threshold — this link will not close.';
+						? 'Marginal. Works in clear conditions, fragile in weather or with obstructions.'
+						: 'Below threshold. This link will not close.';
 			verdict.dataset.level = beyondHorizon || margin < 0 ? 'bad' : margin >= 10 ? 'good' : 'warn';
 			root.querySelector<HTMLElement>('.margin')!.dataset.level = verdict.dataset.level;
 
@@ -626,7 +626,7 @@
 			);
 			const hWarn = root.querySelector<HTMLElement>('[data-horizon-warn]')!;
 			hWarn.hidden = !beyondHorizon;
-			hWarn.textContent = `${state.link.distanceKm} km is past the ${horizon.toFixed(1)} km radio horizon for ${state.link.hTxM} m and ${state.link.hRxM} m antennas. This model assumes a flat earth, so it does not account for that — raise the antennas or shorten the path.`;
+			hWarn.textContent = `${state.link.distanceKm} km is past the ${horizon.toFixed(1)} km radio horizon for ${state.link.hTxM} m and ${state.link.hRxM} m antennas. This model assumes a flat earth, so it does not account for that, so raise the antennas or shorten the path.`;
 
 			out('lFs', `${r.loss.freeSpace.toFixed(1)} dB`);
 			out('lAtmo', `${r.loss.atmo.toFixed(2)} dB`);
@@ -824,16 +824,16 @@
 	}
 
 	/* ── readout ── */
-	.readout h3 {
+	.readout h2 {
 		margin: 0 0 0.75rem;
 		font-size: 0.95rem;
 		color: var(--sl-color-gray-2);
 	}
-	.readout h3 span {
+	.readout h2 span {
 		color: var(--primary-color);
 		font-family: var(--sl-font-mono), monospace;
 	}
-	.readout h4 {
+	.readout h3 {
 		margin: 1.25rem 0 0.5rem;
 		font-size: 0.8rem;
 		text-transform: uppercase;
@@ -1051,14 +1051,14 @@
 		font-size: 0.9rem;
 		max-width: 60ch;
 	}
-	.about h4 {
+	.about h3 {
 		margin: 1.1rem 0 0.4rem;
 		font-size: 0.78rem;
 		text-transform: uppercase;
 		letter-spacing: 0.08em;
 		color: var(--primary-color);
 	}
-	.about h4:first-child {
+	.about h3:first-child {
 		margin-top: 0;
 	}
 	.about p,

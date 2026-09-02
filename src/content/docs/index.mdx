@@ -7,8 +7,8 @@ prev: false
 next: false
 head:
   - tag: title
-    content: AU Mesh — Auburn University Mesh Club
-  # Hide Starlight's auto page title on the homepage — HomeHero has its own h1.
+    content: 'AU Mesh: Auburn University Mesh Club'
+  # Hide Starlight's auto page title on the homepage; HomeHero has its own h1.
   - tag: style
     content: ".content-panel:has(h1#_top) { display: none; }"
 ---
@@ -25,11 +25,11 @@ import InfoCard from '../../components/InfoCard.astro';
 
 <HomeSection title="Quick links">
 	<div class="card-grid wide-cards">
-		<HubCard icon="event" title="Events" href="/events/">
-			Meetings, lectures, and hangouts this semester
+		<HubCard icon="event" title="Calendar" href="/calendar/">
+			Meetings, workshops, and hangouts, with a feed you can subscribe to
 		</HubCard>
-		<HubCard icon="construction" title="Workshops" href="/workshops/">
-			Small-group hands-on builds, beginner to RF
+		<HubCard icon="memory" title="Project Hub" href="/projects/">
+			Nodes built by members and the wider Alabama mesh
 		</HubCard>
 		<HubCard icon="build" title="Tools" href="/tools/">
 			Link budget calculator and the live mesh map
@@ -62,17 +62,17 @@ import InfoCard from '../../components/InfoCard.astro';
 				<li>Advanced RF, antenna, and amplifier design</li>
 			</ul>
 		</InfoCard>
-		<InfoCard icon="public" title="Field Deployment">
+		<InfoCard icon="settings_input_antenna" title="Build Day">
 			<ul>
-				<li>Siting and mounting nodes around Auburn</li>
-				<li>Antenna selection and placement</li>
-				<li>Planning links with the link budget calculator</li>
+				<li>Every member builds and flashes their own Meshtastic node</li>
+				<li>Each member chooses or builds their own case design</li>
 			</ul>
 		</InfoCard>
 		<InfoCard icon="campaign" title="Community Outreach">
 			<ul>
 				<li>Tabling on the Concourse and at the Involvement Fair</li>
-				<li>Working with Auburn ARC and the Alabama mesh</li>
+				<li>Reaching out to prospective students and E-Day showcase</li>
+				<li>Build out extensive documentation for the purpose of education</li>
 			</ul>
 		</InfoCard>
 	</div>

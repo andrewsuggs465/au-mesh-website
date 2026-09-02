@@ -7,7 +7,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "node --experimental-strip-types --disable-warning=ExperimentalWarning src/lib/csma.test.ts"
   },
   "dependencies": {
     "@astrojs/starlight": "^0.41.3",

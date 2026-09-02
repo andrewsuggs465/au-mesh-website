@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="465" viewBox="0 0 560 465">
+<rect x="0" y="0" width="560" height="465" fill="#0D1117"/>
+<text x="280.0" y="40" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">Block Cipher Basics</text>
+<rect x="150.0" y="122" width="260" height="64" rx="8" fill="#161B22" stroke="#1F2B38" stroke-width="2"/>
+<text x="280.0" y="159.6" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">Plaintext block</text>
+<line x1="280.0" y1="186.0" x2="280.0" y2="223.0" stroke="#B0BEC5" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="280.0,234.0 276.0,223.0 284.0,223.0" fill="#B0BEC5"/>
+<rect x="150.0" y="238" width="260" height="96" rx="8" fill="#161B22" stroke="#E76324" stroke-width="2"/>
+<text x="280.0" y="280.39" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">Block cipher</text>
+<text x="280.0" y="303.34" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#FFFFFF" text-anchor="middle" letter-spacing="0">encryption</text>
+<circle cx="70" cy="286" r="9.3" fill="none" stroke="#E76324" stroke-width="4.7"/>
+<line x1="79.3" y1="286" x2="104.0" y2="286" stroke="#E76324" stroke-width="4.7" stroke-linecap="round"/>
+<line x1="92.1" y1="286" x2="92.1" y2="294.5" stroke="#E76324" stroke-width="3.8" stroke-linecap="round"/>
+<line x1="98.9" y1="286" x2="98.9" y2="294.5" stroke="#E76324" stroke-width="3.8" stroke-linecap="round"/>
+<line x1="118.0" y1="286.0" x2="131.0" y2="286.0" stroke="#E76324" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="142.0,286.0 131.0,290.0 131.0,282.0" fill="#E76324"/>
+<text x="70" y="246" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#E76324" text-anchor="middle" letter-spacing="0">Key</text>
+<line x1="280.0" y1="334.0" x2="280.0" y2="371.0" stroke="#B0BEC5" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="280.0,382.0 276.0,371.0 284.0,371.0" fill="#B0BEC5"/>
+<rect x="150.0" y="386" width="260" height="64" rx="8" fill="#161B22" stroke="#1F2B38" stroke-width="2"/>
+<text x="280.0" y="423.6" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#E76324" text-anchor="middle" letter-spacing="0">Ciphertext block</text>
+</svg>

@@ -1,9 +1,8 @@
 ---
-import { eventDate, type ClubEvent } from '../lib/events';
-import { nextEvent } from '../lib/events';
+import { nextEntry, type CalendarEntry } from '../lib/calendar';
 
-const event: ClubEvent | undefined = nextEvent();
-const date = event ? eventDate(event) : null;
+const event: CalendarEntry | undefined = nextEntry();
+const date = event?.date ?? null;
 const shortDate = date?.toLocaleDateString('en-US', {
 	weekday: 'short',
 	month: 'short',
@@ -14,14 +13,14 @@ const shortDate = date?.toLocaleDateString('en-US', {
 
 {
 	event && (
-		<a class="next-event not-content" href="/events/">
+		<a class="next-event not-content" href="/calendar/">
 			<span class="label">Next up</span>
 			<span class="date">{shortDate}</span>
 			<span class="name">
 				{event.title}
 				{event.tentative && <span class="tent">tentative</span>}
 			</span>
-			<span class="more">All events →</span>
+			<span class="more">Full calendar →</span>
 		</a>
 	)
 }

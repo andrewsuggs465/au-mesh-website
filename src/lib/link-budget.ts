@@ -1,5 +1,5 @@
 /**
- * Link budget model — RF path loss, received power, and SNR between two radios.
+ * Link budget model: RF path loss, received power, and SNR between two radios.
  *
  * Ported to TypeScript from the Link-Budget-GUI project by SpecterStrider
  * (https://github.com/SpecterStrider/Link-Budget-GUI), which is a Python/NiceGUI
@@ -80,9 +80,9 @@ export interface LinkState {
 	elevDeg: number;
 	/** polarization tilt angle (degrees); 0 = horizontal, 90 = vertical */
 	polarTiltDeg: number;
-	/** transmit antenna height above ground (m) — horizon check only */
+	/** transmit antenna height above ground (m), horizon check only */
 	hTxM: number;
-	/** receive antenna height above ground (m) — horizon check only */
+	/** receive antenna height above ground (m), horizon check only */
 	hRxM: number;
 }
 
@@ -134,8 +134,8 @@ export function freeSpaceLoss(distKm: number, freqGHz: number): number {
 /**
  * Thermal noise floor (dBm). N = kTB.
  *
- * NOTE: this differs from the upstream Python, which returns 10*log10(kTB) —
- * that is dBW, but it was then subtracted from a dBm figure to get SNR, making
+ * NOTE: this differs from the upstream Python, which returns 10*log10(kTB).
+ * That is dBW, but it was then subtracted from a dBm figure to get SNR, making
  * the result 30 dB optimistic. The `* 1e3` here converts W to mW so the units
  * line up. Sanity check: 1 MHz at 290 K gives -114 dBm, the textbook value.
  */
@@ -344,7 +344,7 @@ export function atmoLoss(
 /**
  * Radio horizon (km) for two antennas at the given heights (m).
  *
- * NOT part of the upstream port — added because the loss model assumes a flat
+ * NOT part of the upstream port. Added because the loss model assumes a flat
  * earth, so on its own it will cheerfully report a healthy margin for a link
  * that runs straight through the planet. `d = 4.12 * (sqrt(h1) + sqrt(h2))`
  * is the standard 4/3-earth approximation.
