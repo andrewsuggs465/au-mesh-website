@@ -186,7 +186,9 @@ body:not(:has(.sidebar-pane)):not(:has(.home-hero)) .content-panel > .sl-contain
 }
 body:not(:has(.sidebar-pane)):not(:has(.home-hero))
 	.sl-markdown-content
-	> :is(p, ul, ol, blockquote, table, hr, .sl-heading-wrapper, h2, h3, h4, h5, h6) {
+	> :is(p, ul, ol, blockquote, table, hr, .sl-heading-wrapper, h2, h3, h4, h5, h6):not(
+		.not-content
+	) {
 	max-width: 46rem;
 }
 /* Loose markdown photos on sidebar-less pages are usually portrait phone shots;
