@@ -13,7 +13,6 @@
 	--code-bg-color: #111821;
 	--border-color: rgba(104, 234, 149, 0.2);
 	--hover-bg: rgba(104, 234, 149, 0.1);
-	--glow: 0 0 24px oklch(75% 0.14 175 / 0.15);
 
 	/* widest the page frame gets. The header bar stays full-bleed but lines
 	   its contents up with this, and the docs layout centres inside it */
@@ -210,10 +209,6 @@ body:not(:has(.sidebar-pane)):not(:has(.home-hero))
 }
 .sl-markdown-content pre {
 	border: 1px solid var(--border-color);
-	transition: box-shadow 0.3s ease;
-}
-.sl-markdown-content pre:hover {
-	box-shadow: var(--glow);
 }
 
 /* ── tables ── */
@@ -256,8 +251,7 @@ body:not(:has(.sidebar-pane)):not(:has(.home-hero))
 .sl-markdown-content hr {
 	border: none;
 	height: 1px;
-	background: linear-gradient(to right, transparent, var(--primary-color), transparent);
-	opacity: 0.3;
+	background: var(--border-color);
 	margin: 2em 0;
 }
 
@@ -265,11 +259,6 @@ body:not(:has(.sidebar-pane)):not(:has(.home-hero))
 .sl-markdown-content img {
 	border-radius: 6px;
 	border: 1px solid var(--border-color);
-	transition: all 0.3s ease;
-}
-.sl-markdown-content img:hover {
-	border-color: var(--primary-color);
-	box-shadow: var(--glow);
 }
 
 /* ── asides: match the old site's mint admonitions for notes/tips ── */
@@ -366,7 +355,7 @@ body:not(:has(.sidebar-pane)):not(:has(.home-hero))
 /* ── event cards (Events page + homepage strip uses its own styles) ── */
 .event-card {
 	display: block;
-	background: linear-gradient(135deg, rgba(104, 234, 149, 0.08) 0%, rgba(104, 234, 149, 0.03) 100%);
+	background-color: rgba(104, 234, 149, 0.05);
 	border: 1px solid rgba(104, 234, 149, 0.15);
 	border-left: 4px solid var(--primary-color);
 	border-radius: 8px;
@@ -422,7 +411,7 @@ body:not(:has(.sidebar-pane)):not(:has(.home-hero))
 	border: 1px solid var(--border-color);
 	color: var(--primary-color);
 	padding: 0.1em 0.7em;
-	border-radius: 12px;
+	border-radius: 999px;
 	font-family: var(--sl-font), sans-serif;
 	font-size: 0.7rem;
 	font-weight: 500;
