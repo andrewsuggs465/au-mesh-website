@@ -73,7 +73,6 @@
 			<div class="tabs" role="tablist">
 				<button type="button" role="tab" data-tab="radio" class="on">Radio</button>
 				<button type="button" role="tab" data-tab="env">Environment</button>
-				<button type="button" role="tab" data-tab="about">About</button>
 			</div>
 
 			<div class="panel" data-panel="radio">
@@ -183,47 +182,6 @@
 				<button type="button" class="reset" data-reset>Reset to defaults</button>
 			</div>
 
-			<div class="panel about" data-panel="about" hidden>
-				<h3>What this models</h3>
-				<p>
-					Received power is <code>P_rx = P_tx + G_tx + G_rx − L_path − L_system</code>. Path loss is
-					free-space spreading plus optional atmospheric absorption, cloud, and rain. SNR compares
-					that against the Johnson–Nyquist thermal noise floor <code>kTB</code>.
-				</p>
-
-				<h3>Assumptions</h3>
-				<ul>
-					<li>Flat earth, so no terrain, no obstructions, no Fresnel-zone clearance check</li>
-					<li>Line of sight, far field, no multipath or ground reflection</li>
-					<li>Uniform rainfall, pressure, and temperature along the whole path</li>
-					<li>Narrowband signal; thermal noise is the only noise source</li>
-					<li>Receiver noise figure is not modelled, so real radios are worse than <code>kTB</code></li>
-				</ul>
-
-				<h3>Valid range</h3>
-				<p>
-					The ITU gas and rain models are specified for 1–1000&nbsp;GHz, and the cloud model to
-					200&nbsp;GHz. Below 1&nbsp;GHz, including the 915&nbsp;MHz Meshtastic band, the
-					free-space term is still exact, but the atmospheric terms are extrapolated. In practice
-					they are negligible down there, so this matters less than it sounds.
-				</p>
-				<p class="warn" data-range-warn hidden></p>
-
-				<h3>Credit</h3>
-				<p>
-					The physics is ported from
-					<a href="https://github.com/SpecterStrider/Link-Budget-GUI" rel="noopener">Link-Budget-GUI</a>
-					by SpecterStrider, used under the Apache&nbsp;2.0 licence. The original is a Python /
-					NiceGUI desktop app; the model was translated to TypeScript so it runs in the browser on
-					this static site. Formulas and ITU coefficient tables are unchanged and match the original
-					to floating-point precision.
-				</p>
-				<p>
-					One deliberate deviation: the upstream noise floor returns dBW but is compared against
-					dBm, making SNR 30&nbsp;dB optimistic. This version returns dBm, so 1&nbsp;MHz at 290&nbsp;K
-					gives the textbook −114&nbsp;dBm.
-				</p>
-			</div>
 		</section>
 	</div>
 </div>
@@ -663,11 +621,6 @@
 
 			out('watts', `= ${(10 ** (state.cfg.pTx / 10) / 1000).toPrecision(3)} W radiated`);
 
-			const warn = root.querySelector<HTMLElement>('[data-range-warn]')!;
-			const lowest = state.sweep === 'frequency' ? state.startFreq : state.link.freqGHz;
-			warn.hidden = lowest >= 1 || (!state.env.atmo && !state.env.cloud && !state.env.rain);
-			warn.textContent = `Heads up: you are at ${lowest < 1 ? `${(lowest * 1000).toFixed(0)} MHz` : `${lowest} GHz`}, below the 1 GHz floor of the ITU models. The weather terms shown are extrapolated (and very small).`;
-
 			const pts = sweepPoints();
 			const noiseY = state.showNoise
 				? state.plot === 'pRx'
@@ -833,7 +786,7 @@
 		pointer-events: none;
 		background: var(--code-bg-color);
 		border: 1px solid var(--border-color);
-		border-radius: 5px;
+		border-radius: 6px;
 		padding: 0.2rem 0.5rem;
 		font-family: var(--sl-font-mono), monospace;
 		font-size: 0.75rem;
@@ -1044,7 +997,7 @@
 		padding: 0.3rem 0.45rem;
 		background: var(--code-bg-color);
 		border: 1px solid var(--border-color);
-		border-radius: 5px;
+		border-radius: 6px;
 		color: var(--fg-color);
 	}
 	input[type='range'] {
@@ -1092,29 +1045,6 @@
 		color: var(--primary-color);
 	}
 
-	.about {
-		font-size: 0.9rem;
-		max-width: 60ch;
-	}
-	.about h3 {
-		margin: 1.1rem 0 0.4rem;
-		font-size: 0.78rem;
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		color: var(--primary-color);
-	}
-	.about h3:first-child {
-		margin-top: 0;
-	}
-	.about p,
-	.about li {
-		color: var(--sl-color-gray-2);
-		line-height: 1.6;
-	}
-	.about ul {
-		margin: 0;
-		padding-left: 1.1rem;
-	}
 	.warn {
 		border-left: 2px solid #e8c468;
 		padding-left: 0.75rem;
