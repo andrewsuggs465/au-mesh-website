@@ -1,0 +1,104 @@
+---
+// Key facts for Hack the Plains, the club's hardware hackathon.
+//
+// The event gets its own site later. When it does, this page is one edit:
+// point the header nav at the new domain and add a /hackathon redirect in
+// astro.config.mjs. Nothing else on the site imports this component.
+
+// Interest form URL. The button does not render while this is empty, so the
+// page never ships a link that goes nowhere.
+const INTEREST_FORM = 'https://auburn.qualtrics.com/jfe/form/SV_8pkx1WRlee4nYkm';
+
+// Straight off the sponsorship one-pager. `mono` marks the figures a machine
+// produced or consumes (dates, times, head count), which is the only thing
+// JetBrains Mono is used for on this site.
+const facts = [
+	{ label: 'Dates', value: 'January 22–24, 2027', mono: true },
+	{ label: 'Hours', value: 'Friday 5:00 PM to Sunday 12:00 PM', mono: true },
+	{
+		label: 'Venue',
+		value: 'Brown-Kopel Engineering Student Achievement Center, with the Auburn Makerspace',
+	},
+	{ label: 'Capacity', value: '60 students', mono: true },
+	{ label: 'Hosts', value: 'AU Mesh Club with the Auburn IEEE chapter' },
+	{ label: 'Theme', value: 'Announced later' },
+];
+---
+
+<div class="hackathon-facts not-content">
+	<dl>
+		{
+			facts.map((fact) => (
+				<div class="row">
+					<dt>{fact.label}</dt>
+					<dd class={fact.mono ? 'mono' : undefined}>{fact.value}</dd>
+				</div>
+			))
+		}
+	</dl>
+
+	{
+		INTEREST_FORM && (
+			<p class="actions">
+				<a class="btn btn-solid" href={INTEREST_FORM}>
+					Interest form
+				</a>
+			</p>
+		)
+	}
+</div>
+
+<style>
+	.hackathon-facts {
+		margin-top: 2rem;
+	}
+
+	dl {
+		margin: 0;
+		/* ruled, not filled: the hairlines already group the rows, so the block
+		   needs no card surface behind it */
+		border-top: 1px solid var(--border-color);
+	}
+
+	.row {
+		display: grid;
+		/* 7rem holds "Capacity", the longest label, at 0.95rem Outfit without
+		   wrapping; the value column takes the rest */
+		grid-template-columns: 7rem 1fr;
+		gap: 0 1.5rem;
+		padding: 0.7rem 0;
+		border-bottom: 1px solid var(--border-color);
+	}
+
+	dt {
+		color: var(--sl-color-gray-3);
+		font-size: 0.95rem;
+	}
+
+	dd {
+		margin: 0;
+		color: var(--fg-color);
+		font-size: 0.95rem;
+		/* the venue line is the only one that wraps; keep it readable */
+		line-height: 1.5;
+	}
+
+	.mono {
+		font-family: var(--sl-font-mono), monospace;
+		font-size: 0.875rem;
+	}
+
+	/* Under ~30rem the two columns leave the venue value about 12 characters
+	   wide, so stack them. */
+	@media (max-width: 30rem) {
+		.row {
+			grid-template-columns: 1fr;
+			gap: 0.15rem;
+		}
+	}
+
+	.actions {
+		margin: 1.75rem 0 0;
+	}
+
+</style>

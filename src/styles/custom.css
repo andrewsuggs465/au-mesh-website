@@ -404,6 +404,40 @@ body:not(:has(.sidebar-pane)):not(:has(.home-hero))
 	line-height: 1.6;
 }
 
+/* ── buttons ──
+   Shared by the hero and the hackathon page. HomeHero keeps its own scoped
+   copy; anything new uses these. */
+.btn {
+	display: inline-block;
+	padding: 0.6rem 1.4rem;
+	border-radius: 6px;
+	font-weight: 600;
+	font-size: 0.95rem;
+	text-decoration: none;
+	transition: background-color 0.2s ease;
+}
+.btn-solid {
+	background-color: var(--primary-color);
+	color: var(--bg-color);
+}
+.btn-solid:hover {
+	background-color: #8ff5b1;
+	text-decoration: none;
+}
+.btn-outline {
+	border: 1px solid var(--primary-color);
+	color: var(--primary-color);
+}
+.btn-outline:hover {
+	background-color: var(--hover-bg);
+	text-decoration: none;
+}
+@media (prefers-reduced-motion: reduce) {
+	.btn {
+		transition: none;
+	}
+}
+
 /* ── badges ── */
 .badge {
 	display: inline-block;
