@@ -19,10 +19,15 @@ const facts = [
 		label: 'Venue',
 		value: 'Brown-Kopel Engineering Student Achievement Center, with the Auburn Makerspace',
 	},
-	{ label: 'Capacity', value: '60 students', mono: true },
+	{ label: 'Capacity', value: 'Up to 60 students', mono: true },
 	{ label: 'Hosts', value: 'AU Mesh Club with the Auburn IEEE chapter' },
 	{ label: 'Theme', value: 'Announced later' },
+	// Sponsor applications go out from this date. Rewrite the value when they
+	// do; the date is the only thing sponsors need from this page until then.
+	{ label: 'Sponsorship', value: 'Closed. Applications go out from October 1, 2026' },
 ];
+
+const CONTACT = 'aumeshclub@outlook.com';
 ---
 
 <div class="hackathon-facts not-content">
@@ -37,15 +42,18 @@ const facts = [
 		}
 	</dl>
 
-	{
-		INTEREST_FORM && (
-			<p class="actions">
+	<p class="actions">
+		{
+			INTEREST_FORM && (
 				<a class="btn btn-solid" href={INTEREST_FORM}>
 					Interest form
 				</a>
-			</p>
-		)
-	}
+			)
+		}
+		<a class="btn btn-outline" href={`mailto:${CONTACT}`}>
+			Email the organizers
+		</a>
+	</p>
 </div>
 
 <style>
@@ -62,9 +70,9 @@ const facts = [
 
 	.row {
 		display: grid;
-		/* 7rem holds "Capacity", the longest label, at 0.95rem Outfit without
-		   wrapping; the value column takes the rest */
-		grid-template-columns: 7rem 1fr;
+		/* 7.5rem holds "Sponsorship", the longest label, at 0.95rem Outfit
+		   without wrapping; the value column takes the rest */
+		grid-template-columns: 7.5rem 1fr;
 		gap: 0 1.5rem;
 		padding: 0.7rem 0;
 		border-bottom: 1px solid var(--border-color);
@@ -98,6 +106,9 @@ const facts = [
 	}
 
 	.actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
 		margin: 1.75rem 0 0;
 	}
 
