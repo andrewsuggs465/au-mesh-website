@@ -67,4 +67,4 @@ The workflow also runs weekly so the calendar stays current on its own.
 That weekly rebuild is what makes `https://aumesh.club/aumesh.ics` worth
 subscribing to: anyone who adds it as a calendar subscription picks up new
 events without touching anything. The file is generated from the two YAML
-files by `src/pages/aumesh.ics.ts`.
+files by `src/pages/aumesh.ics.ts`. 
