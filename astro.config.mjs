@@ -18,6 +18,9 @@ export default defineConfig({
 		// from AUInvolve and Discord, so they keep working.
 		'/events': '/calendar/',
 		'/workshops': '/calendar/',
+		// Hack the Plains moved to its own site. The old page was linked from
+		// flyers and the interest form, so the URL forwards there.
+		'/hackathon': 'https://hacktheplains.org',
 	},
 	// Photos live in src/assets/ so Astro resizes them and emits a srcset;
 	// the raw phone JPEGs are 3–4 MB each. Anything in public/ is served as-is.
